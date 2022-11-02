@@ -62,4 +62,8 @@ public class movie {
     return pastReview;
   }
 
+  public void setStatus(int status){
+    this.status = status;
+  }
+
 }
