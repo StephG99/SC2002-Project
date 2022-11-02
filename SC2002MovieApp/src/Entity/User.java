@@ -33,4 +33,10 @@ public class User{
     public boolean checkAdmin(){
         return isAdmin;
     }
+    public boolean isRegisteredUser(String email,String password){
+        if(this.loginEmail.equalsIgnoreCase(email) && this.password.equals(password)){
+            return true;
+        }
+        return false;
+    }
 }
