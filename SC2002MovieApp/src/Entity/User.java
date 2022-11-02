@@ -5,6 +5,12 @@ public class User{
     private String password;
     private boolean isAdmin;
 
+    /**
+     * @param name 
+     * @param loginEmail
+     * @param password
+     * @param isAdmin
+     */
     public User(String name, String loginEmail, String password, boolean isAdmin){
         this.name = name;
         this.loginEmail = loginEmail;
