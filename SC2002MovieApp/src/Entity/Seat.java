@@ -1,6 +1,6 @@
 package Entity;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class Seat {
     private int seatID;

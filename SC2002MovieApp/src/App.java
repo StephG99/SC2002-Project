@@ -1,9 +1,9 @@
-import Entity.*;
-import Helper.Helper;
+//import Entity.*;
+//import Helper.Helper;
 
 import java.util.Scanner;
 
-import Controller.*;
+//import Controller.*;
 import View.*;
 
 
@@ -13,9 +13,10 @@ public class App {
         do {
             Scanner sc = new Scanner(System.in);
             option = 0;
-            customerView.displayMenu();
+            HomePage.displayMenu();
             // sc.nextLine();
             option = sc.nextInt();
+            sc.close();
             if (option == 1) {
                 System.out.println("Option 1!");
             } else if (option == 2) {
