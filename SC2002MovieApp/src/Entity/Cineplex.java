@@ -3,9 +3,9 @@ package Entity;
 public class Cineplex {
     private int cineplexId;
     private Cinema cinemas[];
-    private int classOffered[];
-    
-    public Cineplex(int cineplexId, Cinema[] cinemas, int[] classOffered) {
+    private movieClass classOffered[];
+
+    public Cineplex(int cineplexId, Cinema[] cinemas, movieClass[] classOffered) {
         this.cineplexId = cineplexId;
         this.cinemas = cinemas;
         this.classOffered = classOffered;
@@ -22,10 +22,10 @@ public class Cineplex {
     public void setCinemas(Cinema[] cinemas) {
         this.cinemas = cinemas;
     }
-    public int[] getClassOffered() {
+    public movieClass[] getClassOffered() {
         return classOffered;
     }
-    public void setClassOffered(int[] classOffered) {
+    public void setClassOffered(movieClass[] classOffered) {
         this.classOffered = classOffered;
     }
     
