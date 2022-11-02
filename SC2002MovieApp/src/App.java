@@ -7,23 +7,25 @@ import Entity.*;
 import View.*;
 import Helper.Helper;
 
-
+//routing page
 public class App {
     public static void main(String[] args) throws Exception {
         int option;
         int exit = 3;
         User loginUser;
+        // isLogin differentiate whether is guest/RegisteredCustomer/Staff 0/1/2
         int isLogin = 0;
         do {
-            //Scanner sc = new Scanner(System.in);
             option = 0;
             HomePage.displayMenu(isLogin);
-            // sc.nextLine();
+            
             option = Helper.readInt("");
-            //sc.close();
+            
+          
             if (option == 1) {
                 System.out.println("Option 1!");
-            } else if (option == 2) {
+            } 
+            else if (option == 2) {
                 loginUser = LoginPage.getLogin();
                 if(loginUser == null){
                     System.out.println("You did not login");
@@ -31,21 +33,26 @@ public class App {
                 else{
                     if(loginUser.checkAdmin()){
                         isLogin = 2;
-                        exit = 4;
+                        //set the termination of program to option 6
+                        exit = 6;
                     }
                     else{
                         isLogin = 1;
+                        //set the termination of program to option 6
                         exit = 6;
                     }
                     System.out.println("You have login successfully");
                 }
 
-            } else if (option == exit) {
-                System.out.println("Thank you for using MOBLIMA!");
+            } 
+            else if (option == exit) {
+                System.out.println("Thank you for using MovieBoss.com!");
                 System.exit(0);
             } else {
                 System.out.println("Invalid option");
             }
+        
+
         } while (option != exit);
 
     }
