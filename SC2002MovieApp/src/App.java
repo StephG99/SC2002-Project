@@ -20,7 +20,6 @@ public class App {
             HomePage.displayMenu(isLogin);
             
             option = Helper.readInt("");
-            
           
             if (option == 1) {
                 System.out.println("Option 1!");
@@ -32,15 +31,18 @@ public class App {
                 }
                 else{
                     if(loginUser.checkAdmin()){
+                        //Set to admin view
                         isLogin = 2;
                         //set the termination of program to option 6
                         exit = 6;
                     }
                     else{
+                        //set to registered customer view
                         isLogin = 1;
                         //set the termination of program to option 6
                         exit = 6;
                     }
+                    System.out.println(loginUser.getName());
                     System.out.println("You have login successfully");
                 }
 
