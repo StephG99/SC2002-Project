@@ -11,49 +11,44 @@ import Helper.Helper;
 public class App {
     public static void main(String[] args) throws Exception {
         int option;
-        int exit = 3;
+        int exit = 5;
         User loginUser;
         // isLogin differentiate whether is guest/RegisteredCustomer/Staff 0/1/2
         int isLogin = 0;
         do {
             option = 0;
             HomePage.displayMenu(isLogin);
-            
+
             option = Helper.readInt("");
-          
+
             if (option == 1) {
                 System.out.println("Option 1!");
-            } 
-            else if (option == 2) {
+            } else if (option == 2) {
                 loginUser = LoginPage.getLogin();
-                if(loginUser == null){
+                if (loginUser == null) {
                     System.out.println("You did not login");
-                }
-                else{
-                    if(loginUser.checkAdmin()){
-                        //Set to admin view
+                } else {
+                    if (loginUser.checkAdmin()) {
+                        // Set to admin view
                         isLogin = 2;
-                        //set the termination of program to option 6
+                        // set the termination of program to option 6
                         exit = 6;
-                    }
-                    else{
-                        //set to registered customer view
+                    } else {
+                        // set to registered customer view
                         isLogin = 1;
-                        //set the termination of program to option 6
+                        // set the termination of program to option 6
                         exit = 6;
                     }
                     System.out.println(loginUser.getName());
                     System.out.println("You have login successfully");
                 }
 
-            } 
-            else if (option == exit) {
+            } else if (option == exit) {
                 System.out.println("Thank you for using MovieBoss.com!");
                 System.exit(0);
             } else {
                 System.out.println("Invalid option");
             }
-        
 
         } while (option != exit);
 
