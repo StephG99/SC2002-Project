@@ -94,7 +94,7 @@ public class movie {
     return status;
   }
 
-  // movie status setters: 0 = Unavailable, 1 = Now Showing, 2 = Coming Soon
+  // movie status setters: 0 = Advance Sales, 1 = Now Showing, 2 = Coming Soon
   public void setStatus(int status) {
     this.status = status;
   }
