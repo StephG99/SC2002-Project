@@ -5,7 +5,7 @@ package Entity;
 import java.util.*;
 
 public class movie {
-  private String movieId;
+  private int movieId;
   private String title;
   private String synopsis;
   private boolean blockBuster;
@@ -17,7 +17,7 @@ public class movie {
   private float overallRating;
   private ArrayList<Review> pastReview;
 
-  public movie(String movieId, String title, String synopsis, boolean blockBuster, String typeOfMovie, int status,
+  public movie(int movieId, String title, String synopsis, boolean blockBuster, String typeOfMovie, int status,
       String ViewerAdvisory,
       String director,
       ArrayList<String> cast, float overallRating, ArrayList<Review> pastReview) {
@@ -35,12 +35,12 @@ public class movie {
   }
 
   // movieID getter
-  public String getMovieID() {
+  public int getMovieID() {
     return movieId;
   }
 
   // movieID setter
-  public void setMovieID(String movieId) {
+  public void setMovieID(int movieId) {
     this.movieId = movieId;
   }
 
