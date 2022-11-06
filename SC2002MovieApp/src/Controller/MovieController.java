@@ -1,10 +1,49 @@
 package Controller;
 
 import Entity.movie;
+import Entity.Review;
 //import Entity.movieClass;
 import java.util.*;
 
 public class MovieController {
+    // add movie
+    public static void addMovie(ArrayList<movie> MovieList, int movieId, String title, String synopsis,
+            boolean blockBuster, String typeOfMovie, int status,
+            String ViewerAdvisory,
+            String director,
+            ArrayList<String> cast, float overallRating, ArrayList<Review> pastReview) {
+        movie newMovie = new movie(movieId, title, synopsis, blockBuster, typeOfMovie, status, ViewerAdvisory, director,
+                cast, overallRating, pastReview);
+        boolean exists = false;
+        for (movie Movie : MovieList) {
+            if (Movie.getMovieID() == movieId) {
+                System.out.println("Movie already exists.");
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            MovieList.add(newMovie);
+            System.out.println("Movie successfully added.");
+        }
+    }
+
+    // remove movie
+    public static void removeMovie(ArrayList<movie> MovieList, int movieId) {
+        boolean removed = false;
+        for (movie Movie : MovieList) {
+            if (Movie.getMovieID() == movieId) {
+                MovieList.remove(Movie);
+                removed = true;
+                System.out.println("Movie successfully removed.");
+                break;
+            }
+        }
+        if (!removed) {
+            System.out.println("Movie does not exist.");
+        }
+    }
+
     // print individual movie details
     public static void printSingleMovie(movie Movie) {
         System.out.println("Movie ID: " + Movie.getMovieID());
