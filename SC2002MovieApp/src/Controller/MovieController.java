@@ -65,7 +65,18 @@ public class MovieController {
         for (movie Movie : MovieList) {
             ratingScoreList.add(Movie.getOverallRating());
         }
-        // method incomplete, to finish later
+        // Sort rating Score by descending order so the top 5 rated movies come first
+        Collections.sort(ratingScoreList, Collections.reverseOrder());
+        for (int i = 0; i < 5; i++) {
+            for (Float score : ratingScoreList) {
+                for (movie Movie : MovieList) {
+                    if (Movie.getOverallRating() == score) {
+                        printSingleMovie(Movie);
+                        break;
+                    }
+                }
+            }
+        }
 
     }
 
