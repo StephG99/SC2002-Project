@@ -7,7 +7,7 @@ public class HomePage {
 		//Registered User
 		if(isLogin == 1){
 		Helper.line(80, "=");
-		System.out.println("WELCOME TO MOVIE WORLD");
+		System.out.println("WELCOME TO MOVIE BOSS");
 		Helper.line(80, "=");
 		System.out.println("1. View All Movie");
 		System.out.println("2. View Transaction");
@@ -23,7 +23,7 @@ public class HomePage {
 		Helper.line(80, "=");
 		System.out.println("1. View All Movie");
 		System.out.println("2. View All Transaction");
-		System.out.println("3. View System Settings");
+		System.out.println("3. Edit System Settings");
 		System.out.println("4. Edit Movie Details");
 		System.out.println("5. Sign out");
 		System.out.println("6. Quit");

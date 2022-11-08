@@ -21,8 +21,12 @@ public class App {
 
             option = Helper.readInt("");
 
+
+            //routing Page
+            if(isLogin == 0){
             if (option == 1) {
-                System.out.println("This is option 1 for guest");
+                //TODO View Movie
+                System.out.println("View All Movie Page");
                 
             } else if (option == 2) {
                 loginUser = LoginPage.getLogin();
@@ -52,12 +56,82 @@ public class App {
                     exit = 6;
                 }
             }
+            else if(option == 4){
+                //TODO book a Movie
+                System.out.println("Book a Movie Page");
+            }
              else if (option == exit) {
                 System.out.println("Thank you for using MovieBoss.com!");
                 System.exit(0);
             } else {
                 System.out.println("Invalid option");
             }
+        }
+        else if(isLogin == 1){
+            if (option == 1) {
+                //TODO View Movie
+                System.out.println("View All Movie Page");
+                
+            } else if (option == 2) {
+                //TODO view Transaction
+                System.out.println("View Transaction page");
+
+            }
+            else if(option == 3){
+                //TODO review Movie
+                System.out.println("Review Movie");
+            }
+            else if(option == 4){
+                //TODO book a Movie
+                System.out.println("Book a Movie Page");
+            }
+            else if(option == 5){
+                isLogin = 0;
+                option = 0;
+                exit = 5;
+                loginUser = null;
+                System.out.println("User is logged out");
+            }
+             else if (option == exit) {
+                System.out.println("Thank you for using MovieBoss.com!");
+                System.exit(0);
+            } else {
+                System.out.println("Invalid option");
+            }
+        }
+        else if(isLogin == 2){
+            if (option == 1) {
+                //TODO View Movie
+                System.out.println("View All Movie Page");
+                
+            } else if (option == 2) {
+                //TODO view ALL Transaction(Admin)
+                System.out.println("View ALL Transaction page");
+
+            }
+            else if(option == 3){
+                //TODO Edit and view System Settings;
+                System.out.println("Edit System Settings");
+            }
+            else if(option == 4){
+                //TODO edit Movie details
+                System.out.println("Edit a Movie ");
+            }
+            else if(option == 5){
+                isLogin = 0;
+                option = 0;
+                exit = 5;
+                loginUser = null;
+                System.out.println("User is logged out");
+            }
+             else if (option == exit) {
+                System.out.println("Thank you for using MovieBoss.com!");
+                System.exit(0);
+            } else {
+                System.out.println("Invalid option");
+            }
+
+        }
 
         } while (option != exit);
 
