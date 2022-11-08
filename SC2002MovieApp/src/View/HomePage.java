@@ -19,7 +19,7 @@ public class HomePage {
 		//Admin
 		else if(isLogin == 2){
 		Helper.line(80, "=");
-		System.out.println("WELCOME TO MOVIE WORLD");
+		System.out.println("WELCOME TO MOVIE BOSS");
 		Helper.line(80, "=");
 		System.out.println("1. View All Movie");
 		System.out.println("2. View All Transaction");
@@ -32,7 +32,7 @@ public class HomePage {
 		//Guest
 		else{
 		Helper.line(80, "=");
-		System.out.println("WELCOME TO MOVIE WORLD");
+		System.out.println("WELCOME TO MOVIE BOSS");
 		Helper.line(80, "=");
 		System.out.println("1. View All Movie");
 		System.out.println("2. Login");
