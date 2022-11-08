@@ -19,11 +19,23 @@ public class Review {
         return rating;
     }
 
+    public void setRatingScore(int score) {
+        this.rating = score;
+    }
+
     public String getReviewText() {
         return reviewText;
+    }
+
+    public void setReviewText(String review) {
+        this.reviewText = review;
     }
 
     public String getUserEmail() {
         return userEmail;
     }
+
+    // no setter method for userEmail because that variable is tied to your user
+    // login details
+
 }
