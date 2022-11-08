@@ -293,4 +293,14 @@ public class MovieController {
         }
     }
 
+    // check if movie exists
+    public static movie searchMovie(ArrayList<movie> MovieList, String movieTitle) {
+        for (movie Movie : MovieList) {
+            if (Movie.getTitle().equalsIgnoreCase(movieTitle)) {
+                return Movie;
+            }
+        }
+        return null;
+    }
+
 }
