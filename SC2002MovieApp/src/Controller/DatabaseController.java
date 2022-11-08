@@ -1,14 +1,14 @@
 package Controller;
-import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.File;
+//import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.io.BufferedReader;
 import com.opencsv.CSVWriter;
 
@@ -37,6 +37,7 @@ public class DatabaseController {
         }  
         return nex;
     }
+    //Insertion into database accepts a User object and append into csv.
     public static User registerUser(User newUser) throws IOException{
         try (
             Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/user.csv", true);
@@ -56,14 +57,36 @@ public class DatabaseController {
         }
 
     }
+    //Get a User by email address. if no user is found return NULL object.
     public static User getUser(String email){
-        //Fake data right here we need to get read from a file to retrieve this info and return it back.
-        User nex = new User("Yan","yannarojc@outlook.com","123456",true);
-        return nex;
-    }
-    public static movie[] getAllMovie(){
-        movie[] aList = [];
-        return aList;
 
+        String line = "";  
+        String splitBy = ",";
+        User result = null;  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/user.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] user = line.split(splitBy);    // use comma as separator  
+        if(user[1].equalsIgnoreCase(email)){
+            result = new User(user[0],user[1],user[2],Boolean.parseBoolean(user[3]));
+            break;
+        }
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        } 
+        return result;
     }
+    /*public static movie[] getAllMovie(){
+        //movie[] aList = [];
+        //return aList;
+
+    }*/
 }

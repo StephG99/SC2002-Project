@@ -22,6 +22,9 @@ public class UserController {
         return null;
     }
     public static User registerUser(String name,String email,String password) throws IOException{
+        if(DatabaseController.getUser(email) != null){
+            return null;
+        }
         return DatabaseController.registerUser(new User(name,email,password,false));
 
     }

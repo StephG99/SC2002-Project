@@ -55,6 +55,9 @@ public class App {
                     isLogin = 1;
                     exit = 6;
                 }
+                else{
+                    System.out.println("You already have an account!");
+                }
             }
             else if(option == 4){
                 //TODO book a Movie
