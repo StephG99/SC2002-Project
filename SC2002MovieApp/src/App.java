@@ -29,17 +29,8 @@ public class App {
             //routing Page
             if(isLogin == 0){
             if (option == 1) {
-                //TODO View Movie
-                MovieController.printMovieList(DatabaseController.getAllMovie());
-                ArrayList<String> a = new ArrayList<String>();
-                a.add("Hitler");
-                a.add("Herman Goerring");
-                ArrayList<Review> b = new ArrayList<Review>();
-                b.add(new Review(1,"Hello","yannarojc@outlook.com"));
-                b.add(new Review(2,"Hello","yann@outlook.com"));
-                movie c = new movie(1,"Tenet","Testing",true,"Action",2,"PG13","PornHub",a,4.8,b);
-                System.out.println("View All Movie Page");
-                System.out.println(c.encodeReviews());
+                ViewMoviePage.printMovieList();
+                
             } else if (option == 2) {
                 loginUser = LoginPage.getLogin();
                 if (loginUser == null) {
@@ -84,8 +75,7 @@ public class App {
         }
         else if(isLogin == 1){
             if (option == 1) {
-                //TODO View Movie
-                System.out.println("View All Movie Page");
+                ViewMoviePage.printMovieList();
                 
             } else if (option == 2) {
                 //TODO view Transaction

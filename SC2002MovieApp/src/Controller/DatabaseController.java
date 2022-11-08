@@ -96,8 +96,8 @@ public class DatabaseController {
         {  
         String[] result = line.split(splitBy);    // use comma as separator  
          //nex.add(
-        System.out.println(result[8]);
-        System.out.println(result[8].split("|")[0]);
+        //System.out.println(result[8]);
+        //System.out.println(result[8].split("|")[0]);
         nex.add(new movie(Integer.valueOf(result[0]),result[1],result[2],Boolean.parseBoolean(result[3]),result[4],Integer.valueOf(result[5]),result[6],result[7],decodeString(result[8]),Double.parseDouble(result[9]),decodeReviews(result[10])));
 
         
@@ -127,7 +127,7 @@ public class DatabaseController {
         ArrayList<String> result = new ArrayList<String>();
         String[] processMethod = encodedString.split("/");
         for(int i = 0; i< processMethod.length;i++){
-            System.out.println(processMethod[0]);
+           // System.out.println(processMethod[0]);
             //System.out.println(processMethod[i]);
           result.add(processMethod[i]);
         }
