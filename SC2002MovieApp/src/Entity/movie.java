@@ -129,6 +129,10 @@ public class movie {
     return overallRating;
   }
 
+  public void setOverallRating(float score) {
+    this.overallRating = score;
+  }
+
   public ArrayList<Review> getPastReviews() {
     return pastReview;
   }
