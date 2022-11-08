@@ -99,7 +99,34 @@ public class MovieController {
             if (Movie.getMovieID() == movieId) {
                 success = true;
                 switch (choice) {
-                    // to fill up later
+                    case 1:
+                        Movie.setTitle(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    case 2:
+                        Movie.setSynopsis(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    case 3:
+                        Movie.setMovieType(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    case 4:
+                        Movie.setAdvisoryRating(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    case 5:
+                        Movie.setDirector(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    case 6:
+                        // this option will only be to add a new cast member to the list
+                        Movie.getCastList().add(inputString);
+                        System.out.println("Updated successfully");
+                        break;
+                    default:
+                        System.out.println("Invalid option");
+                        break;
                 }
                 break;
             }
@@ -108,6 +135,44 @@ public class MovieController {
             System.out.println("Movie ID not found");
         }
 
+    }
+
+    // update entire cast list
+    public static void updateWholeCast(ArrayList<movie> MovieList, int movieId, ArrayList<String> newCast) {
+        boolean success = false;
+        for (movie Movie : MovieList) {
+            if (Movie.getMovieID() == movieId) {
+                success = true;
+                Movie.setCastList(newCast);
+                System.out.println("Cast list updated successfully");
+                break;
+            }
+        }
+        if (!success) {
+            System.out.println("Movie ID not found");
+        }
+    }
+
+    // update whole movie
+    public static void updateWholeMovie(ArrayList<movie> MovieList, int movieId, String title, String synopsis,
+            String typeOfMovie, String ViewerAdvisory, String director, ArrayList<String> cast) {
+        boolean success = false;
+        for (movie Movie : MovieList) {
+            if (Movie.getMovieID() == movieId) {
+                success = true;
+                Movie.setTitle(title);
+                Movie.setSynopsis(synopsis);
+                Movie.setMovieType(typeOfMovie);
+                Movie.setAdvisoryRating(ViewerAdvisory);
+                Movie.setDirector(director);
+                Movie.setCastList(cast);
+                System.out.println("All movie detail text fields updated successfully");
+                break;
+            }
+        }
+        if (!success) {
+            System.out.println("Movie ID not found");
+        }
     }
 
     // print individual movie details
