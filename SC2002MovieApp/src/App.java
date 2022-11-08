@@ -22,7 +22,8 @@ public class App {
             option = Helper.readInt("");
 
             if (option == 1) {
-                System.out.println("Option 1!");
+                System.out.println("This is option 1 for guest");
+                
             } else if (option == 2) {
                 loginUser = LoginPage.getLogin();
                 if (loginUser == null) {
@@ -43,7 +44,15 @@ public class App {
                     System.out.println("You have login successfully");
                 }
 
-            } else if (option == exit) {
+            }
+            else if(option == 3){
+                loginUser = RegisterPage.registerUser();
+                if(loginUser != null){
+                    isLogin = 1;
+                    exit = 6;
+                }
+            }
+             else if (option == exit) {
                 System.out.println("Thank you for using MovieBoss.com!");
                 System.exit(0);
             } else {
