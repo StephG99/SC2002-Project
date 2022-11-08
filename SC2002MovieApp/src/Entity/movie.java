@@ -14,13 +14,13 @@ public class movie {
   private String ViewerAdvisory;
   private String director;
   private ArrayList<String> cast;
-  private float overallRating;
+  private double overallRating;
   private ArrayList<Review> pastReview;
 
   public movie(int movieId, String title, String synopsis, boolean blockBuster, String typeOfMovie, int status,
       String ViewerAdvisory,
       String director,
-      ArrayList<String> cast, float overallRating, ArrayList<Review> pastReview) {
+      ArrayList<String> cast, double d, ArrayList<Review> pastReview) {
     this.movieId = movieId;
     this.title = title;
     this.synopsis = synopsis;
@@ -30,7 +30,7 @@ public class movie {
     this.ViewerAdvisory = ViewerAdvisory;
     this.director = director;
     this.cast = cast;
-    this.overallRating = overallRating;
+    this.overallRating = d;
     this.pastReview = pastReview;
   }
 
@@ -125,7 +125,7 @@ public class movie {
     this.cast = castList;
   }
 
-  public float getOverallRating() {
+  public double getOverallRating() {
     return overallRating;
   }
 
@@ -135,6 +135,29 @@ public class movie {
 
   public ArrayList<Review> getPastReviews() {
     return pastReview;
+  }
+  
+  public String encodeReviews(){
+    String result = "";
+    for(int i = 0; i<pastReview.size();i++){
+      String temp = pastReview.get(i).getRating()+"|"+pastReview.get(i).getReviewText()+"|"+pastReview.get(i).getUserEmail();
+      result += temp;
+      if(i != pastReview.size()-1){
+        result += ";";
+      }
+    }
+    return result;
+    
+  }
+  public ArrayList<Review> decodeReviews(String encodedString){
+    ArrayList<Review> result = new ArrayList<Review>();
+    String[] processMethod = encodedString.split(";");
+    for(int i = 0; i< processMethod.length;i++){
+      String[] temp = processMethod[i].split("|");
+      result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
+    }
+    return result;
+
   }
 
 }

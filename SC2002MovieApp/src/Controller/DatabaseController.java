@@ -84,9 +84,54 @@ public class DatabaseController {
         } 
         return result;
     }
-    /*public static movie[] getAllMovie(){
-        //movie[] aList = [];
-        //return aList;
+    public static ArrayList<movie> getAllMovie(){
+        ArrayList<movie> nex = new ArrayList<movie>();
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movie.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         //nex.add(
+        System.out.println(result[8]);
+        System.out.println(result[8].split("|")[0]);
+        nex.add(new movie(Integer.valueOf(result[0]),result[1],result[2],Boolean.parseBoolean(result[3]),result[4],Integer.valueOf(result[5]),result[6],result[7],decodeString(result[8]),Double.parseDouble(result[9]),decodeReviews(result[10])));
 
-    }*/
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return nex;
+        
+
+    }
+    public static ArrayList<Review> decodeReviews(String encodedString){
+        ArrayList<Review> result = new ArrayList<Review>();
+        String[] processMethod = encodedString.split(";");
+        for(int i = 0; i< processMethod.length;i++){
+          String[] temp = processMethod[i].split("|");
+          result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
+        }
+        return result;
+    
+      }
+    public static ArrayList<String> decodeString(String encodedString){
+        ArrayList<String> result = new ArrayList<String>();
+        String[] processMethod = encodedString.split("/");
+        for(int i = 0; i< processMethod.length;i++){
+            System.out.println(processMethod[0]);
+            //System.out.println(processMethod[i]);
+          result.add(processMethod[i]);
+        }
+        return result;
+
+    }
 }

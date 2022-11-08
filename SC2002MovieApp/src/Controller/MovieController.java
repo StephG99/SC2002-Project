@@ -189,7 +189,7 @@ public class MovieController {
     }
 
     // print movie list
-    public void printMovieList(ArrayList<movie> MovieList) {
+    public static void printMovieList(ArrayList<movie> MovieList) {
         for (int i = 0; i < MovieList.size(); i++) {
             printSingleMovie(MovieList.get(i));
             System.out.println();
@@ -231,14 +231,14 @@ public class MovieController {
 
     // sort movie by overallRating (then list top 5)
     public void printTopFiveMovies(ArrayList<movie> MovieList) {
-        ArrayList<Float> ratingScoreList = new ArrayList<Float>(MovieList.size());
+        ArrayList<Double> ratingScoreList = new ArrayList<Double>(MovieList.size());
         for (movie Movie : MovieList) {
             ratingScoreList.add(Movie.getOverallRating());
         }
         // Sort rating Score by descending order so the top 5 rated movies come first
         Collections.sort(ratingScoreList, Collections.reverseOrder());
         for (int i = 0; i < 5; i++) {
-            for (Float score : ratingScoreList) {
+            for (Double score : ratingScoreList) {
                 for (movie Movie : MovieList) {
                     if (Movie.getOverallRating() == score) {
                         printSingleMovie(Movie);
