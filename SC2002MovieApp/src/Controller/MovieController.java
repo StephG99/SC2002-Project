@@ -10,7 +10,7 @@ public class MovieController {
         return DatabaseController.getAllMovie();
     }
     // add movie
-    public static void addMovie(ArrayList<movie> MovieList, int movieId, String title, String synopsis,
+    public static void addMovie(int movieId, String title, String synopsis,
             boolean blockBuster, String typeOfMovie, int status,
             String ViewerAdvisory,
             String director,
@@ -18,6 +18,7 @@ public class MovieController {
         movie newMovie = new movie(movieId, title, synopsis, blockBuster, typeOfMovie, status, ViewerAdvisory, director,
                 cast, overallRating, pastReview);
         boolean exists = false;
+        ArrayList<movie> MovieList = getAllMovie();
         for (movie Movie : MovieList) {
             if (Movie.getMovieID() == movieId) {
                 System.out.println("Movie already exists.");

@@ -113,6 +113,9 @@ public class DatabaseController {
         
 
     }
+    public static void addMovie(movie newMovie){
+
+    }
     public static ArrayList<Review> decodeReviews(String encodedString){
         ArrayList<Review> result = new ArrayList<Review>();
         String[] processMethod = encodedString.split(";");
@@ -130,6 +133,20 @@ public class DatabaseController {
            // System.out.println(processMethod[0]);
             //System.out.println(processMethod[i]);
           result.add(processMethod[i]);
+        }
+        return result;
+
+    }
+    public static String encodeString(ArrayList<String> decodedString){
+        String result = "";
+        //String[] processMethod = encodedString.split("/");
+        for(int i = 0; i< decodedString.size();i++){
+           // System.out.println(processMethod[0]);
+            //System.out.println(processMethod[i]);
+          result+=decodedString.get(i);
+          if(i != decodedString.size()-1){
+            result+="/";
+          }
         }
         return result;
 

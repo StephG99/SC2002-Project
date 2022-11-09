@@ -47,7 +47,7 @@ public class App {
                         // set the termination of program to option 6
                         exit = 6;
                     }
-                    System.out.println(loginUser.getName());
+                    System.out.println("Welcome "+ loginUser.getName()+ "!");
                     System.out.println("You have login successfully");
                 }
 
