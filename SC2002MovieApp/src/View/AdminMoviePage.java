@@ -26,5 +26,11 @@ public class AdminMoviePage {
         
 
     }
+    public static void editMovie(){
+        displayAdminHeader();
+    }
+    public static void editSettings(){
+        displayAdminHeader();
+    }
     
 }

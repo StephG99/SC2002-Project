@@ -193,5 +193,11 @@ public class MovieController {
     public static ArrayList<Review> getReview(int movieId){
         return DatabaseController.getReviews(movieId);
     }
+    public static movie searchById(int movieId) {
+        return DatabaseController.getMoviebyId(movieId);
+    }
+    public static movie searchByName(String movieName){
+        return DatabaseController.getMoviebyName(movieName);
+    }
 
 }

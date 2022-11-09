@@ -38,6 +38,7 @@ public class ViewMoviePage{
             printReview();
         }
         else if(option == 2){
+            searchMovie();
             System.out.println("Search movie");
         }
         else{
@@ -156,6 +157,45 @@ public class ViewMoviePage{
             System.out.println();
         }
 
+    }
+    public static void searchMovie(){
+        int option = 0;
+        
+        do{
+            System.out.println("1. Search by Id");
+            System.out.println("2. Search by name");
+            System.out.println("3. Exit Search");
+            System.out.println();
+            option = Helper.readInt("Enter your choice: ");
+            if(option == 1){
+                int movieId = Helper.readInt("Enter the movie Id: ");
+                movie searchMovie = MovieController.searchById(movieId);
+                if(searchMovie != null){
+                   printSingleMovie(searchMovie);
+                   System.out.println();
+                }
+                else{
+                    System.out.println("Sorry No movie with the Id "+ movieId);
+                    System.out.println();
+                }
+            }
+            else if(option  == 2){
+                String movieId = Helper.readString("Enter the movie name: ");
+                movie searchMovie = MovieController.searchByName(movieId);
+                if(searchMovie != null){
+                   printSingleMovie(searchMovie);
+                   System.out.println();
+                }
+                else{
+                    System.out.println("Sorry No movie with the Id "+ movieId);
+                    System.out.println();
+                }
+
+            }
+            else{
+                System.out.println("Redirecting ...");
+            }
+        }while(option != 3);
     }
 
 }

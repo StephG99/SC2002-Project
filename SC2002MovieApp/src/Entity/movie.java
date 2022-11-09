@@ -154,7 +154,7 @@ public class movie {
     String[] processMethod = encodedString.split(";");
     for(int i = 0; i< processMethod.length;i++){
       String[] temp = processMethod[i].split("|");
-      result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
+      //result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
     }
     return result;
 

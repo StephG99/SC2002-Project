@@ -81,6 +81,35 @@ public class DatabaseController {
         } 
         return result;
     }
+    public static movie getMoviebyId(int movieId){
+        movie resultMovie = null;
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movie.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         
+        if(Integer.valueOf(result[0]) == movieId){
+        ArrayList<Review> reviewList =getReviews(Integer.valueOf(result[0]));
+        resultMovie = new movie(Integer.valueOf(result[0]),result[1],result[2],Boolean.parseBoolean(result[3]),result[4],Integer.valueOf(result[5]),result[6],result[7],decodeString(result[8]),Double.parseDouble(result[9]),reviewList);
+        break;
+        }
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return resultMovie;
+
+    }
     public static ArrayList<movie> getAllMovie(){
         ArrayList<movie> nex = new ArrayList<movie>();
         String line = "";  
@@ -181,7 +210,7 @@ public class DatabaseController {
         ArrayList<Review> result = new ArrayList<Review>();
         String[] processMethod = encodedString.split(";");
         for(int i = 0; i< processMethod.length;i++){
-          String[] temp = processMethod[i].split("|");
+          //String[] temp = processMethod[i].split("|");
           //result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
         }
         return result;
@@ -211,5 +240,33 @@ public class DatabaseController {
         }
         return result;
 
+    }
+    public static movie getMoviebyName(String movieName) {
+        movie resultMovie = null;
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movie.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         
+        if(result[1].equalsIgnoreCase(movieName)){
+        ArrayList<Review> reviewList =getReviews(Integer.valueOf(result[0]));
+        resultMovie = new movie(Integer.valueOf(result[0]),result[1],result[2],Boolean.parseBoolean(result[3]),result[4],Integer.valueOf(result[5]),result[6],result[7],decodeString(result[8]),Double.parseDouble(result[9]),reviewList);
+        break;
+        }
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return resultMovie;
     }
 }
