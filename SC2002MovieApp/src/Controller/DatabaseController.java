@@ -269,4 +269,130 @@ public class DatabaseController {
         }  
         return resultMovie;
     }
+    public static Cinema getCinema(int cinemaId) {
+        Cinema resultCinema = null;
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/cinema.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         
+        if(Integer.valueOf(result[0]) == cinemaId){
+        movieClass mClass = getMovieClass(Integer.valueOf(result[1]));
+        resultCinema = new Cinema(cinemaId,mClass);
+        break;
+        }
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return resultCinema;
+        
+    }
+    private static movieClass getMovieClass(int classId) {
+        movieClass resultClass = null;
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movieclass.csv"));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         
+        if(Integer.valueOf(result[0]) == classId){
+        resultClass = new movieClass(Integer.valueOf(result[0]),Double.valueOf(result[1]));
+        break;
+        }
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return resultClass;
+        
+    }
+    public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
+        int showId = getLastId("shows.csv");
+        insertSeat(showId,cinemaId);
+        try (
+            Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/shows.csv", true);
+
+            CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                    CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
+        ) {
+            
+            csvWriter.writeNext(new String[]{String.valueOf(showId+1),String.valueOf(cinemaId),String.valueOf(movieId),dateOfShow});
+            
+        }
+    }
+    
+    public static void insertSeat(int showId,int cinemaId) throws IOException{
+
+        try (
+            Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/showSeat.csv", true);
+
+            CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                    CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
+        ) {
+            
+                for (int x = 0; x < 10; x++) {
+                    for (int j = 0; j < 10; j++) {
+                        String temp = String.valueOf((x*10)+j+1);
+                        csvWriter.writeNext(new String[]{temp,String.valueOf(cinemaId),String.valueOf(showId),String.valueOf(false)});
+                    }
+                }
+            
+        }
+        
+                   
+               
+    }
+    private static int getLastId(String filePath) {
+        int resultId = 1;
+        String line = "";  
+        String splitBy = ",";  
+        try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/"+filePath));  
+        while ((line = br.readLine()) != null)   //returns a Boolean value  
+        {  
+        String[] result = line.split(splitBy);    // use comma as separator  
+         if(result[0].equals("")){
+            break;
+         }
+        resultId = Integer.valueOf(result[0]);
+        
+
+        }  
+        br.close();
+        }   
+        catch (IOException e)   
+        {  
+        e.printStackTrace();  
+        }  
+        return resultId;
+        
+    }
 }

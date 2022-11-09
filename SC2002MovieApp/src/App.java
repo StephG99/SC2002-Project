@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.xml.crypto.Data;
 
 import Controller.DatabaseController;
 import Controller.MovieController;
@@ -40,7 +43,7 @@ public class App {
                         // Set to admin view
                         isLogin = 2;
                         // set the termination of program to option 6
-                        exit = 6;
+                        exit = 7;
                     } else {
                         // set to registered customer view
                         isLogin = 1;
@@ -123,6 +126,14 @@ public class App {
                 System.out.println("Edit a Movie ");
             }
             else if(option == 5){
+                //TODO edit Movie details
+                //Date today = Helper.now();
+                //DatabaseController.insertSeat();
+               // System.out.println(String.valueOf(Helper.getDayWeek(today)));
+               AdminMoviePage.addShow();
+                //System.out.println("Add Show ");
+            }
+            else if(option == 6){
                 isLogin = 0;
                 option = 0;
                 exit = 5;

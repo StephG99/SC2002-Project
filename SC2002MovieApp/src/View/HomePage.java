@@ -25,8 +25,9 @@ public class HomePage {
 		System.out.println("2. View All Transaction");
 		System.out.println("3. Edit System Settings");
 		System.out.println("4. Edit Movie Details");
-		System.out.println("5. Sign out");
-		System.out.println("6. Quit");
+		System.out.println("5. Add Shows");
+		System.out.println("6. Sign out");
+		System.out.println("7. Quit");
 
 		}
 		//Guest

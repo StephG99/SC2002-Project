@@ -2,11 +2,9 @@ package Entity;
 
 public class movieClass {
     private int classId;
-    
+    private double pricePremium;
 
-    private float pricePremium;
-
-    public movieClass(int classId, float pricePremium) {
+    public movieClass(int classId, double pricePremium) {
         this.classId = classId;
         this.pricePremium = pricePremium;
     }
@@ -18,11 +16,11 @@ public class movieClass {
         this.classId = classId;
     }
 
-    public float getPricePremium() {
+    public double getPricePremium() {
         return pricePremium;
     }
 
-    public void setPricePremium(float pricePremium) {
+    public void setPricePremium(double pricePremium) {
         this.pricePremium = pricePremium;
     }
 

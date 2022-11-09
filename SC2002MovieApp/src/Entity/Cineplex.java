@@ -5,9 +5,9 @@ import java.util.*;
 public class Cineplex {
     private int cineplexId;
     private ArrayList<Cinema> cinemas;
-    private movieClass classOffered[];
+    private ArrayList<movieClass> classOffered;
 
-    public Cineplex(int cineplexId, ArrayList<Cinema> cinemas, movieClass[] classOffered) {
+    public Cineplex(int cineplexId, ArrayList<Cinema> cinemas, ArrayList<movieClass> classOffered) {
         this.cineplexId = cineplexId;
         this.cinemas = cinemas;
         this.classOffered = classOffered;
@@ -29,11 +29,11 @@ public class Cineplex {
         this.cinemas = cinemas;
     }
 
-    public movieClass[] getClassOffered() {
+    public ArrayList<movieClass> getClassOffered() {
         return classOffered;
     }
 
-    public void setClassOffered(movieClass[] classOffered) {
+    public void setClassOffered(ArrayList<movieClass> classOffered) {
         this.classOffered = classOffered;
     }
 

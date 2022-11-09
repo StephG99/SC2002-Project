@@ -2,11 +2,14 @@ package Controller;
 
 import Entity.Transaction;
 import java.util.*;
-
+//Main booking logic is here.
 public class TransactionController {
+    public static void bookShow(int movieId,int cinemaID,Date bookingDate,double price,ArrayList<Integer> seatIDs){
+
+    }
     // add transaction
     public static void addTransaction(ArrayList<Transaction> TicketList, String transactionId, String email,
-            int phoneNo, String name, int movieId, int cineplexId, int cinemaID, int seatID, Date timing, float price) {
+            int phoneNo, String name, int movieId, int cineplexId, int cinemaID, ArrayList<Integer> seatID, Date timing, float price) {
         Transaction ticket = new Transaction(transactionId, email, phoneNo, name, movieId, cineplexId, cinemaID, seatID,
                 timing, price);
         TicketList.add(ticket);

@@ -5,12 +5,12 @@ package Entity;
 public class Seat {
     private int seatID;
     private int cinemaID;
-    private boolean assigned;
+    //private boolean assigned;
 
     public Seat(int seatID, int cinemaID){ 
         this.seatID = seatID;
         this.cinemaID = cinemaID;
-        this.assigned = false;
+        //this.assigned = false;
     }
 
     public int getSeatID() {
@@ -21,16 +21,6 @@ public class Seat {
         return cinemaID;
     }
 
-    public boolean isOccupied() {
-        return assigned;
-    }
-
-    public void assignSeat() {
-        this.assigned = true;
-    }
-
-    public void unassignSeat() {
-        this.assigned = false;
-    }
+    
 
 }

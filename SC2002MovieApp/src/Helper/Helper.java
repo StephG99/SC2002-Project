@@ -195,6 +195,7 @@ public class Helper {
     Calendar cal = Calendar.getInstance();
     cal.setLenient(false);
     cal.setTime(date);
+    
     return cal.get(Calendar.YEAR);
   }
 
@@ -210,6 +211,13 @@ public class Helper {
     cal.setLenient(false);
     cal.setTime(date);
     return cal.get(Calendar.DAY_OF_MONTH);
+  }
+  public static int getDayWeek(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setLenient(false);
+    cal.setTime(date);
+    
+    return cal.get(Calendar.DAY_OF_WEEK);
   }
 
   public static Date now() {
