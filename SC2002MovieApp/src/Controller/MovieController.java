@@ -190,5 +190,8 @@ public class MovieController {
         }
         return null;
     }
+    public static ArrayList<Review> getReview(int movieId){
+        return DatabaseController.getReviews(movieId);
+    }
 
 }

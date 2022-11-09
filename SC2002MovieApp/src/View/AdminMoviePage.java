@@ -9,7 +9,7 @@ public class AdminMoviePage {
     }
     public static void addMovie(){
         displayAdminHeader();
-        
+        /* 
         private int movieId;
         private String title;
         private String synopsis;
@@ -21,6 +21,7 @@ public class AdminMoviePage {
         private ArrayList<String> cast;
         private double overallRating;
         private ArrayList<Review> pastReview;
+        */
             
         
 

@@ -27,6 +27,25 @@ public class ViewMoviePage{
             printSingleMovie(MovieList.get(i));
             System.out.println();
         }
+        
+		int option = 0;
+        do{
+        System.out.println("1. View Review");
+        System.out.println("2. Search Movie");
+        System.out.println("3. Quit");
+        option = Helper.readInt("Enter your choice: ");
+        if(option == 1){
+            printReview();
+        }
+        else if(option == 2){
+            System.out.println("Search movie");
+        }
+        else{
+            System.out.println("redirecting to home page");
+        }
+    }while(option != 3);
+        
+
     }
 
     // print individual movie details by title
@@ -124,6 +143,19 @@ public class ViewMoviePage{
         for (movie Movie : MovieList) {
             System.out.println("Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle());
         }
+    }
+    public static void printReview(){
+        int movieId = Helper.readInt("Enter the movie Id: ");
+        System.out.println();
+        ArrayList<Review> reviewList = MovieController.getReview(movieId);
+        for(int i =0;i<reviewList.size();i++){
+            Review temp = reviewList.get(i);
+            System.out.println("Rating: "+String.valueOf(temp.getRating()));
+            System.out.println("Review: "+temp.getReviewText());
+            System.out.println("By "+temp.getUserEmail());
+            System.out.println();
+        }
+
     }
 
 }

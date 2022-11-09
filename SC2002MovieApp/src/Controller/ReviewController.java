@@ -6,7 +6,7 @@ import java.util.*;
 public class ReviewController {
     // add review
     public static void addReview(movie targetMovie, int rating, String reviewText, String userEmail) {
-        Review newReview = new Review(rating, reviewText, userEmail);
+        Review newReview = new Review(targetMovie.getMovieID(),rating, reviewText, userEmail);
         targetMovie.getPastReviews().add(newReview);
         System.out.println("Review successfully added");
     }

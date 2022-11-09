@@ -5,14 +5,21 @@ package Entity;
 //import java.util.Arrays;
 
 public class Review {
+    //private int reviewId;
+    private int movieId;
     private int rating;
     private String reviewText;
     private String userEmail;
 
-    public Review(int rating, String reviewText, String userEmail) {
+    public Review(int movieId,int rating, String reviewText, String userEmail) {
+        //this.reviewId = reviewId;
+        this.movieId = movieId;
         this.rating = rating;
         this.reviewText = reviewText;
         this.userEmail = userEmail;
+    }
+    public int getMovieId(){
+        return movieId;
     }
 
     public int getRating() {
