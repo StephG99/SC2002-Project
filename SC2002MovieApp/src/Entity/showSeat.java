@@ -11,6 +11,12 @@ public class showSeat extends Seat {
         assigned = false;
         
     }
+    public showSeat(int seatID, int cinemaID,int showId,boolean assigned) {
+        super(seatID, cinemaID);
+        this.showId = showId;
+        this.assigned = assigned;
+        
+    }
     public int getShowId(){
         return showId;
     }

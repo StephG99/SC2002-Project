@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import com.opencsv.CSVWriter;
 
 import Entity.*;
+import Helper.Helper;
 
 //Database controller is the only controller allowed to touch the different files.
 public class DatabaseController {
@@ -120,7 +121,11 @@ public class DatabaseController {
                 String[] result = line.split(splitBy);
 
                 ArrayList<showSeat> seats = getShowSeats(Integer.valueOf(result[0]));
-                nex.add(new Shows(Integer.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),,seats));
+                String[] StringArray = result[3].split("/");
+                //thisDate(int year, int month, int day, int hour, int min)
+                Date dateOfShow = Helper.thisDate(Integer.parseInt(StringArray[2]),Integer.parseInt(StringArray[1]),Integer.parseInt(StringArray[0]),Integer.parseInt(StringArray[3]),Integer.parseInt(StringArray[4]));
+
+                nex.add(new Shows(Integer.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),dateOfShow,seats));
             }
             br.close();
         }
@@ -366,7 +371,7 @@ public class DatabaseController {
 
     public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
         int showId = getLastId("shows.csv");
-        insertSeat(showId, cinemaId);
+        insertSeat(showId+1, cinemaId);
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/shows.csv", true);
 
