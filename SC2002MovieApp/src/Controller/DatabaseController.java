@@ -218,7 +218,7 @@ public class DatabaseController {
       }
     public static ArrayList<String> decodeString(String encodedString){
         ArrayList<String> result = new ArrayList<String>();
-        String[] processMethod = encodedString.split("/");
+        String[] processMethod = encodedString.split("|");
         for(int i = 0; i< processMethod.length;i++){
            // System.out.println(processMethod[0]);
             //System.out.println(processMethod[i]);
@@ -328,7 +328,7 @@ public class DatabaseController {
     }
     public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
         int showId = getLastId("shows.csv");
-        insertSeat(showId,cinemaId);
+        insertSeat(showId+1,cinemaId);
         try (
             Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/shows.csv", true);
 
