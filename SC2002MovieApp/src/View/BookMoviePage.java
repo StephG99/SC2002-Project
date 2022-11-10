@@ -77,6 +77,7 @@ public class BookMoviePage {
         System.out.println("  1 2 3 4 5 --- 6 7 8 9 10");
         int seatIndex = 0;
         showSeat tempSeat = null;
+        // iterative loop to print out the entire seat display
         for (int i = 0; i < 10; i++) {
             System.out.printf(i + " ");
             for (int j = 0; j < 5; j++) {
@@ -99,6 +100,23 @@ public class BookMoviePage {
             }
             System.out.printf("\n");
         }
+        // end of seats display
+        System.out.println("Would you like to proceed with seat booking? (Y/N)");
+        char answer = Helper.readChar("Enter your answer: ");
+        if (answer == 'Y') {
+            seatBookingView();
+        } else {
+            System.out.println("Returning to previous menu.");
+        }
+
+    }
+
+    //
+    // once user confirms they would lik e to make a booking, then this function
+    // will be called
+    public static void seatBookingView() {
+        System.out.println("Test view");
+
     }
 
 }
