@@ -1,6 +1,6 @@
 package Entity;
 
-import java.util.Date;
+import java.util.*;
 
 public class Transaction {
     private String transactionId;
@@ -10,12 +10,12 @@ public class Transaction {
     private int movieId;
     private int cineplexId;
     private int cinemaID;
-    private int seatID;
+    private ArrayList<Integer> seatID;
     private Date timing;
     private float price;
 
     public Transaction(String transactionId, String email, int phoneNo, String name, int movieId, int cineplexId,
-            int cinemaID, int seatID, Date timing, float price) {
+            int cinemaID, ArrayList<Integer> seatID, Date timing, float price) {
         this.transactionId = transactionId;
         this.email = email;
         this.phoneNo = phoneNo;
@@ -84,11 +84,11 @@ public class Transaction {
         this.cinemaID = cinemaID;
     }
 
-    public int getSeatID() {
+    public ArrayList<Integer> getSeatID() {
         return seatID;
     }
 
-    public void setSeatID(int seatID) {
+    public void setSeatID(ArrayList<Integer> seatID) {
         this.seatID = seatID;
     }
 
