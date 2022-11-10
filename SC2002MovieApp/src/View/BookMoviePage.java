@@ -63,7 +63,40 @@ public class BookMoviePage {
         System.out.println("Your chosen timeslot: " + chosenShow.getTiming());
         System.out.println("Number of available seats: " + chosenShow.getSeatsAvailability());
         ArrayList<showSeat> listShowSeats = BookingController.getShowSeats(showID);
-        
+        System.out.println();
+        Helper.line(80, "=");
+        System.out.println();
+        System.out.println("==========SCREEN==========");
+        System.out.println();
+        System.out.println("  1 2 3 4 5 --- 6 7 8 9 10");
+        int seatIndex = 0;
+        showSeat tempSeat = null;
+        for (int i=0; i<10; i++){
+            System.out.printf(i + " ");
+            for (int j=0; j<5; j++){
+                seatIndex = (i*10)+j;
+                tempSeat = listShowSeats.get(seatIndex);
+                if (tempSeat.isOccupied()){
+                    System.out.printf("X ");
+                }
+                else{
+                    System.out.printf("O ");
+                }
+            }
+            System.out.printf("| | ");
+            for (int k=5; k<10; k++){
+                seatIndex = (i*10)+k;
+                tempSeat = listShowSeats.get(seatIndex);
+                if (tempSeat.isOccupied()){
+                    System.out.printf("X ");
+                }
+                else{
+                    System.out.printf("O ");
+                }
+
+            }
+            System.out.printf("\n");
+        }
     }
 
 }
