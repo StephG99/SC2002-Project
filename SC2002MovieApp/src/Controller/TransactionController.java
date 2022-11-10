@@ -2,14 +2,17 @@ package Controller;
 
 import Entity.Transaction;
 import java.util.*;
+
 //Main booking logic is here.
 public class TransactionController {
-    public static void bookShow(int movieId,int cinemaID,Date bookingDate,double price,ArrayList<Integer> seatIDs){
+    public static void bookShow(int movieId, int cinemaID, Date bookingDate, double price, ArrayList<Integer> seatIDs) {
 
     }
+
     // add transaction
     public static void addTransaction(ArrayList<Transaction> TicketList, String transactionId, String email,
-            int phoneNo, String name, int movieId, int cineplexId, int cinemaID, ArrayList<Integer> seatID, Date timing, float price) {
+            int phoneNo, String name, int movieId, int cineplexId, int cinemaID, ArrayList<Integer> seatID, Date timing,
+            float price) {
         Transaction ticket = new Transaction(transactionId, email, phoneNo, name, movieId, cineplexId, cinemaID, seatID,
                 timing, price);
         TicketList.add(ticket);
@@ -45,7 +48,8 @@ public class TransactionController {
     // update transaction
     // this will solely be for updating whole transactions
     public static void updateTransaction(Transaction ticket, String transactionId, String email, int phoneNo,
-            String name, int movieId, int cineplexId, int cinemaID, int seatID, Date timing, float price) {
+            String name, int movieId, int cineplexId, int cinemaID, ArrayList<Integer> seatID, Date timing,
+            float price) {
         ticket.setTransactionId(transactionId);
         ticket.setEmail(email);
         ticket.setPhoneNo(phoneNo);
@@ -61,7 +65,7 @@ public class TransactionController {
     // change seat for single ticket
     // realistically, only this situation will be required, but above function kept
     // for reference
-    public static void changeSeat(Transaction ticket, int seatID) {
+    public static void changeSeat(Transaction ticket, ArrayList<Integer> seatID) {
         ticket.setSeatID(seatID);
     }
 

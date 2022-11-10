@@ -9,8 +9,8 @@ public class Shows {
     private int cinemaId;
     private Date timing;
     private ArrayList<showSeat> seats;
-   
-    public Shows(int showId, int movieId, int cinemaId, Date timing,ArrayList<showSeat> seats) {
+
+    public Shows(int showId, int movieId, int cinemaId, Date timing, ArrayList<showSeat> seats) {
         this.showId = showId;
         this.movieId = movieId;
         this.cinemaId = cinemaId;
@@ -18,36 +18,36 @@ public class Shows {
         this.seats = seats;
     }
 
-    //Method returns Pairing of movieID along with cinemaID.
-    public int getShowId(){
-        //String result= String.valueOf(movieId) + String.valueOf(cinemaID);
+    // Method returns Pairing of movieID along with cinemaID.
+    public int getShowId() {
+        // String result= String.valueOf(movieId) + String.valueOf(cinemaID);
         return showId;
     }
-    public int getMovieId(){
+
+    public int getMovieId() {
         return movieId;
     }
-    public int getCinemaId(){
+
+    public int getCinemaId() {
         return cinemaId;
     }
 
     public Date getTiming() {
         return timing;
     }
+
     public void setTiming(Date timing) {
         this.timing = timing;
     }
-    public int getSeatsAvailability(){
+
+    public int getSeatsAvailability() {
         int counter = 0;
-        for (int i = 0; i< seats.size();i++){
-            if(!seats.get(i).isOccupied()){
+        for (int i = 0; i < seats.size(); i++) {
+            if (!seats.get(i).isOccupied()) {
                 counter++;
             }
         }
         return counter;
     }
-  
-   
-    
 
-    
 }
