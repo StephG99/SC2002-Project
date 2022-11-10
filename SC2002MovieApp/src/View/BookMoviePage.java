@@ -23,5 +23,8 @@ public class BookMoviePage {
     }
 
     // show available seats for selected showtime
+    public static void printShowSeats(int showID){
+        //incomplete
+    }
 
 }
