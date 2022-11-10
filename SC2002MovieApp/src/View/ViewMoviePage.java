@@ -1,4 +1,5 @@
 package View;
+
 import Helper.Helper;
 //import Helper from "../src/Helper.java"
 import Entity.*;
@@ -7,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Controller.MovieController;
-public class ViewMoviePage{
+
+public class ViewMoviePage {
     public static void printSingleMovie(movie Movie) {
         System.out.println("Movie ID: " + Movie.getMovieID());
         System.out.println("Movie Title: " + Movie.getTitle());
@@ -27,25 +29,22 @@ public class ViewMoviePage{
             printSingleMovie(MovieList.get(i));
             System.out.println();
         }
-        
-		int option = 0;
-        do{
-        System.out.println("1. View Review");
-        System.out.println("2. Search Movie");
-        System.out.println("3. Back");
-        option = Helper.readInt("Enter your choice: ");
-        if(option == 1){
-            printReview();
-        }
-        else if(option == 2){
-            searchMovie();
-            System.out.println("Search movie");
-        }
-        else{
-            System.out.println("redirecting to home page");
-        }
-    }while(option != 3);
-        
+
+        int option = 0;
+        do {
+            System.out.println("1. View Review");
+            System.out.println("2. Search Movie");
+            System.out.println("3. Back");
+            option = Helper.readInt("Enter your choice: ");
+            if (option == 1) {
+                printReview();
+            } else if (option == 2) {
+                searchMovie();
+                System.out.println("Search movie");
+            } else {
+                System.out.println("redirecting to home page");
+            }
+        } while (option != 3);
 
     }
 
@@ -142,60 +141,59 @@ public class ViewMoviePage{
     // simplified view - list only movie ID and title
     public static void printSimplifiedView(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
-            System.out.println("Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle());
+            System.out.println(
+                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + "(" + Movie.getAdvisoryRating() + ")");
         }
     }
-    public static void printReview(){
+
+    public static void printReview() {
         int movieId = Helper.readInt("Enter the movie Id: ");
         System.out.println();
         ArrayList<Review> reviewList = MovieController.getReview(movieId);
-        for(int i =0;i<reviewList.size();i++){
+        for (int i = 0; i < reviewList.size(); i++) {
             Review temp = reviewList.get(i);
-            System.out.println("Rating: "+String.valueOf(temp.getRating()));
-            System.out.println("Review: "+temp.getReviewText());
-            System.out.println("By "+temp.getUserEmail());
+            System.out.println("Rating: " + String.valueOf(temp.getRating()));
+            System.out.println("Review: " + temp.getReviewText());
+            System.out.println("By " + temp.getUserEmail());
             System.out.println();
         }
 
     }
-    public static void searchMovie(){
+
+    public static void searchMovie() {
         int option = 0;
-        
-        do{
+
+        do {
             System.out.println("1. Search by Id");
             System.out.println("2. Search by name");
             System.out.println("3. Exit Search");
             System.out.println();
             option = Helper.readInt("Enter your choice: ");
-            if(option == 1){
+            if (option == 1) {
                 int movieId = Helper.readInt("Enter the movie Id: ");
                 movie searchMovie = MovieController.searchById(movieId);
-                if(searchMovie != null){
-                   printSingleMovie(searchMovie);
-                   System.out.println();
-                }
-                else{
-                    System.out.println("Sorry No movie with the Id "+ movieId);
+                if (searchMovie != null) {
+                    printSingleMovie(searchMovie);
+                    System.out.println();
+                } else {
+                    System.out.println("Sorry No movie with the Id " + movieId);
                     System.out.println();
                 }
-            }
-            else if(option  == 2){
+            } else if (option == 2) {
                 String movieId = Helper.readString("Enter the movie name: ");
                 movie searchMovie = MovieController.searchByName(movieId);
-                if(searchMovie != null){
-                   printSingleMovie(searchMovie);
-                   System.out.println();
-                }
-                else{
-                    System.out.println("Sorry No movie with the Id "+ movieId);
+                if (searchMovie != null) {
+                    printSingleMovie(searchMovie);
+                    System.out.println();
+                } else {
+                    System.out.println("Sorry No movie with the Id " + movieId);
                     System.out.println();
                 }
 
-            }
-            else{
+            } else {
                 System.out.println("Redirecting ...");
             }
-        }while(option != 3);
+        } while (option != 3);
     }
 
 }

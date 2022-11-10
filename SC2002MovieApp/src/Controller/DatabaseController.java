@@ -110,26 +110,28 @@ public class DatabaseController {
 
     }
 
-    public static ArrayList<Shows> getAllShows(){
+    public static ArrayList<Shows> getAllShows() {
         ArrayList<Shows> nex = new ArrayList<Shows>();
         String line = "";
         String splitBy = ",";
-        try{
-            //parsing a CSV file into BufferedReader class constructor  
+        try {
+            // parsing a CSV file into BufferedReader class constructor
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/shows.csv"));
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] result = line.split(splitBy);
 
                 ArrayList<showSeat> seats = getShowSeats(Integer.valueOf(result[0]));
                 String[] StringArray = result[3].split("/");
-                //thisDate(int year, int month, int day, int hour, int min)
-                Date dateOfShow = Helper.thisDate(Integer.parseInt(StringArray[2]),Integer.parseInt(StringArray[1]),Integer.parseInt(StringArray[0]),Integer.parseInt(StringArray[3]),Integer.parseInt(StringArray[4]));
+                // thisDate(int year, int month, int day, int hour, int min)
+                Date dateOfShow = Helper.thisDate(Integer.parseInt(StringArray[2]), Integer.parseInt(StringArray[1]),
+                        Integer.parseInt(StringArray[0]), Integer.parseInt(StringArray[3]),
+                        Integer.parseInt(StringArray[4]));
 
-                nex.add(new Shows(Integer.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),dateOfShow,seats));
+                nex.add(new Shows(Integer.valueOf(result[0]), Integer.valueOf(result[1]), Integer.valueOf(result[2]),
+                        dateOfShow, seats));
             }
             br.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return nex;
@@ -344,6 +346,38 @@ public class DatabaseController {
 
     }
 
+    public static Shows getShow(int showID) {
+        Shows resultShow = null;
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/shows.csv"));
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                String[] result = line.split(splitBy); // use comma as separator
+
+                ArrayList<showSeat> seats = getShowSeats(Integer.valueOf(result[0]));
+                String[] StringArray = result[3].split("/");
+                // thisDate(int year, int month, int day, int hour, int min)
+                Date dateOfShow = Helper.thisDate(Integer.parseInt(StringArray[2]), Integer.parseInt(StringArray[1]),
+                        Integer.parseInt(StringArray[0]), Integer.parseInt(StringArray[3]),
+                        Integer.parseInt(StringArray[4]));
+
+                if (Integer.valueOf(result[0]) == showID) {
+                    resultShow = new Shows(Integer.valueOf(result[0]), Integer.valueOf(result[1]),
+                            Integer.valueOf(result[2]), dateOfShow, seats);
+                    break;
+                }
+
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultShow;
+    }
+
     private static movieClass getMovieClass(int classId) {
         movieClass resultClass = null;
         String line = "";
@@ -371,7 +405,7 @@ public class DatabaseController {
 
     public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
         int showId = getLastId("shows.csv");
-        insertSeat(showId+1, cinemaId);
+        insertSeat(showId + 1, cinemaId);
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/shows.csv", true);
 
