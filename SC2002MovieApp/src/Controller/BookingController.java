@@ -17,4 +17,8 @@ public class BookingController {
         return DatabaseController.getShowSeats(showId);
     }
 
+    public static void bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs) {
+
+    }
+
 }
