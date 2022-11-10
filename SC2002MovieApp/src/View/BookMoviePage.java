@@ -38,10 +38,12 @@ public class BookMoviePage {
         int count = 0;
         movieID = Helper.readInt("Enter movie ID: ");
         boolean isFound = false;
+        ArrayList<Integer> foundShows = new ArrayList<Integer>();
         for (Shows showtime : showList) {
             if (showtime.getMovieId() == movieID) {
                 isFound = true;
                 count++;
+                foundShows.add(showtime.getShowId());
                 System.out.println(count + ") Show ID: " + showtime.getShowId());
                 System.out.println("Cinema ID: " + showtime.getCinemaId());
                 System.out.println("Showtime: " + showtime.getTiming());
@@ -52,8 +54,12 @@ public class BookMoviePage {
             System.out.println("No showtimes were found for selected movie. ");
         } else {
             int showChoice = 0;
-            showChoice = Helper.readInt("Enter your preferred showtime ID: ");
-            printShowSeats(showChoice);
+            showChoice = Helper.readInt("Enter your preferred showtime ID, or enter any other number to quit: ");
+            if (foundShows.contains(showChoice)) {
+                printShowSeats(showChoice);
+            } else {
+                System.out.println("Returning to previous menu.");
+            }
         }
     }
 
@@ -71,26 +77,22 @@ public class BookMoviePage {
         System.out.println("  1 2 3 4 5 --- 6 7 8 9 10");
         int seatIndex = 0;
         showSeat tempSeat = null;
-        for (int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             System.out.printf(i + " ");
-            for (int j=0; j<5; j++){
-                seatIndex = (i*10)+j;
+            for (int j = 0; j < 5; j++) {
+                seatIndex = (i * 10) + j;
                 tempSeat = listShowSeats.get(seatIndex);
-                if (tempSeat.isOccupied()){
-                    System.out.printf("X ");
-                }
-                else{
+                if (tempSeat.isOccupied()) {
+                } else {
                     System.out.printf("O ");
                 }
             }
             System.out.printf("| | ");
-            for (int k=5; k<10; k++){
-                seatIndex = (i*10)+k;
+            for (int k = 5; k < 10; k++) {
+                seatIndex = (i * 10) + k;
                 tempSeat = listShowSeats.get(seatIndex);
-                if (tempSeat.isOccupied()){
-                    System.out.printf("X ");
-                }
-                else{
+                if (tempSeat.isOccupied()) {
+                } else {
                     System.out.printf("O ");
                 }
 
