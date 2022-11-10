@@ -32,7 +32,7 @@ public class ViewMoviePage{
         do{
         System.out.println("1. View Review");
         System.out.println("2. Search Movie");
-        System.out.println("3. Quit");
+        System.out.println("3. Back");
         option = Helper.readInt("Enter your choice: ");
         if(option == 1){
             printReview();
