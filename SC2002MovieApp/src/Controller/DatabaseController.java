@@ -218,7 +218,7 @@ public class DatabaseController {
       }
     public static ArrayList<String> decodeString(String encodedString){
         ArrayList<String> result = new ArrayList<String>();
-        String[] processMethod = encodedString.split("|");
+        String[] processMethod = encodedString.split("/");
         for(int i = 0; i< processMethod.length;i++){
            // System.out.println(processMethod[0]);
             //System.out.println(processMethod[i]);
