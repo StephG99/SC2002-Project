@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class Shows {
     private int showId;
-    private int movieId;
     private int cinemaId;
+    private int movieId;
     private Date timing;
     private ArrayList<showSeat> seats;
 
-    public Shows(int showId, int movieId, int cinemaId, Date timing, ArrayList<showSeat> seats) {
+    public Shows(int showId, int cinemaId, int movieId, Date timing, ArrayList<showSeat> seats) {
         this.showId = showId;
-        this.movieId = movieId;
         this.cinemaId = cinemaId;
+        this.movieId = movieId;
         this.timing = timing;
         this.seats = seats;
     }
