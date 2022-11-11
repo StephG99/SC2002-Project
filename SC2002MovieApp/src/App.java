@@ -42,7 +42,7 @@ public class App {
                         if (loginUser.checkAdmin()) {
                             // Set to admin view
                             isLogin = 2;
-                            // set the termination of program to option 6
+                            // set the termination of program to option 7
                             exit = 7;
                         } else {
                             // set to registered customer view
@@ -64,7 +64,7 @@ public class App {
                     }
                 } else if (option == 4) {
                     // TODO book a Movie
-                    System.out.println("Book a Movie Page");
+                    BookMoviePage.displayBookingHeader();
                 } else if (option == exit) {
                     System.out.println("Thank you for using MovieBoss.com!");
                     System.exit(0);
@@ -83,7 +83,7 @@ public class App {
                     // TODO review Movie
                     System.out.println("Review Movie");
                 } else if (option == 4) {
-                    // TODO book a Movie
+                    
                     // System.out.println("Book a Movie Page");
                     BookMoviePage.displayBookingHeader();
                 } else if (option == 5) {

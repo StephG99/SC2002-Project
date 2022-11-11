@@ -390,7 +390,7 @@ public class DatabaseController {
                 String[] result = line.split(splitBy); // use comma as separator
 
                 if (Integer.valueOf(result[0]) == classId) {
-                    resultClass = new movieClass(Integer.valueOf(result[0]), Double.valueOf(result[1]));
+                    resultClass = new movieClass(Integer.valueOf(result[0]),result[1], Double.valueOf(result[2]));
                     break;
                 }
 

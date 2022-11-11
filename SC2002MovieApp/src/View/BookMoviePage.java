@@ -40,29 +40,36 @@ public class BookMoviePage {
         movieID = Helper.readInt("Enter movie ID: ");
         boolean isFound = false;
         ArrayList<Integer> foundShows = new ArrayList<Integer>();
+        
         for (Shows showtime : showList) {
+            //I might change this line so that we do the logic processing at the controller side instead of view page.
             if (showtime.getMovieId() == movieID) {
                 isFound = true;
                 count++;
                 foundShows.add(showtime.getShowId());
+                Cinema cinema = CinemaController.getCinema(showtime.getCinemaId());
                 System.out.println(count + ") Show ID: " + showtime.getShowId());
                 System.out.println("Cinema ID: " + showtime.getCinemaId());
+                System.out.println("Cinema Class: "+cinema.getMovieClass().getClassName());
                 System.out.println("Showtime: " + showtime.getTiming());
+                System.out.println("Seats available: "+ showtime.getSeatsAvailability());
                 System.out.println();
-            }
         }
+    }
         if (!isFound) {
             System.out.println("No showtimes were found for selected movie. ");
         } else {
             int showChoice = 0;
-            showChoice = Helper.readInt("Enter your preferred showtime ID, or enter any other number to quit: ");
-            if (foundShows.contains(showChoice)) {
-                printShowSeats(showChoice);
+            //we try to link it by ourself and not let user do the work.
+            showChoice = Helper.readInt("Enter your preferred choice, or enter any other number to quit: ");
+            int showId = foundShows.get(showChoice);
+            if (foundShows.contains(showId)) {
+                printShowSeats(showId);
             } else {
                 System.out.println("Returning to previous menu.");
             }
         }
-    }
+            }
 
     // show available seats for selected showtime
     public static void printShowSeats(int showID) {
@@ -106,8 +113,8 @@ public class BookMoviePage {
         }
         // end of seats display
         System.out.println("Would you like to proceed with seat booking? (Y/N)");
-        char answer = Helper.readChar("Enter your answer: ");
-        if (answer == 'Y') {
+        boolean answer = Helper.readBoolean("Enter your answer: ");
+        if (answer) {
             seatBookingView(chosenCinema, chosenShow, listShowSeats);
         } else {
             System.out.println("Returning to previous menu.");
@@ -142,8 +149,8 @@ public class BookMoviePage {
             System.out.println("You have chosen the following seats: ");
             System.out.println(chosenSeats);
             System.out.println("Cinema ID: " + chosenCinema.getCinemaID());
-            System.out.println("Cinema Class: " + chosenCinema.getCinemaClass());
-            double ticketPrice = chosenCinema.getCinemaClass().getPricePremium();
+            System.out.println("Cinema Class: " + chosenCinema.getMovieClass());
+            double ticketPrice = chosenCinema.getMovieClass().getPricePremium();
             System.out.println("Price for each ticket: " + ticketPrice);
             double totalPrice = chosenSeats.size() * ticketPrice;
             System.out.println("Total price: " + totalPrice);
@@ -154,7 +161,7 @@ public class BookMoviePage {
             } else {
                 System.out.println("Booking has been reset. Returning to booking menu.");
             }
-        }
+    }
 
     }
 
