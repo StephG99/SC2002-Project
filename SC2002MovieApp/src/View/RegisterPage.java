@@ -11,6 +11,7 @@ public class RegisterPage {
         String email;
         String password;
         String name;
+        int mobileNo;
         //Scanner sc = new Scanner(System.in);
         Helper.line(80, "=");
 		System.out.println("Register Page");
@@ -19,7 +20,9 @@ public class RegisterPage {
         name = Helper.readString("Enter your name: ");
         email = Helper.readString("Enter your email: ");
         password = Helper.readString("Enter your password: ");
-        User loginUser = UserController.registerUser(name,email,password);
+        mobileNo = Helper.readInt(("Enter your Mobile No: "));
+        
+        User loginUser = UserController.registerUser(name,email,password,mobileNo);
         if(loginUser != null){
             return loginUser;
         }

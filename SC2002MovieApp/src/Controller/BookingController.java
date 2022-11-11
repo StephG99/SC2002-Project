@@ -21,4 +21,17 @@ public class BookingController {
 
     }
 
+    public static ArrayList<Shows> getShowsByMovieId(int movieID) {
+        ArrayList<Shows> allShows = getAllShows();
+        ArrayList<Shows> showById = new ArrayList<Shows>();
+        for (Shows showTime : allShows) {
+            if (showTime.getMovieId() == movieID) {
+                showById.add(showTime);
+            }
+        }
+        return showById;
+
+
+    }
+
 }

@@ -29,7 +29,7 @@ public class DatabaseController {
             while ((line = br.readLine()) != null) // returns a Boolean value
             {
                 String[] user = line.split(splitBy); // use comma as separator
-                nex.add(new User(user[0], user[1], user[2], Boolean.parseBoolean(user[3])));
+                nex.add(new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4])));
 
             }
             br.close();
@@ -50,7 +50,7 @@ public class DatabaseController {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
 
-            csvWriter.writeNext(new String[] { newUser.getName(), newUser.getEmail(), newUser.getPassword(),
+            csvWriter.writeNext(new String[] { newUser.getName(), newUser.getEmail(),String.valueOf(newUser.getMobileNo()), newUser.getPassword(),
                     String.valueOf(newUser.checkAdmin()) });
             return newUser;
         }
@@ -70,7 +70,7 @@ public class DatabaseController {
             {
                 String[] user = line.split(splitBy); // use comma as separator
                 if (user[1].equalsIgnoreCase(email)) {
-                    result = new User(user[0], user[1], user[2], Boolean.parseBoolean(user[3]));
+                    result = new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4]));
                     break;
                 }
 
@@ -404,8 +404,8 @@ public class DatabaseController {
     }
 
     public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
-        int showId = getLastId("shows.csv");
-        insertSeat(showId + 1, cinemaId);
+        int showId = getGeneratedId("shows.csv");
+        insertSeat(showId, cinemaId);
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/shows.csv", true);
 
@@ -415,7 +415,7 @@ public class DatabaseController {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
 
-            csvWriter.writeNext(new String[] { String.valueOf(showId + 1), String.valueOf(cinemaId),
+            csvWriter.writeNext(new String[] { String.valueOf(showId), String.valueOf(cinemaId),
                     String.valueOf(movieId), dateOfShow });
 
         }
@@ -444,7 +444,7 @@ public class DatabaseController {
 
     }
 
-    private static int getLastId(String filePath) {
+    private static int getGeneratedId(String filePath) {
         int resultId = 1;
         String line = "";
         String splitBy = ",";

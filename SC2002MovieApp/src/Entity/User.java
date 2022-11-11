@@ -2,6 +2,7 @@ package Entity;
 public class User{
     private String name;
     private String loginEmail;
+    private int mobileNo;
     private String password;
     private boolean isAdmin;
 
@@ -11,11 +12,20 @@ public class User{
      * @param password
      * @param isAdmin
      */
-    public User(String name, String loginEmail, String password, boolean isAdmin){
+    public User(String name, String loginEmail,int mobileNo, String password, boolean isAdmin){
         this.name = name;
         this.loginEmail = loginEmail;
+        this.mobileNo = mobileNo;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+    //Guest User creation
+    public User(String loginEmail,int mobileNo){
+        this.loginEmail = loginEmail;
+        this.mobileNo = mobileNo;
+        //for further logic processing in the backend
+        this.name = null;
+
     }
 
     public String getName(){
@@ -24,6 +34,10 @@ public class User{
 
     public String getEmail(){
         return loginEmail;
+    }
+    public void setEmailAndPhoneNo(String Email,int phoneNo){
+            this.loginEmail = Email;
+            this.mobileNo = phoneNo;
     }
 
     public String getPassword(){
@@ -38,5 +52,8 @@ public class User{
             return true;
         }
         return false;
+    }
+    public int getMobileNo() {
+        return mobileNo;
     }
 }

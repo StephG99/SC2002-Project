@@ -22,13 +22,13 @@ public class UserController {
         return null;
     }
     //Register User method
-    public static User registerUser(String name,String email,String password) throws IOException{
+    public static User registerUser(String name,String email,String password,int mobileNo) throws IOException{
         // If user exist returns a null object to View Page (View Page should be able to handle null objects;)
         if(DatabaseController.getUser(email) != null){
             return null;
         }
         //else if no user exist we shall call the call database to insert the user in. Note that we do the creation of user object here.
-        return DatabaseController.registerUser(new User(name,email,password,false));
+        return DatabaseController.registerUser(new User(name,email,mobileNo,password,false));
 
     }
 

@@ -20,7 +20,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         int option;
         int exit = 5;
-        User loginUser;
+        User loginUser = null;
         // isLogin differentiate whether is guest/RegisteredCustomer/Staff 0/1/2
         int isLogin = 0;
         do {
@@ -64,7 +64,8 @@ public class App {
                     }
                 } else if (option == 4) {
                     // TODO book a Movie
-                    BookMoviePage.displayBookingHeader();
+                    //
+                    BookMoviePage.BookingMenu(loginUser);
                 } else if (option == exit) {
                     System.out.println("Thank you for using MovieBoss.com!");
                     System.exit(0);
@@ -85,7 +86,7 @@ public class App {
                 } else if (option == 4) {
                     
                     // System.out.println("Book a Movie Page");
-                    BookMoviePage.displayBookingHeader();
+                    BookMoviePage.BookingMenu(loginUser);
                 } else if (option == 5) {
                     isLogin = 0;
                     option = 0;
