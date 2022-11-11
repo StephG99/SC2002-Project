@@ -28,7 +28,9 @@ public class DatabaseController {
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/user.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
             {
+                
                 String[] user = line.split(splitBy); // use comma as separator
+                System.out.println(user);
                 nex.add(new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4])));
 
             }
@@ -68,6 +70,7 @@ public class DatabaseController {
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/user.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
             {
+                
                 String[] user = line.split(splitBy); // use comma as separator
                 if (user[1].equalsIgnoreCase(email)) {
                     result = new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4]));
@@ -445,7 +448,7 @@ public class DatabaseController {
     }
 
     private static int getGeneratedId(String filePath) {
-        int resultId = 1;
+        int resultId = 0;
         String line = "";
         String splitBy = ",";
         try {
@@ -464,7 +467,43 @@ public class DatabaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resultId;
+        return resultId+1;
 
+    }
+
+    public static ArrayList<Cineplex> getAllCineplex() {
+        ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/cineplex.csv"));
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                String[] result = line.split(splitBy); // use comma as separator
+                ArrayList<Cinema> cinemaList = new ArrayList<Cinema>();
+                ArrayList<movieClass> classList = new ArrayList<movieClass>();
+                //Custom Decoding for array stored in CSV
+                String[] cineList = result[2].split("/");
+                for(String cine:cineList){
+                    System.out.println(cine);
+                    cinemaList.add(getCinema(Integer.parseInt(cine)));
+                }
+                for(Cinema cine:cinemaList){
+                    System.out.println(result[0]+" "+cine.getCinemaID());
+                    if(!classList.contains(cine.getMovieClass())){
+                        classList.add(cine.getMovieClass());
+
+                    }
+                }
+                allCineplex.add(new Cineplex(Integer.parseInt(result[0]), result[1], cinemaList, classList));
+
+
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allCineplex;
     }
 }

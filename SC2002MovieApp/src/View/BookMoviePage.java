@@ -39,8 +39,13 @@ public class BookMoviePage {
         int count = 0;
         movieID = Helper.readInt("Enter movie ID: ");
         ArrayList<Shows> showList = BookingController.getShowsByMovieId(movieID);
+        ArrayList<Cineplex> cineplexList = BookingController.getCineplexByMovieId(movieID);
         
         ArrayList<Integer> foundShows = new ArrayList<Integer>();
+        System.out.println("It is available at");
+        for(Cineplex cine: cineplexList){
+            System.out.println(cine.getCineName());
+        }
         
         for (Shows showtime : showList) {
             //I might change this line so that we do the logic processing at the controller side instead of view page.
@@ -162,6 +167,7 @@ public class BookMoviePage {
             int confirmChoice = 0;
             confirmChoice = Helper.readInt("Enter 1 to confirm your booking, or any other number to reset.");
             if (confirmChoice == 1) {
+                BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats, loginUser);
                 System.out.println("TEST: Booking confirmed!");
             } else {
                 System.out.println("Booking has been reset. Returning to booking menu.");

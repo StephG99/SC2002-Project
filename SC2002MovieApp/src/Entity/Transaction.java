@@ -6,6 +6,7 @@ public class Transaction {
     private String transactionId;
     private String email;
     private int phoneNo;
+    //movie Name
     private String name;
     private int movieId;
     private int cineplexId;
