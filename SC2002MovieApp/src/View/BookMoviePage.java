@@ -38,7 +38,18 @@ public class BookMoviePage {
 
         int movieID = 0;
         int count = 0;
-        movieID = Helper.readInt("Enter movie ID: ");
+        boolean movieAvailable = false;
+        do {
+            movieID = Helper.readInt("Enter movie ID: ");
+            movie movieChoice = MovieController.searchById(movieID);
+            if (movieChoice.getStatus() == 0 || movieChoice.getStatus() == 1) {
+                movieAvailable = true;
+            } else if (movieChoice.getStatus() == 2) {
+                System.out.println("Movie is coming soon. You cannot book for this movie yet.");
+            } else {
+                System.out.println("Movie is unavailable.");
+            }
+        } while (!movieAvailable);
         boolean validResponse = false;
         ArrayList<Cineplex> cineplexList = BookingController.getCineplexByMovieId(movieID);
         int option = 0;

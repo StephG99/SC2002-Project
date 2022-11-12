@@ -15,7 +15,15 @@ public class ViewMoviePage {
         System.out.println("Movie Title: " + Movie.getTitle());
         System.out.println("Movie Type: " + Movie.getMovieType());
         System.out.println("Viewer Advisory Rating: " + Movie.getAdvisoryRating());
-        System.out.println("Movie Status: " + Movie.getStatus());
+        if (Movie.getStatus() == 0) {
+            System.out.println("Movie Status: ADVANCE SALES AVAILABLE");
+        } else if (Movie.getStatus() == 1) {
+            System.out.println("Movie Status: NOW SHOWING");
+        } else if (Movie.getStatus() == 2) {
+            System.out.println("Movie Status: COMING SOON");
+        } else {
+            System.out.println("Movie Status: UNAVAILABLE");
+        }
         System.out.println("Synopsis: " + Movie.getSynopsis());
         System.out.println("Director: " + Movie.getDirector());
         System.out.println("Cast: " + Movie.getCastList());
