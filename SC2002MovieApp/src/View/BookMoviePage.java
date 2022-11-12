@@ -167,6 +167,8 @@ public class BookMoviePage {
                 tempSeat = listShowSeats.get(choice - 1);
                 if (tempSeat.isOccupied()) {
                     System.out.println("Seat is already occupied!");
+                } else if (chosenSeats.contains(choice)) {
+                    System.out.println("This seat is already in your selection!");
                 } else {
                     chosenSeats.add(choice);
                     System.out.println("Seat has been entered into selection.");
