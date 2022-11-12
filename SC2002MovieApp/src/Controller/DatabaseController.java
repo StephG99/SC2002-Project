@@ -206,7 +206,7 @@ public class DatabaseController {
                 String[] result = line.split(splitBy); // use comma as separator
                 // nex.add(
                 // System.out.println(result[8]);
-                String processedText = result[2].replace(',', '/');
+                String processedText = result[2].replace('/', ',');
                 if (Integer.valueOf(result[0]) == movieId) {
                     nex.add(new Review(Integer.valueOf(result[0]), Integer.valueOf(result[1]), processedText,
                             result[3]));
