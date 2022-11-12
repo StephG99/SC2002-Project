@@ -31,10 +31,10 @@ public class DatabaseController {
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/user.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
             {
-                
+
                 String[] user = line.split(splitBy); // use comma as separator
-               // System.out.println(user);
-                nex.add(new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4])));
+                // System.out.println(user);
+                nex.add(new User(user[0], user[1], Integer.parseInt(user[2]), user[3], Boolean.parseBoolean(user[4])));
 
             }
             br.close();
@@ -206,8 +206,10 @@ public class DatabaseController {
                 String[] result = line.split(splitBy); // use comma as separator
                 // nex.add(
                 // System.out.println(result[8]);
+                String processedText = result[2].replace(',', '/');
                 if (Integer.valueOf(result[0]) == movieId) {
-                    nex.add(new Review(Integer.valueOf(result[0]), Integer.valueOf(result[1]), result[2], result[3]));
+                    nex.add(new Review(Integer.valueOf(result[0]), Integer.valueOf(result[1]), processedText,
+                            result[3]));
                 }
             }
             br.close();
@@ -254,8 +256,10 @@ public class DatabaseController {
             ArrayList<Review> toWrite = newMovie.getPastReviews();
             for (int i = 0; i < toWrite.size(); i++) {
                 Review temp = toWrite.get(i);
+                String reviewText = temp.getReviewText();
+                String processedText = reviewText.replace(',', '/');
                 csvWriter2.writeNext(new String[] { String.valueOf(temp.getMovieId()), String.valueOf(temp.getRating()),
-                        temp.getReviewText(), temp.getUserEmail() });
+                        processedText, temp.getUserEmail() });
 
             }
 
@@ -283,6 +287,26 @@ public class DatabaseController {
                     String.valueOf(newTransaction.getMovieId()), String.valueOf(newTransaction.getCineplexId()),
                     String.valueOf(newTransaction.getCinemaID()), encodeIntList(newTransaction.getSeatID()), strDate,
                     String.valueOf(newTransaction.getPrice())
+            });
+        }
+    }
+
+    public static void insertReview(Review newReview) throws IOException {
+        try (
+                Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/review.csv", true);
+
+                CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);) {
+            // replace any instances of commas in the review text to avoid errors when
+            // parsing
+            String reviewText = newReview.getReviewText();
+            String processedText = reviewText.replace(',', '/');
+            csvWriter.writeNext(new String[] {
+                    String.valueOf(newReview.getMovieId()), String.valueOf(newReview.getRating()), processedText,
+                    newReview.getUserEmail()
             });
         }
     }
@@ -561,13 +585,13 @@ public class DatabaseController {
                 ArrayList<movieClass> classList = new ArrayList<movieClass>();
                 // Custom Decoding for array stored in CSV
                 String[] cineList = result[2].split("/");
-                for(String cine:cineList){
-                   // System.out.println(cine);
+                for (String cine : cineList) {
+                    // System.out.println(cine);
                     cinemaList.add(getCinema(Integer.parseInt(cine)));
                 }
-                for(Cinema cine:cinemaList){
-                   // System.out.println(result[0]+" "+cine.getCinemaID());
-                    if(!classList.contains(cine.getMovieClass())){
+                for (Cinema cine : cinemaList) {
+                    // System.out.println(result[0]+" "+cine.getCinemaID());
+                    if (!classList.contains(cine.getMovieClass())) {
                         classList.add(cine.getMovieClass());
 
                     }
@@ -593,9 +617,9 @@ public class DatabaseController {
             {
                 String[] result = line.split(splitBy); // use comma as separator
                 String[] dateResult = result[3].split("/");
-                //System.out.println(dateResult.length);
-                //System.out.println(dateResult[0]);
-                for(int i = 0 ; i < dateResult.length;i++){
+                // System.out.println(dateResult.length);
+                // System.out.println(dateResult[0]);
+                for (int i = 0; i < dateResult.length; i++) {
 
                     publicHolidays.add(Helper.customDateBuilder(dateResult[i]));
                 }
@@ -617,16 +641,11 @@ public class DatabaseController {
             while ((line = br.readLine()) != null) // returns a Boolean value
             {
                 String[] result = line.split(splitBy); // use comma as separator
-                if(option == 3){
+                if (option == 3) {
                     price = Double.parseDouble(result[0]);
-                }
-                else{
+                } else {
                     price = Double.parseDouble(result[option]);
                 }
-               
-                
-                
-
 
             }
             br.close();
@@ -639,9 +658,9 @@ public class DatabaseController {
     public static Cineplex getCineplexByCinemaId(int cinemaId) {
         ArrayList<Cineplex> cineplexList = getAllCineplex();
         Cineplex result = null;
-        for(Cineplex cine:cineplexList){
-            for(Cinema cinema:cine.getCinemas()){
-                if(cinema.getCinemaID() == cinemaId){
+        for (Cineplex cine : cineplexList) {
+            for (Cinema cinema : cine.getCinemas()) {
+                if (cinema.getCinemaID() == cinemaId) {
                     result = cine;
                     break;
                 }
@@ -650,7 +669,7 @@ public class DatabaseController {
         return result;
     }
 
-    public static void updateShowSeat(int showId,ArrayList<Integer> seatIDs) throws IOException {
+    public static void updateShowSeat(int showId, ArrayList<Integer> seatIDs) throws IOException {
         ArrayList<showSeat> previousCopy = getAllShowSeat();
 
         try (
@@ -661,17 +680,17 @@ public class DatabaseController {
                         CSVWriter.NO_QUOTE_CHARACTER,
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
-            for(showSeat seats:previousCopy){
-                for(int seatId:seatIDs){
-                if(seats.getSeatID() == seatId && seats.getShowId() == showId ){
-                    seats.assignSeat();
-                    break;
-                }
+            for (showSeat seats : previousCopy) {
+                for (int seatId : seatIDs) {
+                    if (seats.getSeatID() == seatId && seats.getShowId() == showId) {
+                        seats.assignSeat();
+                        break;
+                    }
 
                 }
-                csvWriter.writeNext(new String[] { String.valueOf(seats.getSeatID()), String.valueOf(seats.getCinemaID()), String.valueOf(seats.getShowId()),
-                    String.valueOf(seats.isOccupied()) });
-
+                csvWriter.writeNext(new String[] { String.valueOf(seats.getSeatID()),
+                        String.valueOf(seats.getCinemaID()), String.valueOf(seats.getShowId()),
+                        String.valueOf(seats.isOccupied()) });
 
             }
 
@@ -689,10 +708,9 @@ public class DatabaseController {
             while ((line = br.readLine()) != null) {
                 String[] result = line.split(splitBy);
 
-                
-                    nex.add(new showSeat(Integer.valueOf(result[0]), Integer.valueOf(result[1]),
-                            Integer.valueOf(result[2]), Boolean.parseBoolean(result[3])));
-                
+                nex.add(new showSeat(Integer.valueOf(result[0]), Integer.valueOf(result[1]),
+                        Integer.valueOf(result[2]), Boolean.parseBoolean(result[3])));
+
             }
             br.close();
         } catch (IOException e) {
@@ -701,5 +719,4 @@ public class DatabaseController {
         return nex;
     }
 
-        
 }
