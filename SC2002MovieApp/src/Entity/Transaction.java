@@ -13,10 +13,10 @@ public class Transaction {
     private int cinemaID;
     private ArrayList<Integer> seatID;
     private Date timing;
-    private float price;
+    private double price;
 
     public Transaction(String transactionId, String email, int phoneNo, String name, int movieId, int cineplexId,
-            int cinemaID, ArrayList<Integer> seatID, Date timing, float price) {
+            int cinemaID, ArrayList<Integer> seatID, Date timing, double price) {
         this.transactionId = transactionId;
         this.email = email;
         this.phoneNo = phoneNo;
@@ -101,11 +101,11 @@ public class Transaction {
         this.timing = timing;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

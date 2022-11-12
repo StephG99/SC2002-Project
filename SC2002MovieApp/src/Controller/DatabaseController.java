@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import com.opencsv.CSVWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+//import java.util.Calendar;
 
 import Entity.*;
 import Helper.Helper;
@@ -634,6 +634,71 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return price;
+    }
+
+    public static Cineplex getCineplexByCinemaId(int cinemaId) {
+        ArrayList<Cineplex> cineplexList = getAllCineplex();
+        Cineplex result = null;
+        for(Cineplex cine:cineplexList){
+            for(Cinema cinema:cine.getCinemas()){
+                if(cinema.getCinemaID() == cinemaId){
+                    result = cine;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static void updateShowSeat(int showId,ArrayList<Integer> seatIDs) throws IOException {
+        ArrayList<showSeat> previousCopy = getAllShowSeat();
+
+        try (
+                Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/showSeat.csv");
+
+                CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);) {
+            for(showSeat seats:previousCopy){
+                for(int seatId:seatIDs){
+                if(seats.getSeatID() == seatId && seats.getShowId() == showId ){
+                    seats.assignSeat();
+                    break;
+                }
+
+                }
+                csvWriter.writeNext(new String[] { String.valueOf(seats.getSeatID()), String.valueOf(seats.getCinemaID()), String.valueOf(seats.getShowId()),
+                    String.valueOf(seats.isOccupied()) });
+
+
+            }
+
+        }
+
+    }
+
+    private static ArrayList<showSeat> getAllShowSeat() {
+        ArrayList<showSeat> nex = new ArrayList<showSeat>();
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/showSeat.csv"));
+            while ((line = br.readLine()) != null) {
+                String[] result = line.split(splitBy);
+
+                
+                    nex.add(new showSeat(Integer.valueOf(result[0]), Integer.valueOf(result[1]),
+                            Integer.valueOf(result[2]), Boolean.parseBoolean(result[3])));
+                
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nex;
     }
 
         

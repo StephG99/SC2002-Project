@@ -267,6 +267,12 @@ public class Helper {
     cal.setTime(date);
     return cal.get(Calendar.HOUR_OF_DAY);
   }
+  public static int getMin(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setLenient(false);
+    cal.setTime(date);
+    return cal.get(Calendar.MINUTE);
+}
 
   public static Date now() {
     return new Date(System.currentTimeMillis());
@@ -299,4 +305,6 @@ public class Helper {
     return getDay(one) == getDay(two) && getMonth(one) == getMonth(two)
         && getYear(one) == getYear(two);
   }
+
+
 }

@@ -6,11 +6,12 @@ import Controller.BookingController;
 import Controller.MovieController;
 import Controller.CinemaController;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BookMoviePage {
     // display header
-    public static void BookingMenu(User loginUser) {
+    public static void BookingMenu(User loginUser) throws IOException {
         Helper.line(80, "=");
         System.out.println("Booking Menu");
         Helper.line(80, "=");
@@ -33,7 +34,7 @@ public class BookMoviePage {
     }
 
     // show available timings for selected movie and cinema
-    public static void printShowtimes(User loginUser) {
+    public static void printShowtimes(User loginUser) throws IOException {
         
         int movieID = 0;
         int count = 0;
@@ -103,7 +104,7 @@ public class BookMoviePage {
             }
 
     // show available seats for selected showtime
-    public static void printShowSeats(int showID,User loginUser,int Option) {
+    public static void printShowSeats(int showID,User loginUser,int Option) throws IOException {
         Shows chosenShow = BookingController.getShow(showID);
         Cinema chosenCinema = CinemaController.getCinema(chosenShow.getCinemaId());
         System.out.println("Your chosen timeslot: " + chosenShow.getTiming());
@@ -156,7 +157,7 @@ public class BookMoviePage {
     //
     // once user confirms they would lik e to make a booking, then this function
     // will be called
-    public static void seatBookingView(Cinema chosenCinema, Shows chosenShow, ArrayList<showSeat> listShowSeats,User loginUser,int option) {
+    public static void seatBookingView(Cinema chosenCinema, Shows chosenShow, ArrayList<showSeat> listShowSeats,User loginUser,int option) throws IOException {
         // System.out.println("Test view");
         int choice = 0;
         ArrayList<Integer> chosenSeats = new ArrayList<Integer>();

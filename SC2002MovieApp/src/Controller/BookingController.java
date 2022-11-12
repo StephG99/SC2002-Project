@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -21,7 +22,20 @@ public class BookingController {
         return DatabaseController.getShowSeats(showId);
     }
 
-    public static void bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs,User loginUser) {
+    public static void bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs,User loginUser) throws IOException {
+        /*newTransaction.getTransactionId(), newTransaction.getEmail(),
+                    String.valueOf(newTransaction.getPhoneNo()), newTransaction.getName(),
+                    String.valueOf(newTransaction.getMovieId()), String.valueOf(newTransaction.getCineplexId()),
+                    String.valueOf(newTransaction.getCinemaID()), encodeIntList(newTransaction.getSeatID()), strDate,
+                    String.valueOf(newTransaction.getPrice() */
+                    Cineplex cineplex = DatabaseController.getCineplexByCinemaId(chosenCinema.getCinemaID());
+                    String cineCode = cineplex.getCineplexId()+cineplex.getCineName().substring(0,2);
+                    Entity.movie movie = DatabaseController.getMoviebyId(chosenShow.getMovieId());
+                    Date now = Helper.now();
+                    String tid = cineCode + Helper.getYear(now)+Helper.getMonth(now)+Helper.getDay(now)+Helper.getHour(now)+Helper.getMin(now);
+                    Transaction ticket = new Transaction(tid, loginUser.getEmail(), loginUser.getMobileNo(), movie.getTitle(), movie.getMovieID(), cineplex.getCineplexId(), chosenCinema.getCinemaID(), seatIDs, chosenShow.getTiming(), price);
+                    DatabaseController.insertTransaction(ticket);
+                    DatabaseController.updateShowSeat(chosenShow.getShowId(),seatIDs);
 
     }
     public static ArrayList<Cineplex> getCineplexByMovieId(int movieId){
@@ -67,9 +81,6 @@ public class BookingController {
 
     }
 
-    public static double getPrice(Shows chosenShow, User loginUser) {
-        return 0;
-    }
 
     public static ArrayList<Shows> getShowsByMovieId(int movieID, int option) {
         ArrayList<Shows> allShows = getAllShows();
