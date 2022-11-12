@@ -287,6 +287,31 @@ public class DatabaseController {
         }
     }
 
+    public static ArrayList<Transaction> getAllTransactions() {
+        ArrayList<Transaction> nex = new ArrayList<Transaction>();
+        String line = "";
+        String splitBy = ",";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/transaction.csv"));
+            while ((line = br.readLine()) != null) {
+                String[] result = line.split(splitBy);
+                ArrayList<Integer> seatList = decodeIntList(result[7]);
+                String[] StringArray = result[8].split("/");
+                // thisDate(int year, int month, int day, int hour, int min)
+                Date dateOfTxn = Helper.thisDate(Integer.parseInt(StringArray[2]), Integer.parseInt(StringArray[1]),
+                        Integer.parseInt(StringArray[0]), Integer.parseInt(StringArray[3]),
+                        Integer.parseInt(StringArray[4]));
+                nex.add(new Transaction(result[0], result[1], Integer.valueOf(result[2]), result[3],
+                        Integer.valueOf(result[4]), Integer.valueOf(result[5]), Integer.valueOf(result[6]), seatList,
+                        dateOfTxn, Float.valueOf(result[9])));
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nex;
+    }
+
     public static ArrayList<Review> decodeReviews(String encodedString) {
         ArrayList<Review> result = new ArrayList<Review>();
         String[] processMethod = encodedString.split(";");
