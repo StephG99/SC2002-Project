@@ -158,4 +158,8 @@ public class TransactionController {
         }
     }
 
+    public static ArrayList<Transaction> getAllTransactions() {
+        return DatabaseController.getAllTransactions();
+    }
+
 }
