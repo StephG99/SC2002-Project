@@ -1,10 +1,36 @@
 package Controller;
 
 import Entity.Transaction;
+import Entity.Cinema;
 import java.util.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 
 //Main booking logic is here.
 public class TransactionController {
+
+    // generate transaction ID
+    public static String newTransactionID(Cinema chosenCinema) {
+        String cinemaPrefix = new String();
+        int cinemaID = chosenCinema.getCinemaID();
+        if (cinemaID >= 1 && cinemaID <= 6) {
+            cinemaPrefix = "YIS" + cinemaID + "X";
+        } else if (cinemaID >= 7 && cinemaID <= 12) {
+            cinemaPrefix = "JUR" + cinemaID + "X";
+        } else {
+            cinemaPrefix = "SRG" + cinemaID + "X";
+        }
+        // parse current instance of date & time into a string
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmm");
+        String strDate = dateFormat.format(date);
+
+        String transactionID = cinemaPrefix + strDate;
+        return transactionID;
+    }
 
     // add transaction
     public static void addTransaction(ArrayList<Transaction> TicketList, String transactionId, String email,
@@ -130,6 +156,10 @@ public class TransactionController {
         if (!exists) {
             System.out.println("Transaction ID does not exist.");
         }
+    }
+
+    public static ArrayList<Transaction> getAllTransactions() {
+        return DatabaseController.getAllTransactions();
     }
 
 }
