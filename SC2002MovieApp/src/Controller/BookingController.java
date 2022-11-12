@@ -1,7 +1,11 @@
 package Controller;
 
 import java.util.*;
+
+
+
 import Entity.*;
+import Helper.Helper;
 
 public class BookingController {
     // import relevant methods from DatabaseController
@@ -62,5 +66,48 @@ public class BookingController {
 
 
     }
+
+    public static double getPrice(Shows chosenShow, User loginUser) {
+        return 0;
+    }
+
+    public static ArrayList<Shows> getShowsByMovieId(int movieID, int option) {
+        ArrayList<Shows> allShows = getAllShows();
+        ArrayList<Shows> showById = new ArrayList<Shows>();
+        for (Shows showTime : allShows) {
+            //int cinemaId = showTime.getCinemaId();
+            Cinema showClass = CinemaController.getCinema(showTime.getCinemaId());
+            int showClassId = showClass.getMovieClass().getClassId();
+            //4 things to check Is Week day, Timing is between 1200 - 1800 ,if is public holiday and whether it is regular class
+            System.out.println(Helper.getHour(showTime.getTiming()));
+            if (showTime.getMovieId() == movieID && Helper.isWeekDay(showTime.getTiming()) && Helper.getHour(showTime.getTiming()) <19 && Helper.getHour(showTime.getTiming())>11&&!isPublicHoliday(showTime.getTiming())&&showClassId == 1) {
+                showById.add(showTime);
+            }
+        }
+        return showById;
+    }
+    public static boolean isPublicHoliday(Date inputDate){
+        ArrayList<Date> publicHoliDates = DatabaseController.getAllPublicHoliday();
+        boolean isHoliday = false;
+        for (Date date:publicHoliDates){
+            if(Helper.sameDate(date, inputDate)){
+                isHoliday = true;
+                break;
+            }
+        }
+        return isHoliday;
+    }
+
+    public static double getPrice(Shows chosenShow, User loginUser, int option) {
+        Cinema cinema = DatabaseController.getCinema((chosenShow.getCinemaId()));
+        double premium = cinema.getMovieClass().getPricePremium();
+        if(isPublicHoliday(chosenShow.getTiming())){
+            option =4;
+        }
+        double price = DatabaseController.getPrice(option);
+        return price*premium;
+
+    }
+
 
 }

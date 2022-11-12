@@ -30,7 +30,7 @@ public class DatabaseController {
             {
                 
                 String[] user = line.split(splitBy); // use comma as separator
-                System.out.println(user);
+               // System.out.println(user);
                 nex.add(new User(user[0], user[1], Integer.parseInt(user[2]),user[3], Boolean.parseBoolean(user[4])));
 
             }
@@ -486,11 +486,11 @@ public class DatabaseController {
                 //Custom Decoding for array stored in CSV
                 String[] cineList = result[2].split("/");
                 for(String cine:cineList){
-                    System.out.println(cine);
+                   // System.out.println(cine);
                     cinemaList.add(getCinema(Integer.parseInt(cine)));
                 }
                 for(Cinema cine:cinemaList){
-                    System.out.println(result[0]+" "+cine.getCinemaID());
+                   // System.out.println(result[0]+" "+cine.getCinemaID());
                     if(!classList.contains(cine.getMovieClass())){
                         classList.add(cine.getMovieClass());
 
@@ -506,4 +506,60 @@ public class DatabaseController {
         }
         return allCineplex;
     }
+
+    public static ArrayList<Date> getAllPublicHoliday() {
+        ArrayList<Date> publicHolidays = new ArrayList<Date>();
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/settings.csv"));
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                String[] result = line.split(splitBy); // use comma as separator
+                String[] dateResult = result[3].split("/");
+                //System.out.println(dateResult.length);
+                //System.out.println(dateResult[0]);
+                for(int i = 0 ; i < dateResult.length;i++){
+                    
+                    publicHolidays.add(Helper.customDateBuilder(dateResult[i]));
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return publicHolidays;
+    }
+
+    public static double getPrice(int option) {
+        double price = 0;
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/settings.csv"));
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                String[] result = line.split(splitBy); // use comma as separator
+                if(option == 3){
+                    price = Double.parseDouble(result[0]);
+                }
+                else{
+                    price = Double.parseDouble(result[option]);
+                }
+               
+                
+                
+
+
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return price;
+    }
+
+        
 }

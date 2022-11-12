@@ -183,6 +183,13 @@ public class Helper {
     cal.set(year, month - 1, day, 0, 0, 0);
     return cal.getTime();
   }
+  public static Date customDateBuilder(String date){
+    String[] result = date.split("-");
+    int year = Integer.parseInt(result[2]);
+    int month = Integer.parseInt(result[1]);
+    int day = Integer.parseInt(result[0]);
+    return thisDate(year,month,day);
+  }
 
   public static Date thisDate(int year, int month, int day, int hour, int min) {
     Calendar cal = Calendar.getInstance();
@@ -244,6 +251,21 @@ public class Helper {
     cal.setTime(date);
 
     return cal.get(Calendar.DAY_OF_WEEK);
+  }
+  public static boolean isWeekDay(Date date){
+    int dayOfWeek = getDayWeek(date);
+    if(dayOfWeek >1 && dayOfWeek <7){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  public static int getHour(Date date){
+    Calendar cal = Calendar.getInstance();
+    cal.setLenient(false);
+    cal.setTime(date);
+    return cal.get(Calendar.HOUR_OF_DAY);
   }
 
   public static Date now() {
