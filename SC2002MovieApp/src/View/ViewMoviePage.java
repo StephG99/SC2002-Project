@@ -25,6 +25,9 @@ public class ViewMoviePage {
     // print movie list
     public static void printMovieList() {
         ArrayList<movie> MovieList = MovieController.getAllMovie();
+        Helper.line(80, "=");
+        System.out.println("List of All Movies");
+        Helper.line(80, "=");
         for (int i = 0; i < MovieList.size(); i++) {
             printSingleMovie(MovieList.get(i));
             System.out.println();
@@ -150,6 +153,9 @@ public class ViewMoviePage {
         int movieId = Helper.readInt("Enter the movie Id: ");
         System.out.println();
         ArrayList<Review> reviewList = MovieController.getReview(movieId);
+        Helper.line(80, "=");
+        System.out.println("List of Reviews for movie ID " + movieId);
+        Helper.line(80, "=");
         for (int i = 0; i < reviewList.size(); i++) {
             Review temp = reviewList.get(i);
             System.out.println("Rating: " + String.valueOf(temp.getRating()));

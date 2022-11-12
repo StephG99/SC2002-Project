@@ -78,8 +78,8 @@ public class App {
 
                 } else if (option == 2) {
                     // TODO view Transaction
-                    System.out.println("View Transaction page");
-
+                    // System.out.println("View Transaction page");
+                    ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO review Movie
                     System.out.println("Review Movie");
@@ -107,8 +107,8 @@ public class App {
 
                 } else if (option == 2) {
                     // TODO view ALL Transaction(Admin)
-                    System.out.println("View ALL Transaction page");
-
+                    // System.out.println("View ALL Transaction page");
+                    ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO Edit and view System Settings;
                     System.out.println("Edit System Settings");
