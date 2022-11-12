@@ -145,7 +145,8 @@ public class ViewMoviePage {
     public static void printSimplifiedView(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
             System.out.println(
-                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + "(" + Movie.getAdvisoryRating() + ")");
+                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + " (" + Movie.getAdvisoryRating()
+                            + ") Overall Rating Score: " + Movie.getOverallRating());
         }
     }
 

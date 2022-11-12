@@ -698,6 +698,32 @@ public class DatabaseController {
 
     }
 
+    public static void updateOverallRating(int movieID, float overallRating) throws IOException {
+        ArrayList<movie> previousCopy = getAllMovie();
+
+        try (
+                Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/movie.csv");
+
+                CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);) {
+            for (movie Movie : previousCopy) {
+                if (Movie.getMovieID() == movieID) {
+                    Movie.setOverallRating(overallRating);
+                }
+
+                csvWriter.writeNext(new String[] {
+                        String.valueOf(Movie.getMovieID()), Movie.getTitle(), Movie.getSynopsis(),
+                        String.valueOf(Movie.isBlockBuster()), Movie.getMovieType(), String.valueOf(Movie.getStatus()),
+                        Movie.getAdvisoryRating(), Movie.getDirector(), encodeString(Movie.getCastList()),
+                        String.valueOf(Movie.getOverallRating())
+                });
+            }
+        }
+    }
+
     private static ArrayList<showSeat> getAllShowSeat() {
         ArrayList<showSeat> nex = new ArrayList<showSeat>();
         String line = "";

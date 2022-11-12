@@ -82,7 +82,8 @@ public class App {
                     ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO review Movie
-                    System.out.println("Review Movie");
+                    // System.out.println("Review Movie");
+                    ReviewMoviePage.ReviewMenu(loginUser);
                 } else if (option == 4) {
 
                     // System.out.println("Book a Movie Page");

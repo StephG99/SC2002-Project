@@ -2,13 +2,16 @@ package Controller;
 
 import Entity.*;
 import java.util.*;
+import java.io.IOException;
 
 public class ReviewController {
     // add review
-    public static void addReview(movie targetMovie, int rating, String reviewText, String userEmail) {
-        Review newReview = new Review(targetMovie.getMovieID(),rating, reviewText, userEmail);
-        targetMovie.getPastReviews().add(newReview);
-        System.out.println("Review successfully added");
+    public static void addReview(Review newReview, int movieID) throws IOException {
+        DatabaseController.insertReview(newReview);
+        movie targetMovie = DatabaseController.getMoviebyId(movieID);
+        float overallRating = getOverallRating(targetMovie);
+        DatabaseController.updateOverallRating(movieID, overallRating);
+
     }
 
     // remove review
@@ -28,13 +31,14 @@ public class ReviewController {
     }
 
     // check if review by customer already exists
-    public static Review searchReview(movie targetMovie, String userEmail) {
-        for (Review review : targetMovie.getPastReviews()) {
+    public static boolean doesReviewExist(int movieID, String userEmail) {
+        ArrayList<Review> reviewList = DatabaseController.getReviews(movieID);
+        for (Review review : reviewList) {
             if (review.getUserEmail().equals(userEmail)) {
-                return review;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     // update review
@@ -79,7 +83,7 @@ public class ReviewController {
     }
 
     // get overall rating for movie
-    public float getOverallRating(movie targetMovie) {
+    public static float getOverallRating(movie targetMovie) {
         float totalScore = 0;
         int count = 0;
         if (targetMovie.getPastReviews() == null) {
