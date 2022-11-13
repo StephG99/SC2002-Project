@@ -116,6 +116,11 @@ public class BookMoviePage {
     public static void printShowSeats(int showID, User loginUser, int Option) throws IOException {
         Shows chosenShow = BookingController.getShow(showID);
         Cinema chosenCinema = CinemaController.getCinema(chosenShow.getCinemaId());
+        movie chosenMovie = MovieController.searchById(chosenShow.getMovieId());
+        System.out.println("You have chosen the following movie: ");
+        System.out.println();
+        ViewMoviePage.printSingleMovie(chosenMovie);
+        System.out.println();
         System.out.println("Your chosen timeslot: " + chosenShow.getTiming());
         System.out.println("Number of available seats: " + chosenShow.getSeatsAvailability());
         ArrayList<showSeat> listShowSeats = BookingController.getShowSeats(showID);
