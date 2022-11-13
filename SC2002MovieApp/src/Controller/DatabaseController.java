@@ -361,12 +361,23 @@ public class DatabaseController {
 
     public static String encodeString(ArrayList<String> decodedString) {
         String result = "";
-        // String[] processMethod = encodedString.split("/");
         for (int i = 0; i < decodedString.size(); i++) {
-            // System.out.println(processMethod[0]);
-            // System.out.println(processMethod[i]);
             result += decodedString.get(i);
             if (i != decodedString.size() - 1) {
+                result += "/";
+            }
+        }
+        return result;
+
+    }
+    public static String encodeDate(ArrayList<Date> decodedDate) {
+        String result = "";
+        // String[] processMethod = encodedString.split("/");
+        for (int i = 0; i < decodedDate.size(); i++) {
+            // System.out.println(processMethod[0]);
+            // System.out.println(processMethod[i]);
+            result += Helper.customDateToStringBuilder(decodedDate.get(i));
+            if (i != decodedDate.size() - 1) {
                 result += "/";
             }
         }
@@ -744,5 +755,44 @@ public class DatabaseController {
         }
         return nex;
     }
+
+    public static Settings getSettings() {
+        Settings results = null;
+        String line = "";
+        String splitBy = ",";
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/settings.csv"));
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                String[] result = line.split(splitBy); // use comma as separator
+
+                results = new Settings(Double.parseDouble(result[0]),Double.parseDouble(result[1]),Double.parseDouble(result[2]),getAllPublicHoliday(),Double.parseDouble(result[4]));
+
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
+        
+    }
+
+    public static void updateSettings(Settings result) throws IOException {
+
+        try (
+                Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/settings.csv");
+
+                CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);) {
+          
+
+                csvWriter.writeNext(new String[] {String.valueOf(result.getRegularRates()),String.valueOf(result.getSeniorRates()),String.valueOf(result.getStudentRates()),encodeDate(result.getPublicHolidays()),String.valueOf(result.getHolidayRates())});
+            }
+        }
+    
 
 }

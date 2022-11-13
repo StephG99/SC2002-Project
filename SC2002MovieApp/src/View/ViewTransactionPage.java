@@ -17,7 +17,7 @@ public class ViewTransactionPage {
         System.out.println("Cinema ID: " + ticket.getCinemaID());
         System.out.println("Seat ID: " + ticket.getSeatID());
         System.out.println("Session Time: " + ticket.getTiming());
-        System.out.println("Price: " + ticket.getPrice());
+        System.out.println("Price: $" + ticket.getPrice());
     }
 
     // print all transactions

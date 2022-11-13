@@ -190,6 +190,10 @@ public class Helper {
     int day = Integer.parseInt(result[0]);
     return thisDate(year,month,day);
   }
+  public static String customDateToStringBuilder(Date date){
+    String result = getDay(date)+"-"+getMonth(date)+"-"+getYear(date);
+    return result;
+  }
 
   public static Date thisDate(int year, int month, int day, int hour, int min) {
     Calendar cal = Calendar.getInstance();

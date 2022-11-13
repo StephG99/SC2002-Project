@@ -112,7 +112,8 @@ public class App {
                     ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO Edit and view System Settings;
-                    System.out.println("Edit System Settings");
+                    //System.out.println("Edit System Settings");
+                    AdminMoviePage.editSettings();
                 } else if (option == 4) {
                     // TODO edit Movie details
                     System.out.println("Edit a Movie ");

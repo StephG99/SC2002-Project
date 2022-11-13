@@ -64,4 +64,13 @@ public class AdminController {
     }
 
   }
+
+  public static Settings getCurrentSettings() {
+   return DatabaseController.getSettings();
+    
+  }
+
+  public static void UpdateSetting(Settings result) throws IOException {
+    DatabaseController.updateSettings(result);
+  }
 }

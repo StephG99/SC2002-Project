@@ -94,18 +94,12 @@ public class BookingController {
             // int cinemaId = showTime.getCinemaId();
             Cinema showClass = CinemaController.getCinema(showTime.getCinemaId());
             int showClassId = showClass.getMovieClass().getClassId();
-<<<<<<< HEAD
-            //4 things to check Is Week day, Timing is between 1200 - 1800 ,if is public holiday and whether it is regular class
-            //System.out.println(Helper.getHour(showTime.getTiming()));
-            if (showTime.getMovieId() == movieID && Helper.isWeekDay(showTime.getTiming()) && Helper.getHour(showTime.getTiming()) <19 && Helper.getHour(showTime.getTiming())>11&&!isPublicHoliday(showTime.getTiming())&&showClassId == 1) {
-=======
             // 4 things to check Is Week day, Timing is between 1200 - 1800 ,if is public
             // holiday and whether it is regular class
             // System.out.println(Helper.getHour(showTime.getTiming()));
             if (showTime.getMovieId() == movieID && Helper.isWeekDay(showTime.getTiming())
                     && Helper.getHour(showTime.getTiming()) < 19 && Helper.getHour(showTime.getTiming()) > 11
                     && !isPublicHoliday(showTime.getTiming()) && showClassId == 1) {
->>>>>>> a8bf2628678fe0172a2927d5ff770379fceab03e
                 showById.add(showTime);
             }
         }
