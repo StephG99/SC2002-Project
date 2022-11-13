@@ -45,17 +45,27 @@ public class ViewMoviePage {
         do {
             System.out.println("1. View Review");
             System.out.println("2. Search Movie");
-            System.out.println("3. Back");
+            System.out.println("3. View top 5 movie");
+            System.out.println("4. View Blockbuster");
+            System.out.println("5. Back");
             option = Helper.readInt("Enter your choice: ");
             if (option == 1) {
                 printReview();
             } else if (option == 2) {
                 searchMovie();
                 System.out.println("Search movie");
-            } else {
+            }else if (option == 3) {
+                printTopFiveMovies(MovieList);
+                
+                System.out.println("Top 5 movie");
+            } else if (option == 4) {
+                printBlockBuster(MovieList);
+                System.out.println("Blockbuster movie");
+            }  
+            else {
                 System.out.println("redirecting to home page");
             }
-        } while (option != 3);
+        } while (option != 5);
 
     }
 
@@ -93,7 +103,7 @@ public class ViewMoviePage {
     }
 
     // sort movie by overallRating (then list top 5)
-    public void printTopFiveMovies(ArrayList<movie> MovieList) {
+    public static void printTopFiveMovies(ArrayList<movie> MovieList) {
         ArrayList<Double> ratingScoreList = new ArrayList<Double>(MovieList.size());
         for (movie Movie : MovieList) {
             ratingScoreList.add(Movie.getOverallRating());
@@ -114,7 +124,7 @@ public class ViewMoviePage {
     }
 
     // filter only by blockbuster
-    public void printBlockBuster(ArrayList<movie> MovieList) {
+    public static void printBlockBuster(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
             if (Movie.isBlockBuster()) {
                 printSingleMovie(Movie);

@@ -767,7 +767,7 @@ public class DatabaseController {
             {
                 String[] result = line.split(splitBy); // use comma as separator
 
-                results = new Settings(Double.parseDouble(result[0]),Double.parseDouble(result[1]),Double.parseDouble(result[2]),getAllPublicHoliday(),Double.parseDouble(result[4]));
+                results = new Settings(Double.parseDouble(result[0]),Double.parseDouble(result[1]),Double.parseDouble(result[2]),getAllPublicHoliday(),Double.parseDouble(result[4]),Double.parseDouble(result[5]));
 
             }
             br.close();
@@ -790,7 +790,7 @@ public class DatabaseController {
                         CSVWriter.DEFAULT_LINE_END);) {
           
 
-                csvWriter.writeNext(new String[] {String.valueOf(result.getRegularRates()),String.valueOf(result.getSeniorRates()),String.valueOf(result.getStudentRates()),encodeDate(result.getPublicHolidays()),String.valueOf(result.getHolidayRates())});
+                csvWriter.writeNext(new String[] {String.valueOf(result.getRegularRates()),String.valueOf(result.getSeniorRates()),String.valueOf(result.getStudentRates()),encodeDate(result.getPublicHolidays()),String.valueOf(result.getHolidayRates()),String.valueOf(result.getWeekendRates())});
             }
         }
     

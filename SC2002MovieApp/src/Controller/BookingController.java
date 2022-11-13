@@ -121,7 +121,7 @@ public class BookingController {
     public static double getPrice(Shows chosenShow, User loginUser, int option) {
         Cinema cinema = DatabaseController.getCinema((chosenShow.getCinemaId()));
         double premium = cinema.getMovieClass().getPricePremium();
-        if (isPublicHoliday(chosenShow.getTiming())) {
+        if (isPublicHoliday(chosenShow.getTiming()) || Helper.getDayWeek(chosenShow.getTiming()) == 1 ||Helper.getDayWeek(chosenShow.getTiming()) == 7) {
             option = 4;
         }
         double price = DatabaseController.getPrice(option);

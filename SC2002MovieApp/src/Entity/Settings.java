@@ -9,16 +9,18 @@ public class Settings {
     private double studentPrice;
     private ArrayList<Date> PublicHolidays;
     private double holidayRates;
+    private double weekendRates;
     
     
 
     public Settings(double regularPrice, double seniorPrice, double studentPrice, ArrayList<Date> publicHolidays,
-            double holidayRates) {
+            double holidayRates,double weekendRates) {
         this.regularPrice = regularPrice;
         this.seniorPrice = seniorPrice;
         this.studentPrice = studentPrice;
         PublicHolidays = publicHolidays;
         this.holidayRates = holidayRates;
+        this.weekendRates = weekendRates;
     }
     public double getRegularRates() {
         return regularPrice;
@@ -55,6 +57,13 @@ public class Settings {
 
     public void setHolidayRates(double holidayRates) {
         this.holidayRates = holidayRates;
+    }
+    public double getWeekendRates() {
+        return regularPrice;
+    }
+
+    public void setWeekendRates(double weekendRates) {
+        this.weekendRates = weekendRates;
     }
 
     
