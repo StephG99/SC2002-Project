@@ -89,11 +89,13 @@ public class ViewMoviePage {
             System.out.println(cineplex.getCineName() + " Cineplex");
             System.out.println();
             for (int cinemaID : AdminMoviePage.getCinemaIDsList(cineplex.getCinemas())) {
+                Cinema cinemaEntry = DatabaseController.getCinema(cinemaID);
                 for (Shows oneShow : allShowsList) {
                     if (oneShow.getCinemaId() == cinemaID) {
                         movie movieEntry = MovieController.searchById(oneShow.getMovieId());
                         System.out.println(count + ") Show ID: " + oneShow.getShowId() + " | Cinema ID: " + cinemaID
-                                + " | " + oneShow.getTiming() + " | " + movieEntry.getTitle() + " ("
+                                + " | Class: " + cinemaEntry.getMovieClass().getClassName() + " | "
+                                + oneShow.getTiming() + " | " + movieEntry.getTitle() + " ("
                                 + movieEntry.getAdvisoryRating() + ")");
                         count++;
                     }
