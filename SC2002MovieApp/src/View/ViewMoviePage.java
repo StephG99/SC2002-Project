@@ -54,15 +54,17 @@ public class ViewMoviePage {
             } else if (option == 2) {
                 searchMovie();
                 System.out.println("Search movie");
-            }else if (option == 3) {
+            } else if (option == 3) {
+                Helper.line(80, "=");
+                System.out.println("Top 5 movies (as rated by viewers)");
+                Helper.line(80, "=");
                 printTopFiveMovies(MovieList);
-                
-                System.out.println("Top 5 movie");
             } else if (option == 4) {
+                Helper.line(80, "=");
+                System.out.println("List of Blockbusters");
+                Helper.line(80, "=");
                 printBlockBuster(MovieList);
-                System.out.println("Blockbuster movie");
-            }  
-            else {
+            } else {
                 System.out.println("redirecting to home page");
             }
         } while (option != 5);
@@ -110,13 +112,16 @@ public class ViewMoviePage {
         }
         // Sort rating Score by descending order so the top 5 rated movies come first
         Collections.sort(ratingScoreList, Collections.reverseOrder());
-        for (int i = 0; i < 5; i++) {
-            for (Double score : ratingScoreList) {
-                for (movie Movie : MovieList) {
-                    if (Movie.getOverallRating() == score) {
-                        printSingleMovie(Movie);
-                        break;
-                    }
+
+        int ranking = 1;
+        for (Double score : ratingScoreList) {
+            for (movie Movie : MovieList) {
+                if (Movie.getOverallRating() == score) {
+                    System.out.println("MOVIE RANKING: " + ranking);
+                    printSingleMovie(Movie);
+                    System.out.println();
+                    ranking++;
+                    break;
                 }
             }
         }
