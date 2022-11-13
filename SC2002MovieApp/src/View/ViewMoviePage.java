@@ -15,7 +15,15 @@ public class ViewMoviePage {
         System.out.println("Movie Title: " + Movie.getTitle());
         System.out.println("Movie Type: " + Movie.getMovieType());
         System.out.println("Viewer Advisory Rating: " + Movie.getAdvisoryRating());
-        System.out.println("Movie Status: " + Movie.getStatus());
+        if (Movie.getStatus() == 0) {
+            System.out.println("Movie Status: ADVANCE SALES AVAILABLE");
+        } else if (Movie.getStatus() == 1) {
+            System.out.println("Movie Status: NOW SHOWING");
+        } else if (Movie.getStatus() == 2) {
+            System.out.println("Movie Status: COMING SOON");
+        } else {
+            System.out.println("Movie Status: UNAVAILABLE");
+        }
         System.out.println("Synopsis: " + Movie.getSynopsis());
         System.out.println("Director: " + Movie.getDirector());
         System.out.println("Cast: " + Movie.getCastList());
@@ -25,6 +33,9 @@ public class ViewMoviePage {
     // print movie list
     public static void printMovieList() {
         ArrayList<movie> MovieList = MovieController.getAllMovie();
+        Helper.line(80, "=");
+        System.out.println("List of All Movies");
+        Helper.line(80, "=");
         for (int i = 0; i < MovieList.size(); i++) {
             printSingleMovie(MovieList.get(i));
             System.out.println();
@@ -142,7 +153,8 @@ public class ViewMoviePage {
     public static void printSimplifiedView(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
             System.out.println(
-                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + "(" + Movie.getAdvisoryRating() + ")");
+                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + " (" + Movie.getAdvisoryRating()
+                            + ") Overall Rating Score: " + Movie.getOverallRating());
         }
     }
 
@@ -150,6 +162,9 @@ public class ViewMoviePage {
         int movieId = Helper.readInt("Enter the movie Id: ");
         System.out.println();
         ArrayList<Review> reviewList = MovieController.getReview(movieId);
+        Helper.line(80, "=");
+        System.out.println("List of Reviews for movie ID " + movieId);
+        Helper.line(80, "=");
         for (int i = 0; i < reviewList.size(); i++) {
             Review temp = reviewList.get(i);
             System.out.println("Rating: " + String.valueOf(temp.getRating()));

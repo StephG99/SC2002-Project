@@ -78,13 +78,14 @@ public class App {
 
                 } else if (option == 2) {
                     // TODO view Transaction
-                    System.out.println("View Transaction page");
-
+                    // System.out.println("View Transaction page");
+                    ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO review Movie
-                    System.out.println("Review Movie");
+                    // System.out.println("Review Movie");
+                    ReviewMoviePage.ReviewMenu(loginUser);
                 } else if (option == 4) {
-                    
+
                     // System.out.println("Book a Movie Page");
                     BookMoviePage.BookingMenu(loginUser);
                 } else if (option == 5) {
@@ -102,12 +103,13 @@ public class App {
             } else if (isLogin == 2) {
                 if (option == 1) {
                     // TODO View Movie
-                    System.out.println("View All Movie Page");
+                    ViewMoviePage.printMovieList();
+                    // System.out.println("View All Movie Page");
 
                 } else if (option == 2) {
                     // TODO view ALL Transaction(Admin)
-                    System.out.println("View ALL Transaction page");
-
+                    // System.out.println("View ALL Transaction page");
+                    ViewTransactionPage.TxnPage(loginUser);
                 } else if (option == 3) {
                     // TODO Edit and view System Settings;
                     System.out.println("Edit System Settings");

@@ -35,76 +35,85 @@ public class BookMoviePage {
 
     // show available timings for selected movie and cinema
     public static void printShowtimes(User loginUser) throws IOException {
-        
+
         int movieID = 0;
         int count = 0;
-        movieID = Helper.readInt("Enter movie ID: ");
+        boolean movieAvailable = false;
+        do {
+            movieID = Helper.readInt("Enter movie ID: ");
+            movie movieChoice = MovieController.searchById(movieID);
+            if (movieChoice.getStatus() == 0 || movieChoice.getStatus() == 1) {
+                movieAvailable = true;
+            } else if (movieChoice.getStatus() == 2) {
+                System.out.println("Movie is coming soon. You cannot book for this movie yet.");
+            } else {
+                System.out.println("Movie is unavailable.");
+            }
+        } while (!movieAvailable);
         boolean validResponse = false;
         ArrayList<Cineplex> cineplexList = BookingController.getCineplexByMovieId(movieID);
-        int option =0;
-        do{
-            System.out.println("Do you want to book a discounted tickets for senior/student?(Note that timing is only available between 1200 - 1800 hrs on normal weekdays(excluding PH) and only regular movie class) ");
+        int option = 0;
+        do {
+            System.out.println(
+                    "Do you want to book a discounted tickets for senior/student?(Note that timing is only available between 1200 - 1800 hrs on normal weekdays(excluding PH) and only regular movie class) ");
             System.out.println("1.) Senior Ticket");
             System.out.println("2.) Student Ticket: ");
             System.out.println("3.) No discounted Tickets (Will display all available Movie)");
             option = Helper.readInt("Enter your option: ");
-            if(option == 1){
+            if (option == 1) {
                 validResponse = true;
-            }
-            else if(option ==2){
+            } else if (option == 2) {
                 validResponse = true;
-            }
-            else if(option ==3){
+            } else if (option == 3) {
                 validResponse = true;
-            }
-            else{
+            } else {
                 System.out.println("Invalid Option!");
             }
 
-        }while(!validResponse);
+        } while (!validResponse);
         ArrayList<Shows> showList = new ArrayList<Shows>();
-        if(option == 3){
-        showList = BookingController.getShowsByMovieId(movieID);
-        }
-        else{
-        showList = BookingController.getShowsByMovieId(movieID,option);
+        if (option == 3) {
+            showList = BookingController.getShowsByMovieId(movieID);
+        } else {
+            showList = BookingController.getShowsByMovieId(movieID, option);
         }
         ArrayList<Integer> foundShows = new ArrayList<Integer>();
         System.out.println("It is available at");
-        for(Cineplex cine: cineplexList){
+        for (Cineplex cine : cineplexList) {
             System.out.println(cine.getCineName());
         }
-        
+
         for (Shows showtime : showList) {
-            //I might change this line so that we do the logic processing at the controller side instead of view page.
-                foundShows.add(showtime.getShowId());
-                count++;
-                Cinema cinema = CinemaController.getCinema(showtime.getCinemaId());
-                System.out.println(count + ") Show ID: " + showtime.getShowId());
-                System.out.println("Cinema ID: " + showtime.getCinemaId());
-                System.out.println("Cinema Class: "+cinema.getMovieClass().getClassName());
-                System.out.println("Showtime: " + showtime.getTiming());
-                System.out.println("Seats available: "+ showtime.getSeatsAvailability());
-                System.out.println();
-        
-    }
+            // I might change this line so that we do the logic processing at the controller
+            // side instead of view page.
+            foundShows.add(showtime.getShowId());
+            count++;
+            Cinema cinema = CinemaController.getCinema(showtime.getCinemaId());
+            System.out.println(count + ") Show ID: " + showtime.getShowId());
+            System.out.println("Cinema ID: " + showtime.getCinemaId());
+            System.out.println("Cinema Class: " + cinema.getMovieClass().getClassName());
+            System.out.println("Showtime: " + showtime.getTiming());
+            System.out.println("Seats available: " + showtime.getSeatsAvailability());
+            System.out.println();
+
+        }
         if (showList.size() == 0) {
             System.out.println("No showtimes were found for selected movie. ");
         } else {
             int showChoice = 0;
-            //we try to link it by ourself and not let user do the work.
+            // we try to link it by ourself and not let user do the work.
             showChoice = Helper.readInt("Enter your preferred choice, or enter any other number to quit: ");
-            int showId = foundShows.get(showChoice-1);
+            int showId = foundShows.get(showChoice - 1);
             if (foundShows.contains(showId)) {
-                printShowSeats(showId,loginUser,option);
+                printShowSeats(showId, loginUser, option);
             } else {
                 System.out.println("Returning to previous menu.");
             }
         }
-            }
+    }
 
     // show available seats for selected showtime
-    public static void printShowSeats(int showID,User loginUser,int Option) throws IOException {
+    public static void printShowSeats(int showID, User loginUser, int Option) throws IOException {
         Shows chosenShow = BookingController.getShow(showID);
         Cinema chosenCinema = CinemaController.getCinema(chosenShow.getCinemaId());
         System.out.println("Your chosen timeslot: " + chosenShow.getTiming());
@@ -147,7 +156,7 @@ public class BookMoviePage {
         System.out.println("Would you like to proceed with seat booking? (Y/N)");
         boolean answer = Helper.readBoolean("Enter your answer: ");
         if (answer) {
-            seatBookingView(chosenCinema, chosenShow, listShowSeats,loginUser,Option);
+            seatBookingView(chosenCinema, chosenShow, listShowSeats, loginUser, Option);
         } else {
             System.out.println("Returning to previous menu.");
         }
@@ -157,7 +166,8 @@ public class BookMoviePage {
     //
     // once user confirms they would lik e to make a booking, then this function
     // will be called
-    public static void seatBookingView(Cinema chosenCinema, Shows chosenShow, ArrayList<showSeat> listShowSeats,User loginUser,int option) throws IOException {
+    public static void seatBookingView(Cinema chosenCinema, Shows chosenShow, ArrayList<showSeat> listShowSeats,
+            User loginUser, int option) throws IOException {
         // System.out.println("Test view");
         int choice = 0;
         ArrayList<Integer> chosenSeats = new ArrayList<Integer>();
@@ -168,6 +178,8 @@ public class BookMoviePage {
                 tempSeat = listShowSeats.get(choice - 1);
                 if (tempSeat.isOccupied()) {
                     System.out.println("Seat is already occupied!");
+                } else if (chosenSeats.contains(choice)) {
+                    System.out.println("This seat is already in your selection!");
                 } else {
                     chosenSeats.add(choice);
                     System.out.println("Seat has been entered into selection.");
@@ -182,25 +194,25 @@ public class BookMoviePage {
             System.out.println(chosenSeats);
             System.out.println("Cinema ID: " + chosenCinema.getCinemaID());
             System.out.println("Cinema Class: " + chosenCinema.getMovieClass().getClassName());
-            double ticketPrice = BookingController.getPrice(chosenShow,loginUser,option);
+            double ticketPrice = BookingController.getPrice(chosenShow, loginUser, option);
             System.out.println("Price for each ticket: " + ticketPrice);
             double totalPrice = chosenSeats.size() * ticketPrice;
             System.out.println("Total price: " + totalPrice);
-            if(loginUser == null){
+            if (loginUser == null) {
                 String email = Helper.readString("Enter your email: ");
                 int phoneNo = Helper.readInt("Enter your mobile Number");
-                //Guest User creation
+                // Guest User creation
                 loginUser = new User(email, phoneNo);
             }
             int confirmChoice = 0;
             confirmChoice = Helper.readInt("Enter 1 to confirm your booking, or any other number to reset.");
             if (confirmChoice == 1) {
                 BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats, loginUser);
-                System.out.println("TEST: Booking confirmed!");
+                System.out.println("Thank you! Your booking has been confirmed.");
             } else {
                 System.out.println("Booking has been reset. Returning to booking menu.");
             }
-    }
+        }
 
     }
 
