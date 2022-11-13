@@ -6,10 +6,12 @@ import java.util.Date;
 
 import Controller.AdminController;
 import Controller.MovieController;
+
 import Controller.DatabaseController;
 import Entity.Settings;
 import Entity.movie;
 import Entity.*;
+
 import Helper.Helper;
 
 public class AdminMoviePage {
@@ -70,9 +72,7 @@ public class AdminMoviePage {
 
     }
 
-    public static void editMovie() {
-        displayAdminHeader();
-    }
+   
 
     public static void printCineplexList() {
         ArrayList<Cineplex> cineplexList = DatabaseController.getAllCineplex();
@@ -212,6 +212,80 @@ public class AdminMoviePage {
             System.out.println(holiday);
         }
         System.out.println();
+    }
+
+    public static void editMovieDetails() throws IOException{
+        displayAdminHeader();
+        ArrayList<movie> movieList = MovieController.getAllMovie();
+        //ViewMoviePage.printSimplifiedView(movieList);
+        int option = 0;
+        do{
+            ViewMoviePage.printSimplifiedView(movieList);
+            option = Helper.readInt("Enter the Movie ID that you would like to edit(Enter any other number to exit): ");
+            if(option > movieList.size() || option < 1){
+                System.out.println("Exiting...");
+                break;
+            }
+            
+            ViewMoviePage.printSingleMovie(movieList.get(option-1));
+            
+            
+            boolean choice = Helper.readBoolean("Would you like to edit this movie(Y/N)? ");
+            if(choice){
+                editMovie(movieList,option-1);
+            }
+            else{
+                System.out.println("going back");
+                option =1;
+            }
+
+        }while(option < movieList.size() && option > 0);
+       
+    }
+    public static void editMovie(ArrayList<movie> movieList,int index) throws IOException {
+        //Why we take in an array instead of one movie is so that we can shortcut the updating process 
+        //we take out first from the movieList later we are going to set it back.
+        movie edit = movieList.get(index);
+        int choice =0;
+        do{
+        System.out.println();
+        System.out.println("What would you like to edit? ");
+        System.out.println("1.) Edit Title");
+        System.out.println("2.) Edit Sypnosis");
+        System.out.println("3.) Edit Blockbuster Status ");
+        System.out.println("4.) Edit type of movie");
+        System.out.println("5.) Edit Showing Status");
+        System.out.println("6.) Edit Viewer Advisory");
+        System.out.println("7.) Exit");
+        choice = Helper.readInt("");
+        switch(choice){
+            case 1:
+                edit.setTitle(Helper.readString("New title: "));
+                break;
+            case 2:
+                edit.setSynopsis(Helper.readString("New Sypnosis: "));
+                break;
+            case 3:
+                edit.setBlockBuster(Helper.readBoolean("Blockbuster?(Y/N) "));
+                break;
+            case 4:
+                edit.setMovieType("Movie type: Regular,3D");
+                break;
+            case 5:
+                edit.setStatus(Helper.readInt("new Movie Status\n1.)Preview\n2.)Now Showing\n3.)Coming Soon\n4.)End Of Showing\n ")-1);
+                break;
+            case 6:
+                edit.setAdvisoryRating(Helper.readString("Set Viewer Advisory(PG,NC16,M18,R21): "));
+                break;
+            case 7:
+                System.out.println("Exit");
+
+        }
+        }while(choice != 7);
+        movieList.set(index,edit);
+        AdminController.updateMovie(movieList);
+
+        
     }
 
 }

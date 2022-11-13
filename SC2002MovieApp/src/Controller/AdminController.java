@@ -73,4 +73,8 @@ public class AdminController {
   public static void UpdateSetting(Settings result) throws IOException {
     DatabaseController.updateSettings(result);
   }
+
+public static void updateMovie(ArrayList<movie> movieList) throws IOException {
+  DatabaseController.updateMovie(movieList);
+}
 }

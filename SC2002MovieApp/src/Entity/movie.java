@@ -70,14 +70,15 @@ public class movie {
   }
 
   // set blockbuster to be yes
-  public void setBlockBuster() {
-    this.blockBuster = true;
+  public void setBlockBuster(boolean blockbuster) {
+    this.blockBuster = blockbuster;
   }
-
+  /* 
   // set blockbuster to be no
   public void setNonBlockBuster() {
     this.blockBuster = false;
   }
+  */
 
   // get movie type
   public String getMovieType() {

@@ -116,6 +116,7 @@ public class App {
                     AdminMoviePage.editSettings();
                 } else if (option == 4) {
                     // TODO edit Movie details
+                    AdminMoviePage.editMovieDetails();
                     System.out.println("Edit a Movie ");
                 } else if (option == 5) {
                     // TODO edit Movie details
