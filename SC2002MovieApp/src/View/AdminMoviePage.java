@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Controller.AdminController;
+import Controller.MovieController;
+import Controller.DatabaseController;
 import Entity.Settings;
+import Entity.movie;
+import Entity.*;
 import Helper.Helper;
 
 public class AdminMoviePage {
@@ -32,7 +36,12 @@ public class AdminMoviePage {
          */
         // int cineplexId = Helper.readInt("Enter the CinePlex ID: ");
         int result = -1;
+        System.out.println("List of Cineplexes: ");
+        printCineplexList();
         int cinemaId = Helper.readInt("Enter the Cinema ID: ");
+        ArrayList<movie> movieList = MovieController.getAllMovie();
+        System.out.println("List of Movies: ");
+        ViewMoviePage.printSimplifiedView(movieList);
         int movieId = Helper.readInt("Enter the movie Id: ");
         String dateOfShow = Helper
                 .readString("Enter the date and time using this format dd/mm/yyyy/hh/min e.g 22/12/2022/22/30: ");
@@ -63,6 +72,14 @@ public class AdminMoviePage {
 
     public static void editMovie() {
         displayAdminHeader();
+    }
+
+    public static void printCineplexList() {
+        ArrayList<Cineplex> cineplexList = DatabaseController.getAllCineplex();
+        for (Cineplex cineplex : cineplexList) {
+            System.out.println(cineplex.getCineplexId() + ") " + cineplex.getCineName() + ": Cinemas : "
+                    + cineplex.getCinemas() + ", Classes Offered: " + cineplex.getClassOffered());
+        }
     }
 
     public static void editSettings() throws IOException {
