@@ -77,11 +77,11 @@ public class MovieController {
                 success = true;
                 switch (inputValue) {
                     case 0:
-                        Movie.setNonBlockBuster();
+                        Movie.setBlockBuster(false);
                         System.out.println(" Movie successfully set to non-blockbuster");
                         break;
                     case 1:
-                        Movie.setBlockBuster();
+                        Movie.setBlockBuster(true);
                         System.out.println("Movie successfully set to blockbuster");
                         break;
                     default:

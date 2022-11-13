@@ -177,13 +177,17 @@ public class DatabaseController {
             // parsing a CSV file into BufferedReader class constructor
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movie.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
-            {
+            {   
+                //System.out.println(line);
                 String[] result = line.split(splitBy); // use comma as separator
-
-                ArrayList<Review> reviewList = getReviews(Integer.valueOf(result[0]));
+                //System.out.println(result[0]);
+                if(result.length > 1){
+                 ArrayList<Review> reviewList = getReviews(Integer.valueOf(result[0]));
                 nex.add(new movie(Integer.valueOf(result[0]), result[1], result[2], Boolean.parseBoolean(result[3]),
                         result[4], Integer.valueOf(result[5]), result[6], result[7], decodeString(result[8]),
                         Double.parseDouble(result[9]), reviewList));
+                        
+                }
 
             }
             br.close();
@@ -793,6 +797,28 @@ public class DatabaseController {
                 csvWriter.writeNext(new String[] {String.valueOf(result.getRegularRates()),String.valueOf(result.getSeniorRates()),String.valueOf(result.getStudentRates()),encodeDate(result.getPublicHolidays()),String.valueOf(result.getHolidayRates()),String.valueOf(result.getWeekendRates())});
             }
         }
+    public static void updateMovie(ArrayList<movie> movieList) throws IOException{
+        try (
+                Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/movie.csv");
+
+                CSVWriter csvWriter = new CSVWriter(mFileWriter,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);) {
+            for (movie Movie : movieList) {
+                
+
+                csvWriter.writeNext(new String[] {
+                        String.valueOf(Movie.getMovieID()), Movie.getTitle(), Movie.getSynopsis(),
+                        String.valueOf(Movie.isBlockBuster()), Movie.getMovieType(), String.valueOf(Movie.getStatus()),
+                        Movie.getAdvisoryRating(), Movie.getDirector(), encodeString(Movie.getCastList()),
+                        String.valueOf(Movie.getOverallRating())
+                });
+            }
+        }
+
+    }
     
 
 }
