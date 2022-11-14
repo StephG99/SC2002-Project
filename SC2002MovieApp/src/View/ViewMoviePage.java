@@ -12,7 +12,12 @@ import Controller.BookingController;
 import Controller.DatabaseController;
 
 public class ViewMoviePage {
+    /**
+     * @param Movie movie object to be printed
+     * print one movie with its details
+     */
     public static void printSingleMovie(movie Movie) {
+        if(Movie.getStatus() != 3){
         System.out.println("Movie ID: " + Movie.getMovieID());
         System.out.println("Movie Title: " + Movie.getTitle());
         System.out.println("Movie Type: " + Movie.getMovieType());
@@ -29,10 +34,20 @@ public class ViewMoviePage {
         System.out.println("Synopsis: " + Movie.getSynopsis());
         System.out.println("Director: " + Movie.getDirector());
         System.out.println("Cast: " + Movie.getCastList());
-        System.out.println("Overall Rating Score: " + Movie.getOverallRating());
+        if(Movie.getOverallRating() != -1){
+            System.out.println("Overall Rating Score: " + Movie.getOverallRating());
+        }
+        else{
+        System.out.println("Overall Rating Score: NA");
+        }
+    }
     }
 
     // print movie list
+    /**
+     * @param loginUser User object to determine the different variants of option available
+     * Main page rout option to different options and print out movies
+     */
     public static void printMovieList(User loginUser) {
         ArrayList<movie> MovieList = MovieController.getAllMovie();
         Helper.line(80, "=");
@@ -77,6 +92,9 @@ public class ViewMoviePage {
     }
 
     // print all showtimes
+    /**
+     * Print out all the available showTimes
+     */
     public static void printAllShowTimes() {
         Helper.line(80, "=");
         System.out.println("All Available Showtimes");
@@ -105,40 +123,17 @@ public class ViewMoviePage {
         }
     }
 
-    // print individual movie details by title
-    public void printSingleMovieByTitle(ArrayList<movie> MovieList, String targetTitle) {
-        boolean isFound = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getTitle() == targetTitle) {
-                isFound = true;
-                System.out.println("Movie title found. Details of movie as follows: ");
-                System.out.println();
-                printSingleMovie(Movie);
-                break;
-            }
-        }
-        if (!isFound)
-            System.out.println("Movie title does not match existing movies. ");
+    
+    
 
-    }
-
-    // print individual movie details by ID
-    public void printSingleMovieByID(ArrayList<movie> MovieList, int targetID) {
-        boolean isFound = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == targetID) {
-                isFound = true;
-                System.out.println("Movie ID found. Details of movie as follows: ");
-                System.out.println();
-                printSingleMovie(Movie);
-                break;
-            }
-        }
-        if (!isFound)
-            System.out.println("Movie ID does not match existing movies. ");
-    }
+    
 
     // sort movie by overallRating (then list top 5)
+    /**
+     * @param MovieList take in a array of movie object
+     * @param user User object to be used for determination of role
+     * Print out different option if User is admin and only allow ranking by rating for other user
+     */
     public static void printTopFiveMovies(ArrayList<movie> MovieList,User user) {
         ArrayList<movie> ratingScoreList = new ArrayList<movie>();
         if(user == null ){
@@ -193,6 +188,11 @@ public class ViewMoviePage {
     }
 
     // filter only by status
+    /**
+     * @param MovieList a array of movie
+     * @param targetStatus view by different status specified by user
+     */
+    /* 
     public void printMoviesByStatus(ArrayList<movie> MovieList, int targetStatus) {
         boolean isValidInput = true;
         switch (targetStatus) {
@@ -218,13 +218,16 @@ public class ViewMoviePage {
             }
         }
     }
+    */
 
     // simplified view - list only movie ID and title
     public static void printSimplifiedView(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
+            if(Movie.getStatus() != 3){
             System.out.println(
                     "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + " (" + Movie.getAdvisoryRating()
                             + ") Overall Rating Score: " + Movie.getOverallRating());
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import Controller.UserController;
 import Entity.User;
 //import java.util.Scanner;
 public class LoginPage {
+    
     public static User getLogin(){
 
         String email;
