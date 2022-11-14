@@ -212,8 +212,10 @@ public class BookMoviePage {
             int confirmChoice = 0;
             confirmChoice = Helper.readInt("Enter 1 to confirm your booking, or any other number to reset.");
             if (confirmChoice == 1) {
-                BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats, loginUser);
+                Transaction ticket = BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats, loginUser);
                 System.out.println("Thank you! Your booking has been confirmed.");
+                System.out.println();
+                ViewTransactionPage.printSingleTransaction(ticket);
             } else {
                 System.out.println("Booking has been reset. Returning to booking menu.");
             }

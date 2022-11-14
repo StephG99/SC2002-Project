@@ -20,7 +20,7 @@ public class BookingController {
         return DatabaseController.getShowSeats(showId);
     }
 
-    public static void bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs,
+    public static Transaction bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs,
             User loginUser) throws IOException {
         /*
          * newTransaction.getTransactionId(), newTransaction.getEmail(),
@@ -42,6 +42,7 @@ public class BookingController {
                 chosenShow.getTiming(), price);
         DatabaseController.insertTransaction(ticket);
         DatabaseController.updateShowSeat(chosenShow.getShowId(), seatIDs);
+        return ticket;
 
     }
 
