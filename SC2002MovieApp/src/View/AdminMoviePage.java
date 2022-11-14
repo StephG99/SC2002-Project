@@ -346,7 +346,7 @@ public class AdminMoviePage {
                     edit.setBlockBuster(Helper.readBoolean("Blockbuster?(Y/N) "));
                     break;
                 case 4:
-                    edit.setMovieType("Movie type: Regular,3D");
+                    edit.setMovieType(Helper.readString("Genre: "));
                     break;
                 case 5:
                     edit.setStatus(Helper.readInt(
