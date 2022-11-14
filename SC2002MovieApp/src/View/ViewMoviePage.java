@@ -33,7 +33,7 @@ public class ViewMoviePage {
     }
 
     // print movie list
-    public static void printMovieList() {
+    public static void printMovieList(User loginUser) {
         ArrayList<movie> MovieList = MovieController.getAllMovie();
         Helper.line(80, "=");
         System.out.println("List of All Movies");
@@ -63,7 +63,7 @@ public class ViewMoviePage {
                 Helper.line(80, "=");
                 System.out.println("Top 5 movies (as rated by viewers)");
                 Helper.line(80, "=");
-                printTopFiveMovies(MovieList);
+                printTopFiveMovies(MovieList,loginUser);
             } else if (option == 5) {
                 Helper.line(80, "=");
                 System.out.println("List of Blockbusters");
@@ -139,28 +139,49 @@ public class ViewMoviePage {
     }
 
     // sort movie by overallRating (then list top 5)
-    public static void printTopFiveMovies(ArrayList<movie> MovieList) {
-        ArrayList<Double> ratingScoreList = new ArrayList<Double>(MovieList.size());
-        for (movie Movie : MovieList) {
-            ratingScoreList.add(Movie.getOverallRating());
+    public static void printTopFiveMovies(ArrayList<movie> MovieList,User user) {
+        ArrayList<movie> ratingScoreList = new ArrayList<movie>();
+        if(user == null ){
+            ratingScoreList = MovieController.rankMovie(MovieList, 1);
         }
-        // Sort rating Score by descending order so the top 5 rated movies come first
-        Collections.sort(ratingScoreList, Collections.reverseOrder());
-
-        int ranking = 1;
-        for (Double score : ratingScoreList) {
-            for (movie Movie : MovieList) {
-                if (Movie.getOverallRating() == score) {
-                    System.out.println("MOVIE RANKING: " + ranking);
-                    printSingleMovie(Movie);
-                    System.out.println();
-                    ranking++;
-                    break;
-                }
+        else if(!user.checkAdmin()){
+            ratingScoreList = MovieController.rankMovie(MovieList, 1);
+        }
+        else{
+        int option = 0;
+        
+        do{
+        System.out.println("1.) Rank by Rating");
+        System.out.println("2.) Rank by Transaction number");
+        System.out.println("3.) Rank by Sales");
+        System.out.println("4.) Quit");
+        option = Helper.readInt("Enter your choice: ");
+        if(option >0 && option < 4){
+            System.out.println("Triggered");
+            ratingScoreList = MovieController.rankMovie(MovieList,option);
+            option = 4;
+        }
+        else if(option == 4){
+            System.out.println("Exiting... ");
+        }
+        else{
+            System.out.println("Invalid Option!!");
+        }
+        }while(option != 4);
+    }
+        int ranking =1;
+       // System.out.println(ratingScoreList.size());
+        for (movie Movie : ratingScoreList) {
+            System.out.println("MOVIE RANKING: " + ranking);
+            printSingleMovie(Movie);
+            System.out.println();
+            ranking++;  
+                
             }
         }
+    
 
-    }
+    
 
     // filter only by blockbuster
     public static void printBlockBuster(ArrayList<movie> MovieList) {

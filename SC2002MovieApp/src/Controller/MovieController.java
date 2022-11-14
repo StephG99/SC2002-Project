@@ -2,6 +2,8 @@ package Controller;
 
 import Entity.movie;
 import Entity.Review;
+import Entity.Transaction;
+
 //import Entity.movieClass;
 import java.util.*;
 
@@ -198,6 +200,96 @@ public class MovieController {
     }
     public static movie searchByName(String movieName){
         return DatabaseController.getMoviebyName(movieName);
+    }
+    public static ArrayList<movie> rankMovie(ArrayList<movie> movieList, int option) {
+        ArrayList<movie> resultList = new ArrayList<movie>();
+        if(option == 1){
+        ArrayList<Double> ratingScoreList = new ArrayList<Double>(movieList.size());
+        for (movie movie : movieList) {
+            ratingScoreList.add(movie.getOverallRating());
+        }
+        // Sort rating Score by descending order so the top 5 rated movies come first
+        Collections.sort(ratingScoreList,Collections.reverseOrder());
+        int ranking = 1;
+        for (Double score : ratingScoreList) {
+            if(ranking == 5){
+                break;
+            }
+            for (movie Movie : movieList) {
+                if (Movie.getOverallRating() == score) {
+                    //System.out.println("MOVIE RANKING: " + ranking);
+                    //printSingleMovie(Movie);
+                    resultList.add(Movie);
+                    ranking++;
+                    break;
+                }
+            }
+        }
+
+    }
+    else if(option == 2){
+        Map<Integer, Integer> movieCount = new HashMap<Integer, Integer>();
+        ArrayList<Transaction> transactionList = TransactionController.getAllTransactions();
+        for(Transaction transaction: transactionList){
+            if(movieCount.containsKey(transaction.getMovieId())){
+                movieCount.put(transaction.getMovieId(),movieCount.get(transaction.getMovieId())+1);
+            }
+            else{
+                movieCount.put(transaction.getMovieId(),1);
+            }
+        }
+         
+ 
+//Use Comparator.reverseOrder() for reverse ordering
+    ArrayList<movie> tempList = new ArrayList<movie>();
+    movieCount.entrySet()
+  .stream()
+  .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
+  .forEachOrdered(x -> tempList.add(searchById(x.getKey())));
+  int stop =5;
+  if(tempList.size() < 5){
+    stop = tempList.size();
+  }
+
+  for(int i = 0 ; i< stop;i++){
+    resultList.add(tempList.get(i));
+  }
+
+    }
+    else if(option == 3){
+        Map<Integer, Double> movieCount = new HashMap<Integer, Double>();
+        ArrayList<Transaction> transactionList = TransactionController.getAllTransactions();
+        for(Transaction transaction: transactionList){
+            if(movieCount.containsKey(transaction.getMovieId())){
+                movieCount.put(transaction.getMovieId(),movieCount.get(transaction.getMovieId())+transaction.getPrice());
+            }
+            else{
+                movieCount.put(transaction.getMovieId(),transaction.getPrice());
+            }
+        }
+         
+ 
+//Use Comparator.reverseOrder() for reverse ordering
+    ArrayList<movie> tempList = new ArrayList<movie>();
+    movieCount.entrySet()
+  .stream()
+  .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
+  .forEachOrdered(x -> tempList.add(searchById(x.getKey())));
+  int stop =5;
+  if(tempList.size() < 5){
+    stop = tempList.size();
+  }
+
+  for(int i = 0 ; i< stop;i++){
+    resultList.add(tempList.get(i));
+  }
+
+    }
+
+    
+
+        
+        return resultList;
     }
 
 }

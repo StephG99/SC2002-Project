@@ -216,6 +216,7 @@ public class BookMoviePage {
                 System.out.println("Thank you! Your booking has been confirmed.");
                 System.out.println();
                 ViewTransactionPage.printSingleTransaction(ticket);
+                System.out.println();
             } else {
                 System.out.println("Booking has been reset. Returning to booking menu.");
             }

@@ -32,7 +32,7 @@ public class App {
             // routing Page
             if (isLogin == 0) {
                 if (option == 1) {
-                    ViewMoviePage.printMovieList();
+                    ViewMoviePage.printMovieList(loginUser);
 
                 } else if (option == 2) {
                     loginUser = LoginPage.getLogin();
@@ -74,7 +74,7 @@ public class App {
                 }
             } else if (isLogin == 1) {
                 if (option == 1) {
-                    ViewMoviePage.printMovieList();
+                    ViewMoviePage.printMovieList(loginUser);
 
                 } else if (option == 2) {
                     // TODO view Transaction
@@ -103,7 +103,7 @@ public class App {
             } else if (isLogin == 2) {
                 if (option == 1) {
                     // TODO View Movie
-                    ViewMoviePage.printMovieList();
+                    ViewMoviePage.printMovieList(loginUser);
                     // System.out.println("View All Movie Page");
 
                 } else if (option == 2) {
