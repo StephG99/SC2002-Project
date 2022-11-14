@@ -1,0 +1,15 @@
+/.DS_Store
+/AdminController.class
+/App.class
+/BookingController.class
+/CinemaController.class
+/Database/
+/DatabaseController.class
+/Entity/
+/Helper/
+/MovieController.class
+/ReviewController.class
+/TransactionController.class
+/UserController.class
+/View/
+/user
