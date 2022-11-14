@@ -7,7 +7,7 @@ public class Cinema {
     private movieClass cinemaClass;
 
     /**
-     * Constructor for cinema object
+     * Constructor for Cinema object
      * 
      * @param cinemaID    unique ID number for object
      * @param cinemaClass indicates class of cinema
