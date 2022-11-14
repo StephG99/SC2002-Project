@@ -48,7 +48,7 @@ public class MovieController {
             System.out.println("Movie successfully added.");
         }
     }
-
+    //fetch
     // remove movie
     /**
      * @param MovieList get an array of Movie object 
