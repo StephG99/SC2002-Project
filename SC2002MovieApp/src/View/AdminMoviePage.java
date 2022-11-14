@@ -80,6 +80,9 @@ public class AdminMoviePage {
 
     }
 
+    /**
+     * Function to print out the list of all cineplexes available
+     */
     public static void printCineplexList() {
         ArrayList<Cineplex> cineplexList = DatabaseController.getAllCineplex();
         for (Cineplex cineplex : cineplexList) {
@@ -89,6 +92,12 @@ public class AdminMoviePage {
         }
     }
 
+    /**
+     * Fetches an array list of cinema ID numbers to be passed to PrintCineplexList
+     * 
+     * @param cinemas
+     * @return
+     */
     public static ArrayList<Integer> getCinemaIDsList(ArrayList<Cinema> cinemas) {
         ArrayList<Integer> newList = new ArrayList<Integer>();
         for (Cinema cine : cinemas) {
@@ -97,6 +106,12 @@ public class AdminMoviePage {
         return newList;
     }
 
+    /**
+     * Fetches an array list of movie class IDs to be passed to printCineplexList
+     * 
+     * @param classIDs
+     * @return
+     */
     public static ArrayList<Integer> getClassIDsList(ArrayList<movieClass> classIDs) {
         ArrayList<Integer> newList = new ArrayList<Integer>();
         for (movieClass mclass : classIDs) {
@@ -105,6 +120,11 @@ public class AdminMoviePage {
         return newList;
     }
 
+    /**
+     * Admin user interface to display current system settings
+     * 
+     * @throws IOException
+     */
     public static void editSettings() throws IOException {
         displayAdminHeader();
         Settings result = AdminController.getCurrentSettings();
@@ -123,6 +143,12 @@ public class AdminMoviePage {
         AdminController.UpdateSetting(result);
     }
 
+    /**
+     * Admin user interface to choose a system setting to edit
+     * 
+     * @param setting Settings class object to be edited
+     * @return
+     */
     public static Settings EditSettingPage(Settings setting) {
         System.out.println("Which would you like to change?");
 
@@ -168,6 +194,12 @@ public class AdminMoviePage {
 
     }
 
+    /**
+     * Admin user interface to edit list of public holidays
+     * 
+     * @param publicHolidays
+     * @return
+     */
     private static ArrayList<Date> editPublicHoliday(java.util.ArrayList<Date> publicHolidays) {
         int option = 0;
         while (option != 3) {
@@ -227,6 +259,12 @@ public class AdminMoviePage {
         return publicHolidays;
     }
 
+    /**
+     * Method to print out current list of system settings
+     * 
+     * @param result
+     * @param Header
+     */
     public static void printSettings(Settings result, String Header) {
 
         System.out.println(Header);
@@ -241,6 +279,11 @@ public class AdminMoviePage {
         System.out.println();
     }
 
+    /**
+     * Admin user interface to choose a movie to edit details
+     * 
+     * @throws IOException
+     */
     public static void editMovieDetails() throws IOException {
         displayAdminHeader();
         ArrayList<movie> movieList = MovieController.getAllMovie();
@@ -268,6 +311,13 @@ public class AdminMoviePage {
 
     }
 
+    /**
+     * Admin user interface to edit specific details of a chosen movie
+     * 
+     * @param movieList list of all movies
+     * @param index     index ID of chosen movie
+     * @throws IOException
+     */
     public static void editMovie(ArrayList<movie> movieList, int index) throws IOException {
         // Why we take in an array instead of one movie is so that we can shortcut the
         // updating process
