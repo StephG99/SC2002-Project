@@ -6,6 +6,12 @@ import Entity.User;
 import Helper.Helper;
 
 public class RegisterPage {
+
+    /**
+     * @return a new User Object
+     * @throws IOException
+     * register a new user if no duplicate account
+     */
     public static User registerUser() throws IOException{
 
         String email;
