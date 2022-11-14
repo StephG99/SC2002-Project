@@ -817,9 +817,9 @@ public class DatabaseController {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
             for (movie Movie : movieList) {
-
+                String processedText = Movie.getSynopsis().replace(',', '/');
                 csvWriter.writeNext(new String[] {
-                        String.valueOf(Movie.getMovieID()), Movie.getTitle(), Movie.getSynopsis(),
+                        String.valueOf(Movie.getMovieID()), Movie.getTitle(), processedText,
                         String.valueOf(Movie.isBlockBuster()), Movie.getMovieType(), String.valueOf(Movie.getStatus()),
                         Movie.getAdvisoryRating(), Movie.getDirector(), encodeString(Movie.getCastList()),
                         String.valueOf(Movie.getOverallRating())
