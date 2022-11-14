@@ -22,6 +22,12 @@ import Helper.Helper;
 
 //Database controller is the only controller allowed to touch the different files.
 public class DatabaseController {
+    /**
+     * Fetches list of all users from the CSV database and parses them into a usable
+     * ArrayList.
+     * 
+     * @return ArrayList containing User objects.
+     */
     public static ArrayList<User> getAllUser() {
         ArrayList<User> nex = new ArrayList<>();
         String line = "";
@@ -44,7 +50,13 @@ public class DatabaseController {
         return nex;
     }
 
-    // Insertion into database accepts a User object and append into csv.
+    /**
+     * Insertion into database accepts a User object and appends to a CSV File.
+     * 
+     * @param newUser
+     * @return
+     * @throws IOException
+     */
     public static User registerUser(User newUser) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/user.csv", true);
@@ -63,7 +75,12 @@ public class DatabaseController {
 
     }
 
-    // Get a User by email address. if no user is found return NULL object.
+    /**
+     * Fetches a User by email address. if no user is found return NULL object.
+     * 
+     * @param email User's email address
+     * @return User object associated with the email address.
+     */
     public static User getUser(String email) {
 
         String line = "";
@@ -90,6 +107,13 @@ public class DatabaseController {
         return result;
     }
 
+    /**
+     * Uses the inputted movieID to check with the database and fetch a movie from
+     * the list
+     * 
+     * @param movieId unique movie ID number
+     * @return if a movie is found, it will be parsed into a Movie object.
+     */
     public static movie getMoviebyId(int movieId) {
         movie resultMovie = null;
         String line = "";
@@ -119,6 +143,11 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Fetches a list of all show sessions available from the csv file database.
+     * 
+     * @return result will be parsed into an ArrayList containing Shows objects.
+     */
     public static ArrayList<Shows> getAllShows() {
         ArrayList<Shows> nex = new ArrayList<Shows>();
         String line = "";
@@ -147,6 +176,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Uses a showID to fetch its associated seats in the show session.
+     * 
+     * @param showId unique ID for a show session
+     * @return Result will be parsed into an ArrayList containg showSeat objects.
+     */
     public static ArrayList<showSeat> getShowSeats(int showId) {
         ArrayList<showSeat> nex = new ArrayList<showSeat>();
         String line = "";
@@ -170,6 +205,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Fetches a list of all movies from the CSV file database.
+     * 
+     * @return Result will be parsed into an ArrayList containing all available
+     *         movie objects.
+     */
     public static ArrayList<movie> getAllMovie() {
         ArrayList<movie> nex = new ArrayList<movie>();
         String line = "";
@@ -201,6 +242,14 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Fetches a list of all reviews associated with a specific movieID from the csv
+     * file database.
+     * 
+     * @param movieId unique movie ID number
+     * @return Result will be parsed into an ArrayList containing required Review
+     *         objects.
+     */
     public static ArrayList<Review> getReviews(int movieId) {
         ArrayList<Review> nex = new ArrayList<Review>();
         String line = "";
@@ -227,6 +276,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Adds a new movie into the CSV File database.
+     * 
+     * @param newMovie new movie object to be parsed into the database
+     * @throws IOException
+     */
     public static void addMovie(movie newMovie) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/movie.csv", true);
@@ -275,6 +330,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Inserts a new transaction recordinto the csv file database.
+     * 
+     * @param newTransaction new Transaction object to be parsed into the database.
+     * @throws IOException
+     */
     public static void insertTransaction(Transaction newTransaction) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/transaction.csv", true);
@@ -299,6 +360,12 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Adds a new review into the CSV file database.
+     * 
+     * @param newReview new Review object to be parsed into the database.
+     * @throws IOException
+     */
     public static void insertReview(Review newReview) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/review.csv", true);
@@ -319,6 +386,12 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Fetches a list of all transaction records from the CSV File database.
+     * 
+     * @return Result will be parsed into an ArrayList containing all available
+     *         Transaction objects.
+     */
     public static ArrayList<Transaction> getAllTransactions() {
         ArrayList<Transaction> nex = new ArrayList<Transaction>();
         String line = "";
@@ -344,17 +417,12 @@ public class DatabaseController {
         return nex;
     }
 
-    public static ArrayList<Review> decodeReviews(String encodedString) {
-        ArrayList<Review> result = new ArrayList<Review>();
-        String[] processMethod = encodedString.split(";");
-        for (int i = 0; i < processMethod.length; i++) {
-            // String[] temp = processMethod[i].split("|");
-            // result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
-        }
-        return result;
-
-    }
-
+    /**
+     * Used to decode movie castlists from the csv file database.
+     * 
+     * @param encodedString String taken from the csv file
+     * @return Result will be parsed into a string array for the cast list.
+     */
     public static ArrayList<String> decodeString(String encodedString) {
         ArrayList<String> result = new ArrayList<String>();
         String[] processMethod = encodedString.split("/");
@@ -367,6 +435,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Used to encode movie castlists to be inserted into the csv file database.
+     * 
+     * @param decodedString string array taken from the movie object
+     * @return Result will be parsed into an encoded String.
+     */
     public static String encodeString(ArrayList<String> decodedString) {
         String result = "";
         for (int i = 0; i < decodedString.size(); i++) {
@@ -379,6 +453,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Used to encode Date values into the system settings CSV file.
+     * 
+     * @param decodedDate
+     * @return Result will be parsed into an encoded String.
+     */
     public static String encodeDate(ArrayList<Date> decodedDate) {
         String result = "";
         // String[] processMethod = encodedString.split("/");
@@ -388,12 +468,20 @@ public class DatabaseController {
             result += Helper.customDateToStringBuilder(decodedDate.get(i));
             if (i != decodedDate.size() - 1) {
                 result += "/";
+
             }
         }
         return result;
 
     }
 
+    /**
+     * Used to encode integer lists of seat IDs to be keyed into the CSV file
+     * database.
+     * 
+     * @param decodedIntList IntList of seat IDs
+     * @return Result will be parsed into an encoded String.
+     */
     public static String encodeIntList(ArrayList<Integer> decodedIntList) {
         String result = "";
         for (int i = 0; i < decodedIntList.size(); i++) {
@@ -405,6 +493,12 @@ public class DatabaseController {
         return result;
     }
 
+    /**
+     * Used to decode integer lists of seat IDs from the CSV file database.
+     * 
+     * @param encodedIntList encoded String of seat IDs
+     * @return Result will return an ArrayList of Integers containing the seat IDs.
+     */
     public static ArrayList<Integer> decodeIntList(String encodedIntList) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         String[] processMethod = encodedIntList.split("/");
@@ -416,6 +510,13 @@ public class DatabaseController {
         return result;
     }
 
+    /**
+     * Fetches a movie from the csv database using the movie title.
+     * 
+     * @param movieName Movie title to check against database
+     * @return Result will return a Movie object with title matching the input movie
+     *         title.
+     */
     public static movie getMoviebyName(String movieName) {
         movie resultMovie = null;
         String line = "";
@@ -443,6 +544,12 @@ public class DatabaseController {
         return resultMovie;
     }
 
+    /**
+     * Fetches a cinema object from the CSV database using the cinema ID.
+     * 
+     * @param cinemaId cinemaID to check against database.
+     * @return Result will return a Cinema object with ID matching the input ID.
+     */
     public static Cinema getCinema(int cinemaId) {
         Cinema resultCinema = null;
         String line = "";
@@ -469,6 +576,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Fetches a show session object from the CSV Database using the show ID.
+     * 
+     * @param showID showID to check with the database
+     * @return Result will a return a Shows object with ID matching the input ID.
+     */
     public static Shows getShow(int showID) {
         Shows resultShow = null;
         String line = "";
@@ -496,11 +609,18 @@ public class DatabaseController {
             }
             br.close();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return resultShow;
     }
 
+    /**
+     * Fetches a movie class object from the CSV Database using the class ID.
+     * 
+     * @param classId classID to be checked against the csv
+     * @return Result will return a movieClass object with ID matching the input ID.
+     */
     private static movieClass getMovieClass(int classId) {
         movieClass resultClass = null;
         String line = "";
@@ -526,6 +646,14 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Inserts a show session into the csv database.
+     * 
+     * @param cinemaId   cinemaID of the cinema where the showing will take place.
+     * @param movieId    movieID of the movie being screened.
+     * @param dateOfShow Date and timing of the show session.
+     * @throws IOException
+     */
     public static void insertShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
         int showId = getGeneratedId("shows.csv");
         insertSeat(showId, cinemaId);
@@ -544,6 +672,14 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Inserts a seat for a showtime into the csv database.
+     * 
+     * @param showId   showID for the selected showtime.
+     * @param cinemaId cinemaID for the cinema that will be screened for this
+     *                 particular session.
+     * @throws IOException
+     */
     public static void insertSeat(int showId, int cinemaId) throws IOException {
 
         try (
@@ -567,6 +703,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Gets the last ID in the csv database.
+     * 
+     * @param filePath name of the csvfile to fetch the last entry from.
+     * @return Result will return an integer value.
+     */
     private static int getGeneratedId(String filePath) {
         int resultId = 0;
         String line = "";
@@ -591,6 +733,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Fetches all available cineplexes from the csv database.
+     * 
+     * @return Result will be parsed into an ArrayList of all available Cineplex
+     *         objects.
+     */
     public static ArrayList<Cineplex> getAllCineplex() {
         ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
         String line = "";
@@ -626,6 +774,12 @@ public class DatabaseController {
         return allCineplex;
     }
 
+    /**
+     * Fetches a list of all public holidays from the system settings databse.
+     * 
+     * @return Result will be parsed into an ArrayList of Date objects containing
+     *         all available PH dates stored in the DB.
+     */
     public static ArrayList<Date> getAllPublicHoliday() {
         ArrayList<Date> publicHolidays = new ArrayList<Date>();
         String line = "";
@@ -651,6 +805,12 @@ public class DatabaseController {
         return publicHolidays;
     }
 
+    /**
+     * Gets a single ticket price using the selected option for ticket type.
+     * 
+     * @param option Selected option for senior/student/normal ticket
+     * @return
+     */
     public static double getPrice(int option) {
         double price = 0;
         String line = "";
@@ -675,6 +835,13 @@ public class DatabaseController {
         return price;
     }
 
+    /**
+     * Fetches a cineplex which a specific cinema belongs to.
+     * 
+     * @param cinemaId cinemaID to be checked with the cinplexList.
+     * @return Result will return a Cineplex object denoting the Cineplex which this
+     *         cinema belongs to.
+     */
     public static Cineplex getCineplexByCinemaId(int cinemaId) {
         ArrayList<Cineplex> cineplexList = getAllCineplex();
         Cineplex result = null;
@@ -689,6 +856,14 @@ public class DatabaseController {
         return result;
     }
 
+    /**
+     * Updates the status of seats for a particular showtime in the csv file
+     * database.
+     * 
+     * @param showId  showID for the chosen show session
+     * @param seatIDs seatIDs for the seats to be updated.
+     * @throws IOException
+     */
     public static void updateShowSeat(int showId, ArrayList<Integer> seatIDs) throws IOException {
         ArrayList<showSeat> previousCopy = getAllShowSeat();
 
@@ -718,6 +893,14 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Updates the overall rating for a particular movie in the CSV file database.
+     * 
+     * @param movieID       movieID for the selected movie to be updated.
+     * @param overallRating new value of the overallRating score to be updated into
+     *                      the database.
+     * @throws IOException
+     */
     public static void updateOverallRating(int movieID, float overallRating) throws IOException {
         ArrayList<movie> previousCopy = getAllMovie();
 
@@ -744,6 +927,13 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Fetches a list of all seats for all available showtimes from the csv file
+     * database.
+     * 
+     * @return Result will be parsed into a ArrayList of all available showSeat
+     *         objects.
+     */
     private static ArrayList<showSeat> getAllShowSeat() {
         ArrayList<showSeat> nex = new ArrayList<showSeat>();
         String line = "";
@@ -765,6 +955,11 @@ public class DatabaseController {
         return nex;
     }
 
+    /**
+     * Fetches current system settings from the CSv file database.
+     * 
+     * @return Result will be parsed into a Settings object.
+     */
     public static Settings getSettings() {
         Settings results = null;
         String line = "";
@@ -789,6 +984,12 @@ public class DatabaseController {
 
     }
 
+    /**
+     * Updates new system settings into the CSV file database.
+     * 
+     * @param result
+     * @throws IOException
+     */
     public static void updateSettings(Settings result) throws IOException {
 
         try (
@@ -807,6 +1008,12 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Updates movie details into the csv file database.
+     * 
+     * @param movieList
+     * @throws IOException
+     */
     public static void updateMovie(ArrayList<movie> movieList) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/movie.csv");
