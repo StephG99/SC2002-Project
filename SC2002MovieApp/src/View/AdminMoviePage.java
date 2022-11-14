@@ -15,12 +15,20 @@ import Entity.*;
 import Helper.Helper;
 
 public class AdminMoviePage {
+    /**
+     * Displays header for the admin page
+     */
     public static void displayAdminHeader() {
         Helper.line(80, "=");
         System.out.println("Admin Movie Page");
         Helper.line(80, "=");
     }
 
+    /**
+     * Admin user interface to add a new showtime
+     * 
+     * @throws IOException
+     */
     public static void addShow() throws IOException {
         displayAdminHeader();
         /*
