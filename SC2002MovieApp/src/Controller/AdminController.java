@@ -7,9 +7,10 @@ import Entity.*;
 import Helper.Helper;
 
 public class AdminController {
-
   /**
-   * @param cinemaId 
+   * Add
+   * 
+   * @param cinemaId
    * @param movieId
    * @param dateOfShow
    * @return
@@ -74,15 +75,15 @@ public class AdminController {
   }
 
   public static Settings getCurrentSettings() {
-   return DatabaseController.getSettings();
-    
+    return DatabaseController.getSettings();
+
   }
 
   public static void UpdateSetting(Settings result) throws IOException {
     DatabaseController.updateSettings(result);
   }
 
-public static void updateMovie(ArrayList<movie> movieList) throws IOException {
-  DatabaseController.updateMovie(movieList);
-}
+  public static void updateMovie(ArrayList<movie> movieList) throws IOException {
+    DatabaseController.updateMovie(movieList);
+  }
 }

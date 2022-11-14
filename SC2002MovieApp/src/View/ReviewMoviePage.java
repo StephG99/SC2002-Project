@@ -54,7 +54,7 @@ public class ReviewMoviePage {
         if (ReviewController.doesReviewExist(movieID, email)) {
             System.out.println("You have already reviewed this movie!");
         } else {
-            ReviewController.addReview(newReview);
+            ReviewController.addReview(newReview, movieID);
             System.out.println("Review successfully added!");
         }
     }
