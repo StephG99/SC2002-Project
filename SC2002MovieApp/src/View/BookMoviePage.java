@@ -10,7 +10,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class BookMoviePage {
-    // display header
+
+    /**
+     * Displays the main booking menu
+     * 
+     * @param loginUser user object associated with bookings, will be passed into
+     *                  subsequent functions later
+     * @throws IOException
+     */
     public static void BookingMenu(User loginUser) throws IOException {
         Helper.line(80, "=");
         System.out.println("Booking Menu");
@@ -33,7 +40,12 @@ public class BookMoviePage {
         } while (option != 3);
     }
 
-    // show available timings for selected movie and cinema
+    /**
+     * Booking menu interface to select a movie and get all of its showtimes
+     * 
+     * @param loginUser
+     * @throws IOException
+     */
     public static void printShowtimes(User loginUser) throws IOException {
 
         int movieID = 0;
@@ -112,7 +124,14 @@ public class BookMoviePage {
         }
     }
 
-    // show available seats for selected showtime
+    /**
+     * Displays seat layout and shows the available seats for the selected showtime
+     * 
+     * @param showID    unique ID for the showtime
+     * @param loginUser user object
+     * @param Option    option for ticket type
+     * @throws IOException
+     */
     public static void printShowSeats(int showID, User loginUser, int Option) throws IOException {
         Shows chosenShow = BookingController.getShow(showID);
         Cinema chosenCinema = CinemaController.getCinema(chosenShow.getCinemaId());
@@ -169,8 +188,19 @@ public class BookMoviePage {
     }
 
     //
-    // once user confirms they would lik e to make a booking, then this function
+    // once user confirms they would like to make a booking, then this function
     // will be called
+    /**
+     * Seat selection view, allows user to choose seats to book and then proceed to
+     * payment
+     * 
+     * @param chosenCinema  cinema selected for the showtime
+     * @param chosenShow    selected showtime
+     * @param listShowSeats arraylist of showseats for the selected showtime
+     * @param loginUser     user object
+     * @param option        option chosen for the senior/student/normal ticket
+     * @throws IOException
+     */
     public static void seatBookingView(Cinema chosenCinema, Shows chosenShow, ArrayList<showSeat> listShowSeats,
             User loginUser, int option) throws IOException {
         // System.out.println("Test view");
@@ -212,7 +242,8 @@ public class BookMoviePage {
             int confirmChoice = 0;
             confirmChoice = Helper.readInt("Enter 1 to confirm your booking, or any other number to reset.");
             if (confirmChoice == 1) {
-                Transaction ticket = BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats, loginUser);
+                Transaction ticket = BookingController.bookShow(chosenCinema, chosenShow, totalPrice, chosenSeats,
+                        loginUser);
                 System.out.println("Thank you! Your booking has been confirmed.");
                 System.out.println();
                 ViewTransactionPage.printSingleTransaction(ticket);
