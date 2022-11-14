@@ -1,3 +1,4 @@
+
 package Controller;
 
 import Entity.movie;
@@ -12,6 +13,20 @@ public class MovieController {
         return DatabaseController.getAllMovie();
     }
     // add movie
+    /**
+     * @param movieId Unique Id of the movie
+     * @param title Title of the movie
+     * @param synopsis Summary of the sypnosis of the movie
+     * @param blockBuster whether movie is a blockbuster or not
+     * @param typeOfMovie Genre of the movie
+     * @param status Showing status of the movie
+     * @param ViewerAdvisory View Rating e.g PG13/NC16/M18
+     * @param director Director of the movie
+     * @param cast Array of String that contains the cast of the movie
+     * @param overallRating Review ratings score
+     * @param pastReview Past Reviewer Text and score.
+     * Functions Create a Movie Object and calls databaseController to insert into CSV
+     */
     public static void addMovie(int movieId, String title, String synopsis,
             boolean blockBuster, String typeOfMovie, int status,
             String ViewerAdvisory,
@@ -35,6 +50,11 @@ public class MovieController {
     }
 
     // remove movie
+    /**
+     * @param MovieList get an array of Movie object 
+     * @param movieId get the Unique Movie ID that the user want to remove
+     * Calls DatabaseController and remove movie from Csv.
+     */
     public static void removeMovie(ArrayList<movie> MovieList, int movieId) {
         boolean removed = false;
         for (movie Movie : MovieList) {
@@ -50,157 +70,33 @@ public class MovieController {
         }
     }
 
-    // update movie status
-    public static void updateStatus(ArrayList<movie> MovieList, int movieId, int inputValue) {
-        boolean success = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == movieId) {
-                if (inputValue < 0 || inputValue > 2) {
-                    success = true;
-                    System.out.println("Invalid input");
-                } else {
-                    Movie.setStatus(inputValue);
-                    success = true;
-                    System.out.println("Movie status successfully updated");
-                }
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Movie ID not found");
-        }
-    }
-
-    // set blockbuster status
-    public static void updateBlockBuster(ArrayList<movie> MovieList, int movieId, int inputValue) {
-        boolean success = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == movieId) {
-                success = true;
-                switch (inputValue) {
-                    case 0:
-                        Movie.setBlockBuster(false);
-                        System.out.println(" Movie successfully set to non-blockbuster");
-                        break;
-                    case 1:
-                        Movie.setBlockBuster(true);
-                        System.out.println("Movie successfully set to blockbuster");
-                        break;
-                    default:
-                        System.out.println("Invalid input");
-                        break;
-                }
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Movie ID not found");
-        }
-    }
-
-    // update individual movie details using String variables
-    public static void updateIndivMovieDetail(ArrayList<movie> MovieList, int movieId, String inputString, int choice) {
-        boolean success = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == movieId) {
-                success = true;
-                switch (choice) {
-                    case 1:
-                        Movie.setTitle(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    case 2:
-                        Movie.setSynopsis(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    case 3:
-                        Movie.setMovieType(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    case 4:
-                        Movie.setAdvisoryRating(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    case 5:
-                        Movie.setDirector(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    case 6:
-                        // this option will only be to add a new cast member to the list
-                        Movie.getCastList().add(inputString);
-                        System.out.println("Updated successfully");
-                        break;
-                    default:
-                        System.out.println("Invalid option");
-                        break;
-                }
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Movie ID not found");
-        }
-
-    }
-
-    // update entire cast list
-    public static void updateWholeCast(ArrayList<movie> MovieList, int movieId, ArrayList<String> newCast) {
-        boolean success = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == movieId) {
-                success = true;
-                Movie.setCastList(newCast);
-                System.out.println("Cast list updated successfully");
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Movie ID not found");
-        }
-    }
-
-    // update whole movie
-    public static void updateWholeMovie(ArrayList<movie> MovieList, int movieId, String title, String synopsis,
-            String typeOfMovie, String ViewerAdvisory, String director, ArrayList<String> cast) {
-        boolean success = false;
-        for (movie Movie : MovieList) {
-            if (Movie.getMovieID() == movieId) {
-                success = true;
-                Movie.setTitle(title);
-                Movie.setSynopsis(synopsis);
-                Movie.setMovieType(typeOfMovie);
-                Movie.setAdvisoryRating(ViewerAdvisory);
-                Movie.setDirector(director);
-                Movie.setCastList(cast);
-                System.out.println("All movie detail text fields updated successfully");
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Movie ID not found");
-        }
-    }
-
-    // print individual movie details
-   
-    // check if movie exists
-    public static movie searchMovie(ArrayList<movie> MovieList, String movieTitle) {
-        for (movie Movie : MovieList) {
-            if (Movie.getTitle().equalsIgnoreCase(movieTitle)) {
-                return Movie;
-            }
-        }
-        return null;
-    }
+  
+    /**
+     * @param movieId Unique ID of the movie
+     * @return An Array of review of the specified movie
+     */
     public static ArrayList<Review> getReview(int movieId){
         return DatabaseController.getReviews(movieId);
     }
+    /**
+     * @param movieId Unique ID of the movie
+     * @return the movie with the Unique ID
+     */
     public static movie searchById(int movieId) {
         return DatabaseController.getMoviebyId(movieId);
     }
+    /**
+     * @param movieName Title of the movie
+     * @return the movie with the tile
+     */
     public static movie searchByName(String movieName){
         return DatabaseController.getMoviebyName(movieName);
     }
+    /**
+     * @param movieList an Array of Movie
+     * @param option user option to sort by different metrics
+     * @return a list of top 5 movie according to user option.
+     */
     public static ArrayList<movie> rankMovie(ArrayList<movie> movieList, int option) {
         ArrayList<movie> resultList = new ArrayList<movie>();
         if(option == 1){
