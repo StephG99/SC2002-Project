@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Controller.MovieController;
+import Controller.BookingController;
+import Controller.DatabaseController;
 
 public class ViewMoviePage {
     public static void printSingleMovie(movie Movie) {
@@ -43,23 +45,26 @@ public class ViewMoviePage {
 
         int option = 0;
         do {
-            System.out.println("1. View Review");
-            System.out.println("2. Search Movie");
-            System.out.println("3. View top 5 movie");
-            System.out.println("4. View Blockbuster");
-            System.out.println("5. Back");
+            System.out.println("1. View All Showtimes");
+            System.out.println("2. View Review");
+            System.out.println("3. Search Movie");
+            System.out.println("4. View top 5 movie");
+            System.out.println("5. View Blockbuster");
+            System.out.println("6. Back");
             option = Helper.readInt("Enter your choice: ");
             if (option == 1) {
-                printReview();
+                printAllShowTimes();
             } else if (option == 2) {
+                printReview();
+            } else if (option == 3) {
                 searchMovie();
                 System.out.println("Search movie");
-            } else if (option == 3) {
+            } else if (option == 4) {
                 Helper.line(80, "=");
                 System.out.println("Top 5 movies (as rated by viewers)");
                 Helper.line(80, "=");
                 printTopFiveMovies(MovieList);
-            } else if (option == 4) {
+            } else if (option == 5) {
                 Helper.line(80, "=");
                 System.out.println("List of Blockbusters");
                 Helper.line(80, "=");
@@ -67,8 +72,37 @@ public class ViewMoviePage {
             } else {
                 System.out.println("redirecting to home page");
             }
-        } while (option != 5);
+        } while (option != 6);
 
+    }
+
+    // print all showtimes
+    public static void printAllShowTimes() {
+        Helper.line(80, "=");
+        System.out.println("All Available Showtimes");
+        Helper.line(80, "=");
+        ArrayList<Shows> allShowsList = BookingController.getAllShows();
+        // ArrayList<movie> movieList = MovieController.getAllMovie();
+        ArrayList<Cineplex> cineplexList = DatabaseController.getAllCineplex();
+        int count = 1;
+        for (Cineplex cineplex : cineplexList) {
+            System.out.println(cineplex.getCineName() + " Cineplex");
+            System.out.println();
+            for (int cinemaID : AdminMoviePage.getCinemaIDsList(cineplex.getCinemas())) {
+                Cinema cinemaEntry = DatabaseController.getCinema(cinemaID);
+                for (Shows oneShow : allShowsList) {
+                    if (oneShow.getCinemaId() == cinemaID) {
+                        movie movieEntry = MovieController.searchById(oneShow.getMovieId());
+                        System.out.println(count + ") Show ID: " + oneShow.getShowId() + " | Cinema ID: " + cinemaID
+                                + " | Class: " + cinemaEntry.getMovieClass().getClassName() + " | "
+                                + oneShow.getTiming() + " | " + movieEntry.getTitle() + " ("
+                                + movieEntry.getAdvisoryRating() + ")");
+                        count++;
+                    }
+                }
+            }
+            System.out.println();
+        }
     }
 
     // print individual movie details by title
