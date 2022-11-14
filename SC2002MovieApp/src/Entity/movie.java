@@ -17,6 +17,23 @@ public class movie {
   private double overallRating;
   private ArrayList<Review> pastReview;
 
+  /**
+   * Constructor for movie class
+   * 
+   * @param movieId        unique ID number for movie
+   * @param title          movie title
+   * @param synopsis       movie synopsis
+   * @param blockBuster    indicates if a movie is blockbuster or not
+   * @param typeOfMovie    movie genre
+   * @param status         indicates movie status, if it is advance sales, now
+   *                       showing, or coming soon
+   * @param ViewerAdvisory viewer advisory rating for movie (G, PG, PG13, NC16,
+   *                       etc)
+   * @param director       lists movie director
+   * @param cast           cast list
+   * @param d              overall rating score by viewers
+   * @param pastReview     all reviews for this movie
+   */
   public movie(int movieId, String title, String synopsis, boolean blockBuster, String typeOfMovie, int status,
       String ViewerAdvisory,
       String director,
@@ -34,131 +51,202 @@ public class movie {
     this.pastReview = pastReview;
   }
 
-  // movieID getter
+  /**
+   * gets ID number for movie
+   * 
+   * @return movieId
+   */
   public int getMovieID() {
     return movieId;
   }
 
-  // movieID setter
+  /**
+   * change ID number for movie
+   * 
+   * @param movieId ID number you want to set to
+   */
   public void setMovieID(int movieId) {
     this.movieId = movieId;
   }
 
-  // movie title getter
+  /**
+   * gets title of the movie
+   * 
+   * @return title
+   */
   public String getTitle() {
     return title;
   }
 
-  // movie title setter
+  /**
+   * change the title of the movie
+   * 
+   * @param title
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
-  // get movie synopsis
+  /**
+   * gets the synopsis for the movie
+   * 
+   * @return synopsis
+   */
   public String getSynopsis() {
     return synopsis;
   }
 
+  /**
+   * sets the synopsis for the movie to an inputted text
+   * 
+   * @param synopText
+   */
   public void setSynopsis(String synopText) {
     this.synopsis = synopText;
 
   }
 
-  // get movie blockbuster status
+  /**
+   * checks if movie is a blockbuster
+   * 
+   * @return blockBuster
+   */
   public boolean isBlockBuster() {
     return blockBuster;
   }
 
-  // set blockbuster to be yes
+  /**
+   * sets this movie to be a blockbuster
+   * 
+   * @param blockbuster
+   */
   public void setBlockBuster(boolean blockbuster) {
     this.blockBuster = blockbuster;
   }
-  /* 
-  // set blockbuster to be no
-  public void setNonBlockBuster() {
-    this.blockBuster = false;
-  }
-  */
+  /*
+   * // set blockbuster to be no
+   * public void setNonBlockBuster() {
+   * this.blockBuster = false;
+   * }
+   */
 
-  // get movie type
+  /**
+   * gets genre of movie
+   * 
+   * @return typeOfMovie
+   */
   public String getMovieType() {
     return typeOfMovie;
   }
 
-  // set movie type
+  /**
+   * sets genre of movie to an input string
+   * 
+   * @param typeOfMovie
+   */
   public void setMovieType(String typeOfMovie) {
     this.typeOfMovie = typeOfMovie;
   }
 
-  // get movie status
+  /**
+   * fetches the status of a movie (in the form of an int value: 0 = Advance
+   * Sales, 1 = Now Showing, 2 = Coming Soon)
+   * 
+   * @return
+   */
   public int getStatus() {
     return status;
   }
 
-  // movie status setters: 0 = Advance Sales, 1 = Now Showing, 2 = Coming Soon
+  /**
+   * sets the status of a movie to an int value: 0 = Advance Sales, 1 = Now
+   * Showing, 2 = Coming Soon
+   * 
+   * @param status
+   */
   public void setStatus(int status) {
     this.status = status;
   }
 
+  /**
+   * fetches the viewer advisory rating for a movie
+   * 
+   * @return
+   */
   public String getAdvisoryRating() {
     return ViewerAdvisory;
   }
 
+  /**
+   * sets the viewer advisory rating for a movie to an input string
+   * 
+   * @param AdvisoryRating
+   */
   public void setAdvisoryRating(String AdvisoryRating) {
     this.ViewerAdvisory = AdvisoryRating;
   }
 
+  /**
+   * gets director of a movie
+   * 
+   * @return
+   */
   public String getDirector() {
     return director;
   }
 
-  // set movie director
+  /**
+   * change the director of a movie
+   * 
+   * @param directorname
+   */
   public void setDirector(String directorname) {
     this.director = directorname;
   }
 
+  /**
+   * fetches the cast list of a movie in the form of an arraylist
+   * 
+   * @return
+   */
   public ArrayList<String> getCastList() {
     return cast;
   }
 
-  // set movie castlist
+  /**
+   * sets a new arraylist to be the castlist of a movie
+   * 
+   * @param castList
+   */
   public void setCastList(ArrayList<String> castList) {
     this.cast = castList;
   }
 
+  /**
+   * gets overall rating score for a movie
+   * 
+   * @return
+   */
   public double getOverallRating() {
     return overallRating;
   }
 
+  /**
+   * sets overall rating score for a movie to an input int value
+   * 
+   * @param score
+   */
   public void setOverallRating(float score) {
     this.overallRating = score;
   }
 
+  /**
+   * fetches list of past reviews for a movie
+   * 
+   * @return
+   */
   public ArrayList<Review> getPastReviews() {
     return pastReview;
-  }
-  
-  public String encodeReviews(){
-    String result = "";
-    for(int i = 0; i<pastReview.size();i++){
-      String temp = pastReview.get(i).getRating()+"|"+pastReview.get(i).getReviewText()+"|"+pastReview.get(i).getUserEmail();
-      result += temp;
-      if(i != pastReview.size()-1){
-        result += ";";
-      }
-    }
-    return result;
-    
-  }
-  public ArrayList<Review> decodeReviews(String encodedString){
-    ArrayList<Review> result = new ArrayList<Review>();
-    String[] processMethod = encodedString.split(";");
-    for(int i = 0; i< processMethod.length;i++){
-      String[] temp = processMethod[i].split("|");
-      //result.add(new Review(Integer.valueOf(temp[0]),temp[1],temp[2]));
-    }
-    return result;
-
   }
 
 }

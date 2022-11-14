@@ -8,12 +8,12 @@ import Helper.Helper;
 
 public class AdminController {
   /**
-   * Add
+   * Add a showtime session into the database
    * 
    * @param cinemaId
    * @param movieId
    * @param dateOfShow
-   * @return
+   * @return integer to indicate success or failure of the function
    * @throws IOException
    */
   public static int addShow(int cinemaId, int movieId, String dateOfShow) throws IOException {
@@ -74,15 +74,32 @@ public class AdminController {
 
   }
 
+  /**
+   * Fetches current system settings for the admin page
+   * 
+   * @return system settings from DatabaseController function
+   */
   public static Settings getCurrentSettings() {
     return DatabaseController.getSettings();
 
   }
 
+  /**
+   * Updates system settings in the database
+   * 
+   * @param result system settings object
+   * @throws IOException
+   */
   public static void UpdateSetting(Settings result) throws IOException {
     DatabaseController.updateSettings(result);
   }
 
+  /**
+   * Updates movie in the movie list database
+   * 
+   * @param movieList list of movies
+   * @throws IOException
+   */
   public static void updateMovie(ArrayList<movie> movieList) throws IOException {
     DatabaseController.updateMovie(movieList);
   }

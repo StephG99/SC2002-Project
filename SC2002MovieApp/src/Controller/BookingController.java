@@ -8,18 +8,47 @@ import Helper.Helper;
 
 public class BookingController {
     // import relevant methods from DatabaseController
+    /**
+     * fetches list of all showtimes from the database
+     * 
+     * @return list of shows called from DatabaseController function
+     */
     public static ArrayList<Shows> getAllShows() {
         return DatabaseController.getAllShows();
     }
 
+    /**
+     * fetches a particular showtime using showID
+     * 
+     * @param showID ID number for the show session
+     * @return show object with ID matching showID
+     */
     public static Shows getShow(int showID) {
         return DatabaseController.getShow(showID);
     }
 
+    /**
+     * fetches all of the show seats for a particular showtime using showID
+     * 
+     * @param showId ID number for the show session
+     * @return ArrayList of show seats
+     */
     public static ArrayList<showSeat> getShowSeats(int showId) {
         return DatabaseController.getShowSeats(showId);
     }
 
+    /**
+     * Books a movie ticket by assigning selected seats and updating the transaction
+     * 
+     * @param chosenCinema chosen cinema hall for the showtime
+     * @param chosenShow   chosen showtime for the booking
+     * @param price        total price of the booking
+     * @param seatIDs      list of unique seat IDs that the user has chosen for the
+     *                     booking
+     * @param loginUser    user object
+     * @return newly created transaction object with the relevant details
+     * @throws IOException
+     */
     public static Transaction bookShow(Cinema chosenCinema, Shows chosenShow, double price, ArrayList<Integer> seatIDs,
             User loginUser) throws IOException {
         /*
@@ -46,6 +75,12 @@ public class BookingController {
 
     }
 
+    /**
+     * Fetches list of all cineplexes where the movie is being shown
+     * 
+     * @param movieId unique ID number for the movie
+     * @return list of cineplexes showing the movie
+     */
     public static ArrayList<Cineplex> getCineplexByMovieId(int movieId) {
         ArrayList<Shows> showById = getShowsByMovieId(movieId);
         ArrayList<Integer> cinemaId = new ArrayList<Integer>();
@@ -76,6 +111,12 @@ public class BookingController {
         return cineplexList;
     }
 
+    /**
+     * Fetches list of all showtimes for a chosen movie
+     * 
+     * @param movieID unique ID number for the chosen movie
+     * @return arraylist of all shows
+     */
     public static ArrayList<Shows> getShowsByMovieId(int movieID) {
         ArrayList<Shows> allShows = getAllShows();
         ArrayList<Shows> showById = new ArrayList<Shows>();
@@ -88,6 +129,13 @@ public class BookingController {
 
     }
 
+    /**
+     * Fetches list of all showtimes within senior/student ticket timing
+     * 
+     * @param movieID unique ID number for the chosen movie
+     * @param option  option to select senior/student ticket
+     * @return arraylist of showtimes
+     */
     public static ArrayList<Shows> getShowsByMovieId(int movieID, int option) {
         ArrayList<Shows> allShows = getAllShows();
         ArrayList<Shows> showById = new ArrayList<Shows>();
@@ -107,6 +155,12 @@ public class BookingController {
         return showById;
     }
 
+    /**
+     * Check if a selected date is a public holiday
+     * 
+     * @param inputDate chosen date
+     * @return boolean value (yes or no)
+     */
     public static boolean isPublicHoliday(Date inputDate) {
         ArrayList<Date> publicHoliDates = DatabaseController.getAllPublicHoliday();
         boolean isHoliday = false;
@@ -119,10 +173,19 @@ public class BookingController {
         return isHoliday;
     }
 
+    /**
+     * Calculates single ticket price
+     * 
+     * @param chosenShow chosen showtimes
+     * @param loginUser  user identity object
+     * @param option     option for senior/student ticket price
+     * @return ticket price value
+     */
     public static double getPrice(Shows chosenShow, User loginUser, int option) {
         Cinema cinema = DatabaseController.getCinema((chosenShow.getCinemaId()));
         double premium = cinema.getMovieClass().getPricePremium();
-        if (isPublicHoliday(chosenShow.getTiming()) || Helper.getDayWeek(chosenShow.getTiming()) == 1 ||Helper.getDayWeek(chosenShow.getTiming()) == 7) {
+        if (isPublicHoliday(chosenShow.getTiming()) || Helper.getDayWeek(chosenShow.getTiming()) == 1
+                || Helper.getDayWeek(chosenShow.getTiming()) == 7) {
             option = 4;
         }
         double price = DatabaseController.getPrice(option);
