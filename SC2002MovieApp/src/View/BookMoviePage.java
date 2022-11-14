@@ -115,17 +115,16 @@ public class BookMoviePage {
             int showChoice = 0;
             // we try to link it by ourself and not let user do the work.
             showChoice = Helper.readInt("Enter your preferred choice, or enter any other number to quit: ");
-            if(showChoice > 0 || showChoice < showList.size()){
-            int showId = foundShows.get(showChoice - 1);
-            if (foundShows.contains(showId)) {
-                printShowSeats(showId, loginUser, option);
+            if (showChoice > 0 && showChoice < showList.size()) {
+                int showId = foundShows.get(showChoice - 1);
+                if (foundShows.contains(showId)) {
+                    printShowSeats(showId, loginUser, option);
+                } else {
+                    System.out.println("Returning to previous menu.");
+                }
             } else {
-                System.out.println("Returning to previous menu.");
+                System.out.println("Exiting....");
             }
-        }
-        else{
-            System.out.println("Exiting....");
-        }
         }
     }
 
