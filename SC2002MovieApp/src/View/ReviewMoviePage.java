@@ -8,7 +8,13 @@ import Controller.ReviewController;
 import Controller.MovieController;
 
 public class ReviewMoviePage {
-    // display header
+    
+
+    /**
+     * @param loginUser User object to associated with reviews
+     * @throws IOException
+     * Routing page for the Review Movie
+     */
     public static void ReviewMenu(User loginUser) throws IOException {
         Helper.line(80, "=");
         System.out.println("Review Menu");
@@ -35,7 +41,12 @@ public class ReviewMoviePage {
         } while (option != 4);
     }
 
-    // review insertion display
+   
+    /**
+     * @param loginUser User object to make review
+     * @throws IOException
+     * Function check whether there is duplicate review and call controller to add review if no duplicate.
+     */
     public static void publishReview(User loginUser) throws IOException {
         String email = loginUser.getEmail();
         int movieID = Helper.readInt("Enter movie ID: ");

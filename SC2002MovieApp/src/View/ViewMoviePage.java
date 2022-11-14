@@ -219,9 +219,17 @@ public class ViewMoviePage {
      */
     public static void printSimplifiedView(ArrayList<movie> MovieList) {
         for (movie Movie : MovieList) {
+            if(Movie.getOverallRating() != -1){
             System.out.println(
                     "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + " (" + Movie.getAdvisoryRating()
                             + ") Overall Rating Score: " + Movie.getOverallRating());
+            }
+            else{
+                System.out.println(
+                    "Movie ID " + Movie.getMovieID() + ": " + Movie.getTitle() + " (" + Movie.getAdvisoryRating()
+                            + ") Overall Rating Score: NA");
+
+            }
         }
     }
     
