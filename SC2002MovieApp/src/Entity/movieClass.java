@@ -21,7 +21,7 @@ public class movieClass {
     /**
      * gets unique class ID number
      * 
-     * @return
+     * @return the class ID of the object
      */
     public int getClassId() {
         return classId;
@@ -30,7 +30,7 @@ public class movieClass {
     /**
      * gets unique movie class name
      * 
-     * @return
+     * @return className of the associated class
      */
     public String getClassName() {
         return className;
@@ -39,7 +39,7 @@ public class movieClass {
     /**
      * sets unique class ID number to an input int value
      * 
-     * @param classId
+     * @param classId is the class ID
      */
     public void setClassId(int classId) {
         this.classId = classId;
@@ -48,7 +48,7 @@ public class movieClass {
     /**
      * gets price multiplier value for the movie class
      * 
-     * @return
+     * @return the multiplier for the movie
      */
     public double getPricePremium() {
         return pricePremium;
@@ -57,7 +57,7 @@ public class movieClass {
     /**
      * sets price multiplier value to an input int value
      * 
-     * @param pricePremium
+     * @param pricePremium new multiplier to the class
      */
     public void setPricePremium(double pricePremium) {
         this.pricePremium = pricePremium;
