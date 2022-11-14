@@ -103,7 +103,8 @@ public class DatabaseController {
 
                 if (Integer.valueOf(result[0]) == movieId) {
                     ArrayList<Review> reviewList = getReviews(Integer.valueOf(result[0]));
-                    resultMovie = new movie(Integer.valueOf(result[0]), result[1], result[2],
+                    String processedText = result[2].replace('/', ',');
+                    resultMovie = new movie(Integer.valueOf(result[0]), result[1], processedText,
                             Boolean.parseBoolean(result[3]), result[4], Integer.valueOf(result[5]), result[6],
                             result[7], decodeString(result[8]), Double.parseDouble(result[9]), reviewList);
                     break;
@@ -177,16 +178,18 @@ public class DatabaseController {
             // parsing a CSV file into BufferedReader class constructor
             BufferedReader br = new BufferedReader(new FileReader("SC2002MovieApp/src/Database/movie.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
-            {   
-                //System.out.println(line);
+            {
+                // System.out.println(line);
                 String[] result = line.split(splitBy); // use comma as separator
-                //System.out.println(result[0]);
-                if(result.length > 1){
-                 ArrayList<Review> reviewList = getReviews(Integer.valueOf(result[0]));
-                nex.add(new movie(Integer.valueOf(result[0]), result[1], result[2], Boolean.parseBoolean(result[3]),
-                        result[4], Integer.valueOf(result[5]), result[6], result[7], decodeString(result[8]),
-                        Double.parseDouble(result[9]), reviewList));
-                        
+                // System.out.println(result[0]);
+                if (result.length > 1) {
+                    ArrayList<Review> reviewList = getReviews(Integer.valueOf(result[0]));
+                    String processedText = result[2].replace('/', ',');
+                    nex.add(new movie(Integer.valueOf(result[0]), result[1], processedText,
+                            Boolean.parseBoolean(result[3]),
+                            result[4], Integer.valueOf(result[5]), result[6], result[7], decodeString(result[8]),
+                            Double.parseDouble(result[9]), reviewList));
+
                 }
 
             }
@@ -252,18 +255,19 @@ public class DatabaseController {
              * private double overallRating;
              * private ArrayList<Review> pastReview;
              */
-
+            String synopsisText = newMovie.getSynopsis();
+            String processedText = synopsisText.replace(',', '/');
             csvWriter.writeNext(new String[] { String.valueOf(newMovie.getMovieID()), newMovie.getTitle(),
-                    newMovie.getSynopsis(), String.valueOf(newMovie.isBlockBuster()), newMovie.getMovieType(),
+                    processedText, String.valueOf(newMovie.isBlockBuster()), newMovie.getMovieType(),
                     String.valueOf(newMovie.getStatus()), newMovie.getAdvisoryRating(), newMovie.getDirector(),
                     encodeString(newMovie.getCastList()), String.valueOf(newMovie.getOverallRating()) });
             ArrayList<Review> toWrite = newMovie.getPastReviews();
             for (int i = 0; i < toWrite.size(); i++) {
                 Review temp = toWrite.get(i);
                 String reviewText = temp.getReviewText();
-                String processedText = reviewText.replace(',', '/');
+                String processedText2 = reviewText.replace(',', '/');
                 csvWriter2.writeNext(new String[] { String.valueOf(temp.getMovieId()), String.valueOf(temp.getRating()),
-                        processedText, temp.getUserEmail() });
+                        processedText2, temp.getUserEmail() });
 
             }
 
@@ -374,6 +378,7 @@ public class DatabaseController {
         return result;
 
     }
+
     public static String encodeDate(ArrayList<Date> decodedDate) {
         String result = "";
         // String[] processMethod = encodedString.split("/");
@@ -771,7 +776,9 @@ public class DatabaseController {
             {
                 String[] result = line.split(splitBy); // use comma as separator
 
-                results = new Settings(Double.parseDouble(result[0]),Double.parseDouble(result[1]),Double.parseDouble(result[2]),getAllPublicHoliday(),Double.parseDouble(result[4]),Double.parseDouble(result[5]));
+                results = new Settings(Double.parseDouble(result[0]), Double.parseDouble(result[1]),
+                        Double.parseDouble(result[2]), getAllPublicHoliday(), Double.parseDouble(result[4]),
+                        Double.parseDouble(result[5]));
 
             }
             br.close();
@@ -779,7 +786,7 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return results;
-        
+
     }
 
     public static void updateSettings(Settings result) throws IOException {
@@ -792,12 +799,15 @@ public class DatabaseController {
                         CSVWriter.NO_QUOTE_CHARACTER,
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
-          
 
-                csvWriter.writeNext(new String[] {String.valueOf(result.getRegularRates()),String.valueOf(result.getSeniorRates()),String.valueOf(result.getStudentRates()),encodeDate(result.getPublicHolidays()),String.valueOf(result.getHolidayRates()),String.valueOf(result.getWeekendRates())});
-            }
+            csvWriter.writeNext(
+                    new String[] { String.valueOf(result.getRegularRates()), String.valueOf(result.getSeniorRates()),
+                            String.valueOf(result.getStudentRates()), encodeDate(result.getPublicHolidays()),
+                            String.valueOf(result.getHolidayRates()), String.valueOf(result.getWeekendRates()) });
         }
-    public static void updateMovie(ArrayList<movie> movieList) throws IOException{
+    }
+
+    public static void updateMovie(ArrayList<movie> movieList) throws IOException {
         try (
                 Writer mFileWriter = new FileWriter("SC2002MovieApp/src/Database/movie.csv");
 
@@ -807,7 +817,6 @@ public class DatabaseController {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);) {
             for (movie Movie : movieList) {
-                
 
                 csvWriter.writeNext(new String[] {
                         String.valueOf(Movie.getMovieID()), Movie.getTitle(), Movie.getSynopsis(),
@@ -819,6 +828,5 @@ public class DatabaseController {
         }
 
     }
-    
 
 }
